@@ -31,6 +31,7 @@ const COMMITTEE = [
     course: 'BSc Finance',
     year: '',                   // year not supplied
     photo: 'photos/keane-turner.jpg',
+    linkedin: 'https://www.linkedin.com/in/keaneturner/',
     focus: 50,                  // 800×800, already square
     bio: 'Keane reads Finance and chairs the society. His focus is G10 FX options ' +
          'trading. He spent his summer internship trading at HSBC. He was also a ' +
@@ -51,6 +52,7 @@ const COMMITTEE = [
     course: 'BSc Economics',
     year: '',
     photo: 'photos/hugo-masier.jpg',
+    linkedin: 'https://www.linkedin.com/in/hugomasier/',
     focus: 42,                  // 2016×2048, effectively square
     bio: 'Hugo reads Economics and is President of the society. His focus is ' +
          'fundamental small cap equities, the part of the market where the research ' +
@@ -73,6 +75,7 @@ const COMMITTEE = [
     course: '',                 // not supplied
     year: '',
     photo: 'photos/constance-zhang.jpg',
+    linkedin: 'https://www.linkedin.com/in/constance-yili-zhang/',
     focus: 4,                   // 1068×1600 studio headshot, head high in frame
     bio: 'Constance is Treasurer, which she earned by scoring 100 out of 100 in ' +
          'first year maths. She spent a summer auditing asset and wealth management ' +
@@ -96,6 +99,7 @@ const COMMITTEE = [
     course: 'BSc Finance',
     year: '',
     photo: 'photos/sam-evans.jpg',
+    linkedin: 'https://www.linkedin.com/in/samevans06/',
     focus: 34,                  // 309×412, small source, face high
     bio: 'Sam reads Finance, and serves as Vice President as well as one of the two ' +
          'heads of Macro. His focus is rates and FX, built up through his own time ' +
@@ -118,6 +122,7 @@ const COMMITTEE = [
     course: 'BSc Economics & Economic History',
     year: '28',
     photo: 'photos/krish-sahni.jpg',
+    linkedin: 'https://www.linkedin.com/in/krish-sahni-645876291/',
     focus: 50,                  // object-position Y %, 50 = centred
     bio: 'Krish reads Economics and Economic History. His focus is the plumbing ' +
          'of crypto derivatives: perpetual funding dislocations, and the ' +
@@ -145,15 +150,18 @@ const COMMITTEE = [
     course: 'BSc International Relations',
     year: '',
     photo: 'photos/benjamin-helwaser.jpg',
+    linkedin: 'https://www.linkedin.com/in/benjamin-helwaser-293177251/',
     focus: 50,                  // 800×800, already square
     bio: 'Benjamin reads International Relations. His focus is the intersection of ' +
          'geopolitical forecasting and nonlinear stochastic modelling, using one to ' +
          'price the other: what happens to a derivative when the state of the world ' +
-         'stops behaving smoothly.',
+         'stops behaving smoothly. He did a spring internship at Bank of America and ' +
+         'spent his summer on the Natixis CIB trading floor.',
     _raw: {
       expertise: 'Intersection of geopolitical forecasting and nonlinear stochastic modelling to forecast derivatives pricing',
       funFact: '',              // not supplied
-      placements: [],
+      placements: ['Spring Internship, Bank of America',
+                   'Summer, Natixis CIB trading floor'],
     },
   },
 
@@ -166,6 +174,7 @@ const COMMITTEE = [
     course: 'BSc Financial Mathematics & Statistics',
     year: '28',
     photo: 'photos/kriti-sharma.jpg',
+    linkedin: 'https://www.linkedin.com/in/kriti-sharma-484969237/',
     focus: 16,                  // 736×1258, tall
     bio: 'Kriti reads Financial Mathematics and Statistics. Her focus is option ' +
          'strategy and the Breeden and Litzenberger method, which recovers the ' +
@@ -193,6 +202,7 @@ const COMMITTEE = [
     course: 'BSc Politics & International Relations',
     year: '28',
     photo: 'photos/tom-smith.jpg',
+    linkedin: 'https://www.linkedin.com/in/tomsmithlse/',
     focus: 10,                  // 1200×1600
     bio: 'Tom reads Politics and International Relations. His focus is equity ' +
          'trading and thesis synthesis, the work of building a view and then ' +
@@ -217,6 +227,7 @@ const COMMITTEE = [
     course: '',                 // not supplied yet
     year: '',
     photo: 'photos/filip-surbek.jpg',
+    linkedin: 'https://www.linkedin.com/in/filip-surbek-47585b313/',
     focus: 5,                   // 896×1195, face sits high
     bio: 'Filip heads FICC Trading. His focus is global macro.',
     _raw: {
@@ -235,6 +246,7 @@ const COMMITTEE = [
     course: 'BSc Finance',
     year: '28',
     photo: 'photos/harrison-older.jpg',
+    linkedin: 'https://www.linkedin.com/in/harrison-older-4178a028b/',
     focus: 33,                  // 1014×2048, very tall, face a third down
     tune: 'brightness(1.16)',   // shot in low bar light, needs lifting
     bio: 'Harrison reads Finance and heads the Equities division. He spent a summer ' +
@@ -259,6 +271,7 @@ const COMMITTEE = [
     course: '',                 // not supplied
     year: '',
     photo: 'photos/ali-karimov.jpg',
+    linkedin: 'https://www.linkedin.com/in/ali-karimov-88496123b/',
     focus: 5,                   // 959×1280, white ground, head sits high
     bio: 'Ali heads the Commodities division. His focus is oil and gas. He spent ' +
          'time at SOCAR Trading as an LNG intern. He also grew up on a shoreline ' +
@@ -279,6 +292,7 @@ const COMMITTEE = [
     course: 'BSc Accounting & Finance',
     year: '',
     photo: 'photos/alex-ficau.jpg',
+    linkedin: 'https://www.linkedin.com/in/alexficau16/',
     focus: 40,                  // 1600×1543, near square, face slightly high
     bio: 'Alex reads Accounting and Finance, and came up through the Emerging ' +
          'Markets subcommittee, spending a year and a half as an analyst before ' +
@@ -302,6 +316,7 @@ const COMMITTEE = [
     course: 'BSc Finance',
     year: '28',
     photo: 'photos/arnav-shepuri.png',
+    linkedin: 'https://www.linkedin.com/in/arnav-sherpuri-40456324b/',
     focus: 50,                  // 800×800, already square and well framed
     bio: 'Arnav reads Finance. His focus is emerging markets credit trading. He ' +
          'spent a summer at QDEX running credit analysis across 81 lenders to find ' +
@@ -326,6 +341,7 @@ const COMMITTEE = [
     course: '',                 // not supplied yet
     year: '',
     photo: 'photos/smile-gu.jpg',
+    linkedin: 'https://www.linkedin.com/in/smile-gu-114018331/',
     // Environmental shot at Tower Bridge, not a headshot: she is small and
     // left of frame. Zoom and pan to her face so the tile matches the rest.
     crop: 'translate(33%, 2%) scale(1.9)',
@@ -350,6 +366,7 @@ const COMMITTEE = [
     course: 'BSc Economics',
     year: '',
     photo: 'photos/whitney-nnadozie.jpg',
+    linkedin: 'https://www.linkedin.com/in/whitneynnadozie/',
     focus: 100,                 // 877×1037, head sits low with wall above
     bio: 'Whitney reads Economics and runs corporate sponsorship for the society. ' +
          'She has been at Deutsche Bank and Schroders. She also came fourth in a ' +
@@ -372,6 +389,7 @@ const COMMITTEE = [
     course: 'MSc Finance',
     year: '',
     photo: 'photos/sophie-le-guen.jpg',
+    linkedin: 'https://www.linkedin.com/in/sophie-le-guen-/',
     focus: 35,                  // 1179×1568, face just above centre
     bio: 'Sophie is reading for an MSc in Finance, her second LSE degree, and runs ' +
          'the society’s events. She spent a summer in global banking at UBS. She was ' +
