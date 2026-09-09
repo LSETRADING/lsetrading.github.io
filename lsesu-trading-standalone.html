@@ -168,6 +168,14 @@
     z-index: 1; display: block; pointer-events: none;
   }
 
+  /* Two members talking, tucked into the bottom left of the hero. */
+  .two-talking {
+    position: absolute; left: 3%; bottom: 0;
+    width: clamp(170px, 17vw, 250px); height: auto;
+    z-index: 2; opacity: 0.30; pointer-events: none;
+  }
+  @media (max-width: 900px) { .two-talking { display: none; } }
+
   /* Equations cycling in and out */
   .equations { position: absolute; inset: 0; z-index: 2; pointer-events: none; }
   .eq {
@@ -180,7 +188,7 @@
   .eq.e2 { top: 16%; right: 5%; font-size: 12px; animation-delay: -4s; color: var(--ink-2); }
   .eq.e3 { top: 46%; left: 3%; font-size: 12px; animation-delay: -8s; }
   .eq.e4 { top: 50%; right: 4%; font-size: 13px; animation-delay: -12s; color: var(--ink-2); }
-  .eq.e5 { bottom: 12%; left: 6%; font-size: 12px; animation-delay: -16s; }
+  .eq.e5 { bottom: 12%; left: 30%; font-size: 12px; animation-delay: -16s; }
   .eq.e6 { bottom: 15%; right: 6%; font-size: 13px; animation-delay: -20s; color: var(--ink-2); }
   .eq.e7 { top: 30%; left: 42%; font-size: 12px; animation-delay: -6s; }
   .eq.e8 { bottom: 34%; right: 40%; font-size: 12px; animation-delay: -14s; color: var(--ink-2); }
@@ -947,6 +955,64 @@
       <!-- One dominant object instead of nine competing ornaments: a live
            implied volatility surface, drawn on canvas. -->
       <canvas class="vol-surface" id="vol-surface" aria-hidden="true"></canvas>
+
+
+      <!-- Two members mid conversation, in the society quarter zip. A small
+           human detail against the abstract surface; sits behind everything. -->
+      <svg class="two-talking" viewBox="0 0 300 430" aria-hidden="true">
+        <g class="fig">
+          <!-- left figure, facing right -->
+          <polygon fill="#6E4E35" points="56,30 64,17 86,16 96,31 93,45 88,30 66,29 60,47"/>
+          <polygon fill="#C29C7B" points="62,29 86,27 92,44 86,60 70,65 59,50"/>
+          <polygon fill="#B08A69" points="86,27 92,44 86,60 82,44"/>
+          <polygon fill="#C29C7B" points="71,62 84,60 85,74 72,76"/>
+          <polygon fill="#1B1E21" points="55,74 97,69 106,122 101,172 57,176 48,122"/>
+          <polygon fill="#25292D" points="55,74 76,72 74,176 57,176 48,122"/>
+          <polygon fill="#2E3338" points="67,70 90,66 93,79 69,84"/>
+          <line x1="77" y1="72" x2="76" y2="126" stroke="#3A4046" stroke-width="1.4"/>
+          <polygon fill="#1B1E21" points="97,84 121,97 133,106 128,115 111,107 95,99"/>
+          <polygon fill="#C29C7B" points="129,103 141,101 145,109 136,116 127,113"/>
+          <polygon fill="#25292D" points="55,86 45,122 43,153 52,155 59,124 63,93"/>
+          <polygon fill="#33383D" points="58,172 79,170 77,248 62,250"/>
+          <polygon fill="#3B4147" points="82,170 101,172 97,250 83,249"/>
+          <polygon fill="#141618" points="57,246 79,244 82,258 53,260"/>
+          <polygon fill="#141618" points="83,246 98,246 103,259 81,258"/>
+          <text x="62" y="103" font-family="Newsreader, Georgia, serif" font-size="9"
+                fill="#C9A75A" opacity=".92">President</text>
+          <g fill="#C9A75A" opacity=".8">
+            <rect x="62" y="112" width="2" height="9"/>
+            <rect x="66" y="108" width="2" height="13"/>
+            <rect x="70" y="114" width="2" height="7"/>
+          </g>
+        </g>
+
+        <g class="fig">
+          <!-- right figure, facing left -->
+          <polygon fill="#B8863F" points="196,32 204,17 228,16 240,33 238,52 231,33 206,32 199,52"/>
+          <polygon fill="#C9A382" points="204,30 228,29 233,46 226,62 210,66 200,50"/>
+          <polygon fill="#B48D6D" points="204,30 210,66 200,50"/>
+          <polygon fill="#C9A382" points="211,63 224,62 225,76 212,77"/>
+          <polygon fill="#1B1E21" points="199,76 240,71 248,120 244,168 202,172 192,120"/>
+          <polygon fill="#25292D" points="199,76 219,74 217,172 202,172 192,120"/>
+          <polygon fill="#2E3338" points="211,72 234,68 237,81 213,86"/>
+          <line x1="221" y1="74" x2="220" y2="124" stroke="#3A4046" stroke-width="1.4"/>
+          <polygon fill="#1B1E21" points="199,88 176,100 164,109 169,118 186,110 201,101"/>
+          <polygon fill="#C9A382" points="168,106 156,105 152,113 161,120 170,116"/>
+          <polygon fill="#1B1E21" points="242,88 256,112 250,140 242,138 244,114 238,96"/>
+          <polygon fill="#33383D" points="201,168 245,165 240,206 205,208"/>
+          <polygon fill="#C9A382" points="209,206 222,205 219,252 208,252"/>
+          <polygon fill="#C9A382" points="226,205 238,205 234,252 223,252"/>
+          <polygon fill="#141618" points="205,249 221,248 223,261 202,261"/>
+          <polygon fill="#141618" points="223,249 236,249 239,261 220,261"/>
+          <text x="200" y="105" font-family="Newsreader, Georgia, serif" font-size="8"
+                fill="#C9A75A" opacity=".92">Head of Derivatives</text>
+          <g fill="#C9A75A" opacity=".8">
+            <rect x="200" y="114" width="2" height="9"/>
+            <rect x="204" y="110" width="2" height="13"/>
+            <rect x="208" y="116" width="2" height="7"/>
+          </g>
+        </g>
+      </svg>
 
       <!-- Black-Scholes and other equations cycling -->
       <div class="equations">
@@ -2306,16 +2372,15 @@ const BUNDLED_LOGOS = {"bam":"data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4w
 
 
   // ============== HERO: LIVE VOLATILITY SURFACE ==============
-  // sigma(k, tau) built from an ATM level, a smile in k squared, a negative
-  // skew, and term structure flattening into the back months. It is a real
-  // surface shape, not noise, and it drifts slowly rather than animating.
+  // A real surface shape, not noise: a flat belly with steep short dated wings
+  // (the |k|^4 term), a negative skew, and term structure flattening into the
+  // back months. Purely ambient, nothing here responds to the pointer.
   (function volSurface() {
     const cv = document.getElementById('vol-surface');
     if (!cv) return;
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const NK = 44, NT = 30;
+    const NK = 46, NT = 32;
     let ctx, W, H, t = 0, raf = null, running = false;
-    let tiltX = 0, tiltY = 0, aimX = 0, aimY = 0;   // eased pointer parallax
 
     function fit() {
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -2329,31 +2394,26 @@ const BUNDLED_LOGOS = {"bam":"data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4w
     }
 
     function sigma(k, tau) {
-      const atm   = 0.19 + 0.015 * Math.sin(t * 0.10);
-      const smile = 0.30 * k * k / (0.55 + tau);
-      const skew  = -0.13 * k / (0.42 + tau);
-      const term  = 0.030 * Math.sqrt(tau);
-      const drift = 0.010 * Math.sin(t * 0.22 + k * 2.4 + tau * 1.7);
-      return atm + smile + skew + term + drift;
+      const atm  = 0.17 + 0.012 * Math.sin(t * 0.10);
+      const wing = 0.30 * Math.pow(Math.abs(k), 4) / (0.22 + tau * 1.5);
+      const smil = 0.10 * k * k / (0.50 + tau);
+      const skew = -0.11 * k / (0.40 + tau);
+      const term = 0.028 * Math.sqrt(tau);
+      const drft = 0.008 * Math.sin(t * 0.22 + k * 2.4 + tau * 1.7);
+      return atm + wing + smil + skew + term + drft;
     }
 
     function frame() {
       if (!ctx) { raf = requestAnimationFrame(frame); return; }
       t += 0.006;
-      tiltX += (aimX - tiltX) * 0.045;         // ease toward the pointer
-      tiltY += (aimY - tiltY) * 0.045;
-
       ctx.clearRect(0, 0, W, H);
 
-      // These constants were solved so the mesh stays inside the canvas across
-      // a full rotation: at lift 2.9 the peak overflowed the top by ~490px and
-      // was sheared flat. Sampled every few seconds of rotation to confirm.
-      const rot   = t * 0.085 + tiltX * 0.5;
+      // Framing solved across a full rotation at four viewport sizes so the
+      // wings are never sheared off the top of the canvas.
+      const rot   = t * 0.085;
       const cos   = Math.cos(rot), sin = Math.sin(rot);
       const scale = Math.min(W / 4.4, H / 2.5);
-      const cx    = W / 2;
-      const cy    = H * (0.68 + tiltY * 0.03);
-      const lift  = 1.6 + tiltY * 0.18;
+      const cx    = W / 2, cy = H * 0.80, lift = 1.2;
 
       const pts = [];
       let minD = Infinity, maxD = -Infinity;
@@ -2362,16 +2422,14 @@ const BUNDLED_LOGOS = {"bam":"data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4w
         for (let j = 0; j < NT; j++) {
           const k   = (i / (NK - 1)) * 2 - 1;
           const tau = 0.08 + (j / (NT - 1)) * 1.5;
-          const kx  = k * 1.5;
           const ty  = (j / (NT - 1)) * 2 - 1;
-          const x   = kx * cos - ty * sin;
-          const y   = kx * sin + ty * cos;
-          const p = {
+          const x   = k * 1.5 * cos - ty * sin;
+          const y   = k * 1.5 * sin + ty * cos;
+          pts[i][j] = {
             x: cx + x * scale,
             y: cy + y * scale * 0.30 - (sigma(k, tau) - 0.20) * scale * lift,
             d: y
           };
-          pts[i][j] = p;
           if (y < minD) minD = y;
           if (y > maxD) maxD = y;
         }
@@ -2379,58 +2437,40 @@ const BUNDLED_LOGOS = {"bam":"data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4w
       const depth = d => 0.10 + ((d - minD) / (maxD - minD || 1)) * 0.90;
 
       ctx.lineWidth = 1;
-      // strike-wise ribs, gold
-      for (let j = 0; j < NT; j++) {
+      for (let j = 0; j < NT; j++) {                    // strike ribs, gold
         ctx.beginPath();
         for (let i = 0; i < NK; i++) {
-          const q = pts[i][j];
-          i ? ctx.lineTo(q.x, q.y) : ctx.moveTo(q.x, q.y);
+          const q = pts[i][j]; i ? ctx.lineTo(q.x, q.y) : ctx.moveTo(q.x, q.y);
         }
-        ctx.strokeStyle = 'rgba(201,167,90,' + (depth(pts[0][j].d) * 0.30).toFixed(3) + ')';
+        ctx.strokeStyle = 'rgba(201,167,90,' + (depth(pts[0][j].d) * 0.32).toFixed(3) + ')';
         ctx.stroke();
       }
-      // expiry-wise ribs, cream and fainter, so the mesh reads as a weave
-      for (let i = 0; i < NK; i++) {
+      for (let i = 0; i < NK; i++) {                    // expiry ribs, cream
         ctx.beginPath();
         for (let j = 0; j < NT; j++) {
-          const q = pts[i][j];
-          j ? ctx.lineTo(q.x, q.y) : ctx.moveTo(q.x, q.y);
+          const q = pts[i][j]; j ? ctx.lineTo(q.x, q.y) : ctx.moveTo(q.x, q.y);
         }
-        ctx.strokeStyle = 'rgba(234,223,199,' + (depth(pts[i][0].d) * 0.13).toFixed(3) + ')';
+        ctx.strokeStyle = 'rgba(234,223,199,' + (depth(pts[i][0].d) * 0.14).toFixed(3) + ')';
         ctx.stroke();
       }
-      // the at-the-money slice, drawn proud
-      const mid = Math.floor(NK / 2);
+      const mid = Math.floor(NK / 2);                   // the ATM slice
       ctx.beginPath();
       for (let j = 0; j < NT; j++) {
-        const q = pts[mid][j];
-        j ? ctx.lineTo(q.x, q.y) : ctx.moveTo(q.x, q.y);
+        const q = pts[mid][j]; j ? ctx.lineTo(q.x, q.y) : ctx.moveTo(q.x, q.y);
       }
-      ctx.strokeStyle = 'rgba(201,167,90,.42)';
-      ctx.lineWidth = 1.5;
-      ctx.stroke();
+      ctx.strokeStyle = 'rgba(201,167,90,.40)';
+      ctx.lineWidth = 1.5; ctx.stroke();
 
       raf = requestAnimationFrame(frame);
     }
 
-    function start() { if (!running) { running = true; raf = requestAnimationFrame(frame); } }
-    function stop()  { if (running) { running = false; cancelAnimationFrame(raf); } }
+    const start = () => { if (!running) { running = true; raf = requestAnimationFrame(frame); } };
+    const stop  = () => { if (running) { running = false; cancelAnimationFrame(raf); } };
 
     if (!fit()) window.addEventListener('load', fit, { once: true });
     window.addEventListener('resize', () => { if (fit() && !running) frame(); });
 
-    // Pointer parallax: the surface leans toward the cursor across the hero.
-    const hero = cv.closest('.hero');
-    if (hero && !reduce) {
-      hero.addEventListener('pointermove', e => {
-        const r = hero.getBoundingClientRect();
-        aimX = ((e.clientX - r.left) / r.width) * 2 - 1;
-        aimY = ((e.clientY - r.top) / r.height) * 2 - 1;
-      });
-      hero.addEventListener('pointerleave', () => { aimX = 0; aimY = 0; });
-    }
-
-    if (reduce) { fit(); frame(); stop(); return; }   // one static frame
+    if (reduce) { fit(); frame(); stop(); return; }     // one static frame
     new IntersectionObserver(es => es[0].isIntersecting ? start() : stop(),
       { threshold: 0 }).observe(cv);
     document.addEventListener('visibilitychange', () => document.hidden ? stop() : start());
