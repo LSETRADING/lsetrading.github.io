@@ -56,11 +56,12 @@ const COMMITTEE = [
     focus: 42,                  // 2016×2048, effectively square
     bio: 'Hugo reads Economics and is President of the society. His focus is ' +
          'fundamental small cap equities, the part of the market where the research ' +
-         'still has to be done by hand. He has spring internships at Barclays in ' +
-         'sales and trading, and at Houlihan Lokey.',
+         'still has to be done by hand. He completed spring internships at Barclays ' +
+         'and Houlihan Lokey, and spent his first year summer at Inthallo in equity ' +
+         'research. He has climbed Mont Blanc.',
     _raw: {
       expertise: 'Fundamental small cap equities',
-      funFact: '',              // not supplied
+      funFact: 'Has climbed Mont Blanc',
       placements: ['Spring Internship, Sales and Trading, Barclays',
                    'Spring Internship, Houlihan Lokey'],
     },
@@ -153,13 +154,13 @@ const COMMITTEE = [
     linkedin: 'https://www.linkedin.com/in/benjamin-helwaser-293177251/',
     focus: 50,                  // 800×800, already square
     bio: 'Benjamin reads International Relations. His focus is the intersection of ' +
-         'geopolitical forecasting and nonlinear stochastic modelling, using one to ' +
-         'price the other: what happens to a derivative when the state of the world ' +
-         'stops behaving smoothly. He did a spring internship at Bank of America and ' +
-         'spent his summer on the Natixis CIB trading floor.',
+         'geopolitical forecasting and stochastic modelling, using one to price the ' +
+         'other. He completed a spring internship at Bank of America and spent his ' +
+         'summer on the Natixis CIB trading floor. He was also part of a finance game ' +
+         'show with 500,000 viewers.',
     _raw: {
       expertise: 'Intersection of geopolitical forecasting and nonlinear stochastic modelling to forecast derivatives pricing',
-      funFact: '',              // not supplied
+      funFact: 'Was part of a finance game show with 500,000 viewers',
       placements: ['Spring Internship, Bank of America',
                    'Summer, Natixis CIB trading floor'],
     },
@@ -176,9 +177,9 @@ const COMMITTEE = [
     photo: 'photos/kriti-sharma.jpg',
     linkedin: 'https://www.linkedin.com/in/kriti-sharma-484969237/',
     focus: 16,                  // 736×1258, tall
-    bio: 'Kriti reads Financial Mathematics and Statistics. Her focus is option ' +
-         'strategy and the Breeden and Litzenberger method, which recovers the ' +
-         'market’s whole implied distribution from a strip of option prices. She ' +
+    bio: 'Kriti reads Financial Mathematics and Statistics. Her focus is advanced ' +
+         'option strategies and the Breeden and Litzenberger framework, which recovers ' +
+         'the market’s whole implied distribution from a strip of option prices. She ' +
          'won the 2026 Citadel FIM Central Bank Challenge, and has a trading offer ' +
          'from HSBC for the summer. She can also name 98% of the world’s countries ' +
          'in ten minutes.',
@@ -252,9 +253,8 @@ const COMMITTEE = [
     tune: 'brightness(1.16)',   // shot in low bar light, needs lifting
     bio: 'Harrison reads Finance and heads the Equities division. He spent a summer ' +
          'in private wealth management at a boutique advisory firm under Aviva, and ' +
-         'has a spring internship at BNP Paribas on global markets. He has also ' +
-         'raced against Lando Norris and the Sidemen in karting, which covers both ' +
-         'ends of the grid.',
+         'completed a spring internship in global markets at BNP Paribas. He has also ' +
+         'raced against Lando Norris and the Sidemen in karting.',
     _raw: {
       expertise: '',            // not supplied
       funFact: 'Has raced against Lando Norris and the Sidemen in karting',
