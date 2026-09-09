@@ -323,19 +323,21 @@
     display: flex; align-items: center; justify-content: center;
   }
   .firm:hover { color: var(--gold); transform: scale(1.04); }
+  /* Logos are shown as they are, in their own colours, on a light tile.
+     No filters and no blend modes: mask-image on .placement-scroll creates a
+     stacking context, which isolates mix-blend-mode and made the blended
+     versions composite against the wrong backdrop. */
   .firm .firm-logo {
     display: block;
-    max-height: 68px; max-width: 90%;
+    width: 152px; height: 60px;
     object-fit: contain;
-    opacity: 0.82; transition: opacity 200ms;
-    /* dark mark on a transparent ground -> one cream silhouette */
-    filter: brightness(0) invert(1);
+    background: #F4EEE0;
+    padding: 9px 13px;
+    border-radius: 3px;
+    opacity: 0.92;
+    transition: opacity 200ms, transform 200ms;
   }
-  /* white ground baked into the file: invert to light-on-black, then drop the black */
-  .firm .firm-logo.on-white { filter: invert(1) grayscale(1) contrast(1.15); mix-blend-mode: screen; }
-  /* dark ground baked in: the mark is already light, so just drop the ground */
-  .firm .firm-logo.on-dark  { filter: grayscale(1) contrast(1.1); mix-blend-mode: screen; }
-  .firm:hover .firm-logo { opacity: 1; }
+  .firm:hover .firm-logo { opacity: 1; transform: scale(1.03); }
   .placement-box { height: 620px; }
   @keyframes scrollUp {
     from { transform: translateY(0); }
@@ -1651,15 +1653,18 @@
   })();
 
   // ============== RENDER: PLACEMENT COLUMNS ==============
+  const SECONDS_PER_FIRM = 2.2;          // sets the shared scroll speed
+
   function placementColumn(title, list) {
     const doubled = [...list, ...list];
     const items = doubled.map(f =>
       `<div class="firm" data-slug="${f.s}"><span class="firm-text">${f.n}</span></div>`
     ).join('');
+    const secs = (list.length * SECONDS_PER_FIRM).toFixed(1);
     return `<div class="placement-box">
       <div class="placement-header">${title}</div>
       <div class="placement-scroll">
-        <div class="placement-track">${items}</div>
+        <div class="placement-track" style="animation-duration:${secs}s">${items}</div>
       </div>
     </div>`;
   }
@@ -1684,17 +1689,9 @@
     };
     attempt();
   }
-  // Files that carry their own background need a different treatment from the
-  // transparent ones, or they render as solid blocks.
-  const LOGO_ON_WHITE = ['exoduspoint', 'imc', 'rokos', 'sig'];
-  const LOGO_ON_DARK  = ['brevan-howard', 'pimco'];
-
   document.querySelectorAll('.firm[data-slug]').forEach(cell => {
     tryLoadLogo(cell.dataset.slug, img => {
-      const slug = cell.dataset.slug;
-      img.className = 'firm-logo' +
-        (LOGO_ON_WHITE.includes(slug) ? ' on-white' :
-         LOGO_ON_DARK.includes(slug)  ? ' on-dark'  : '');
+      img.className = 'firm-logo';
       img.alt = cell.querySelector('.firm-text').textContent;
       cell.innerHTML = '';
       cell.appendChild(img);
@@ -1706,7 +1703,9 @@
       if (!slot) return;
       img.className = 'sponsor-logo-img';
       img.alt = slot.textContent;
-      img.style.cssText = 'display:block; max-height:64px; max-width:220px; margin:0 auto 18px; object-fit:contain;';
+      // same light tile as the placements wall, so dark marks stay legible
+      img.style.cssText = 'display:block; width:236px; height:84px; object-fit:contain;' +
+        'background:#F4EEE0; padding:12px 18px; border-radius:3px; margin:0 auto 18px;';
       slot.replaceWith(img);
     });
   });
@@ -1716,7 +1715,7 @@
   document.querySelectorAll('.placement-scroll').forEach(scroll => {
     const track = scroll.querySelector('.placement-track');
     if (!track) return;
-    const DURATION = 45;
+    const DURATION = parseFloat(getComputedStyle(track).animationDuration) || 45;
     let manualY = 0;
     let hovering = false;
     const currentY = () => {
@@ -1746,6 +1745,7 @@
       const delay = -progress * DURATION;
       track.style.transform = '';
       track.style.animation = `scrollUp ${DURATION}s linear infinite`;
+    track.style.animationDuration = `${DURATION}s`;
       track.style.animationDelay = `${delay}s`;
     });
   });
