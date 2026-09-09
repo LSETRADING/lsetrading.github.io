@@ -29,7 +29,7 @@ const COMMITTEE = [
     group: 'exec',
     divisions: [],
     course: 'BSc Finance',
-    year: '',                   // year not supplied
+    year: '27',
     photo: 'photos/keane-turner.jpg',
     linkedin: 'https://www.linkedin.com/in/keaneturner/',
     focus: 50,                  // 800×800, already square
@@ -50,7 +50,7 @@ const COMMITTEE = [
     group: 'exec',
     divisions: [],
     course: 'BSc Economics',
-    year: '',
+    year: '28',
     photo: 'photos/hugo-masier.jpg',
     linkedin: 'https://www.linkedin.com/in/hugomasier/',
     focus: 42,                  // 2016×2048, effectively square
@@ -73,7 +73,7 @@ const COMMITTEE = [
     group: 'exec',
     divisions: [],
     course: 'BSc International Social & Public Policy and Economics',
-    year: '',
+    year: '27',
     photo: 'photos/constance-zhang.jpg',
     linkedin: 'https://www.linkedin.com/in/constance-yili-zhang/',
     focus: 4,                   // 1068×1600 studio headshot, head high in frame
@@ -97,7 +97,7 @@ const COMMITTEE = [
     group: 'exec',
     divisions: ['macro'],
     course: 'BSc Finance',
-    year: '',
+    year: '28',
     photo: 'photos/sam-evans.jpg',
     linkedin: 'https://www.linkedin.com/in/samevans06/',
     focus: 34,                  // 309×412, small source, face high
@@ -148,7 +148,7 @@ const COMMITTEE = [
     group: 'divisions',
     divisions: ['derivatives'],
     course: 'BSc International Relations',
-    year: '',
+    year: '28',
     photo: 'photos/benjamin-helwaser.jpg',
     linkedin: 'https://www.linkedin.com/in/benjamin-helwaser-293177251/',
     focus: 50,                  // 800×800, already square
@@ -221,15 +221,16 @@ const COMMITTEE = [
   {
     slug: 'filip-surbek',
     name: 'Filip Surbek',
-    roles: ['Head of FICC Trading'],
+    roles: ['Head of Advanced Trader Programme · FICC'],
     group: 'divisions',
     divisions: ['atp-ficc'],    // CHECK with Ben: is this the ATP FICC seat?
     course: 'BSc Accounting & Finance',
-    year: '',
+    year: '27',
     photo: 'photos/filip-surbek.jpg',
     linkedin: 'https://www.linkedin.com/in/filip-surbek-47585b313/',
     focus: 5,                   // 896×1195, face sits high
-    bio: 'Filip heads FICC Trading. His focus is global macro.',
+    bio: 'Filip heads the FICC stream of the Advanced Trader Programme. His focus '  +
+         'is global macro.',
     _raw: {
       expertise: 'Global macro',
       funFact: '',
@@ -269,7 +270,7 @@ const COMMITTEE = [
     group: 'divisions',
     divisions: ['commodities'],
     course: 'BSc Politics & Philosophy',
-    year: '',
+    year: '28',
     photo: 'photos/ali-karimov.jpg',
     linkedin: 'https://www.linkedin.com/in/ali-karimov-88496123b/',
     focus: 5,                   // 959×1280, white ground, head sits high
@@ -290,7 +291,7 @@ const COMMITTEE = [
     group: 'divisions',
     divisions: ['em'],
     course: 'BSc Accounting & Finance',
-    year: '',
+    year: '27',
     photo: 'photos/alex-ficau.jpg',
     linkedin: 'https://www.linkedin.com/in/alexficau16/',
     focus: 40,                  // 1600×1543, near square, face slightly high
@@ -339,7 +340,7 @@ const COMMITTEE = [
     group: 'ops',
     divisions: [],
     course: 'BSc Philosophy & Economics',
-    year: '',
+    year: '27',
     photo: 'photos/smile-gu.jpg',
     linkedin: 'https://www.linkedin.com/in/smile-gu-114018331/',
     // Environmental shot at Tower Bridge, not a headshot: she is small and
@@ -364,7 +365,7 @@ const COMMITTEE = [
     group: 'ops',
     divisions: [],
     course: 'BSc Economics',
-    year: '',
+    year: '28',
     photo: 'photos/whitney-nnadozie.jpg',
     linkedin: 'https://www.linkedin.com/in/whitneynnadozie/',
     focus: 100,                 // 877×1037, head sits low with wall above
@@ -387,7 +388,7 @@ const COMMITTEE = [
     group: 'ops',
     divisions: [],
     course: 'MSc Finance',
-    year: '',
+    year: '27',
     photo: 'photos/sophie-le-guen.jpg',
     linkedin: 'https://www.linkedin.com/in/sophie-le-guen-/',
     focus: 35,                  // 1179×1568, face just above centre
