@@ -249,11 +249,7 @@ const COMMITTEE = [
     year: '28',
     photo: 'photos/harrison-older.jpg',
     linkedin: 'https://www.linkedin.com/in/harrison-older-4178a028b/',
-    // Face measured at 62% across, 42% down of a 1014x2048 source. A square
-    // crop always shows the full width, so object-position cannot move him
-    // sideways; the pan does that and the focus centres him vertically.
-    focus: 35,
-    crop: 'translate(-17%, 0) scale(1.45)',
+    focus: 50,                  // 640x640, pre-cropped square centred on his face
     tune: 'brightness(1.16)',   // shot in low bar light, needs lifting
     bio: 'Harrison reads Finance and heads the Equities division. He spent a summer ' +
          'in private wealth management at a boutique advisory firm under Aviva, and ' +
