@@ -345,14 +345,27 @@
 
   /* Compact person for division-head hero (smaller photos) */
   .div-heads-row {
-    display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 24px; max-width: 780px; margin: 32px auto 0; padding: 0 40px;
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 24px; max-width: 860px; margin: 40px auto 0; padding: 0 40px;
   }
-  .div-heads-row.single { grid-template-columns: 320px; justify-content: center; }
-  .div-heads-row.double { grid-template-columns: 1fr 1fr; max-width: 720px; }
-  .div-head-card { display: grid; grid-template-columns: 70px 1fr; gap: 16px; align-items: center; padding: 16px; border: 1px solid var(--line); background: var(--bg-2); }
+  .div-heads-row.single { grid-template-columns: 400px; justify-content: center; }
+  .div-heads-row.double { grid-template-columns: 1fr 1fr; max-width: 860px; }
+  .div-head-card {
+    display: grid; grid-template-columns: 96px 1fr; gap: 20px; align-items: center;
+    padding: 20px; border: 1px solid var(--line); background: var(--bg-2);
+    text-align: left; cursor: pointer;
+    transition: border-color 240ms, background 240ms, transform 240ms;
+  }
+  .div-head-card:hover { border-color: var(--gold-dim); background: var(--bg-3); transform: translateY(-2px); }
+  .div-head-card:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+  .div-head-card .go {
+    grid-column: 2; font-family: 'JetBrains Mono', monospace; font-size: 9px;
+    letter-spacing: .18em; text-transform: uppercase; color: var(--muted);
+    margin-top: 7px; transition: color 240ms;
+  }
+  .div-head-card:hover .go { color: var(--gold); }
   .div-head-card .portrait {
-    width: 70px; height: 70px; border-radius: 50%;
+    width: 96px; height: 96px; border-radius: 50%;
     background: linear-gradient(135deg, var(--bg), var(--bg-3));
     border: 1px solid var(--line-2);
     display: grid; place-items: center;
@@ -361,6 +374,12 @@
     position: relative; overflow: hidden;
   }
   .div-head-card .portrait.has-photo { overflow: hidden; }
+  /* A face in a 96px circle needs pushing in. Anyone with their own crop uses
+     that instead, since it already frames them. */
+  .div-head-card .portrait.has-photo img {
+    transform: var(--crop, scale(1.18));
+    filter: var(--tune, brightness(1));
+  }
   .div-head-card .portrait.has-photo::before { content: none; }
   .div-head-card .portrait::before {
     content: "Photo pending"; position: absolute; bottom: 3px; left: 0; right: 0;
@@ -368,13 +387,13 @@
     font-size: 7px; letter-spacing: 0.15em; text-transform: uppercase;
     color: var(--muted-2);
   }
-  .div-head-card h4 { font-family: 'Newsreader', Georgia, 'Times New Roman', serif; font-size: 17px; font-weight: 500; color: var(--ink); margin-bottom: 2px; }
-  .div-head-card .role { font-family: 'Newsreader', Georgia, 'Times New Roman', serif; font-style: italic; font-size: 12px; color: var(--gold); letter-spacing: 0.02em; }
+  .div-head-card h4 { font-family: 'Newsreader', Georgia, 'Times New Roman', serif; font-variation-settings: 'opsz' 30; font-size: 23px; font-weight: 500; color: var(--ink); margin-bottom: 4px; letter-spacing: -.012em; }
+  .div-head-card .role { font-family: 'Newsreader', Georgia, 'Times New Roman', serif; font-style: italic; font-size: 15px; color: var(--gold); letter-spacing: 0.01em; line-height: 1.35; }
 
   /* ============== DIVISION PAGE ============== */
   .division-hero {
     position: relative; padding: 80px 40px 40px;
-    text-align: center; max-width: 900px; margin: 0 auto;
+    text-align: center; max-width: 1180px; margin: 0 auto;
     overflow: visible;
   }
   .division-hero-bg {
@@ -390,14 +409,16 @@
   .division-hero h1 em { font-style: italic; color: var(--gold); }
   .division-paragraph {
     font-family: 'Newsreader', Georgia, 'Times New Roman', serif;
-    font-size: 18px;
+    font-variation-settings: 'opsz' 26;
+    font-size: 23px;
     color: var(--ink-2);
-    max-width: 720px;
-    margin: 0 auto 32px;
-    line-height: 1.7;
+    max-width: 30em;
+    margin: 0 auto 40px;
+    line-height: 1.62;
     text-align: left;
     font-weight: 400;
   }
+  @media (max-width: 720px) { .division-paragraph { font-size: 19px; } }
   .division-paragraph strong { color: var(--ink); font-weight: 500; }
 
   .members-panel { border-top: 1px solid var(--line); padding: 80px 40px; max-width: 1200px; margin: 60px auto 0; }
@@ -413,12 +434,20 @@
   .recruitment-notice .caption a { color: var(--gold); border-bottom: 1px solid var(--gold-dim); }
 
   /* division-specific background art */
+  /* Decoration lives in the gutters either side of the column, never behind
+     the paragraph, so nothing animates underneath text you are reading. */
   .art-token {
-    position: absolute; opacity: 0.14;
+    position: absolute; opacity: 0.16;
     font-family: 'JetBrains Mono', monospace;
     color: var(--gold);
     animation: floatSlow 12s ease-in-out infinite;
+    max-width: 15%;
   }
+  .art-token[data-side="l"] { left: 0; text-align: left; }
+  .art-token[data-side="r"] { right: 0; text-align: right; }
+  .art-svg[data-side="l"] { left: 0; }
+  .art-svg[data-side="r"] { right: 0; }
+  @media (max-width: 1080px) { .art-token, .art-svg { display: none; } }
   .art-token.small { font-size: 12px; opacity: 0.16; }
   .art-token.medium { font-size: 16px; opacity: 0.18; }
   .art-token.large { font-size: 22px; opacity: 0.14; }
@@ -650,6 +679,23 @@
     transition: opacity 420ms ease, filter 420ms ease;
   }
   .committee .person.dim { opacity: .14; filter: saturate(.15); pointer-events: none; }
+  /* Arriving from a division page: the card announces itself, then settles. */
+  .committee .person.focused .portrait { border-color: var(--gold); }
+  .committee .person.focused .frame::before,
+  .committee .person.focused .frame::after { opacity: 1; transform: translate(0,0); }
+  .committee .person.focused h3 { color: var(--gold); }
+  .committee .person.focused .portrait::before {
+    content: ""; position: absolute; inset: 0; z-index: 3; pointer-events: none;
+    box-shadow: 0 0 0 0 rgba(201,167,90,.55);
+    animation: cardPing 1400ms ease-out 2;
+  }
+  @keyframes cardPing {
+    0%   { box-shadow: 0 0 0 0 rgba(201,167,90,.5); }
+    100% { box-shadow: 0 0 0 16px rgba(201,167,90,0); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .committee .person.focused .portrait::before { animation: none; }
+  }
 
   .committee .portrait {
     aspect-ratio: 1/1; position: relative; overflow: hidden;
@@ -933,6 +979,7 @@
         <a href="#/division/commodities">Commodities</a>
         <a href="#/division/em">Emerging Markets</a>
         <a href="#/division/credit">Credit</a>
+        <a href="#/division/events">Events</a>
         <div class="submenu-holder">
           <a class="submenu-toggle" href="#/division/atp-equities">Advanced Trader Programme</a>
           <div class="submenu">
@@ -1275,6 +1322,24 @@
   </div>
 </main>
 
+<main id="page-div-events" class="page">
+  <section class="division-hero">
+    <div class="division-hero-bg" data-art="events"></div>
+    <h1><em>Events</em></h1>
+    <p class="division-paragraph">The Events subcommittee organises everything the society puts on, from speaker sessions and industry evenings to socials and trading simulations. Members lead outreach to firms and speakers across the sector, from bulge bracket trading desks to proprietary trading firms and hedge funds, and take each event from initial contact through to delivery. We are looking for committed and well organised students who are enthusiastic about creating memorable events and who bring fresh ideas to how they are designed and run. Along the way, members can interview the speakers they help bring in, build a strong professional network across the industry, and learn directly from practitioners working in the field.</p>
+    <div class="div-heads-row single" data-div="events"></div>
+  </section>
+  <div class="members-panel">
+    <h3>Current Members</h3>
+    <div class="sub">Recruitment cycle</div>
+    <div class="recruitment-notice">
+      <span class="word">Recruitment starting</span>
+      <div class="date">October 2026</div>
+      <div class="caption">For application details, follow the LSESU Trading Society <a href="https://www.instagram.com/" target="_blank" rel="noopener">Instagram</a>. Full info will live here as the cycle opens.</div>
+    </div>
+  </div>
+</main>
+
 <!-- ============== EVENTS PAGE ============== -->
 <main id="page-events" class="page">
   <section class="events-hero">
@@ -1565,15 +1630,18 @@
       row.innerHTML = heads.map(p => {
         const role = p.roles.find(r => !/^(Chairman|President|Vice President|Secretary|Treasurer)$/.test(r))
                   || p.roles[0];
+        let st = 'width:100%;height:100%;object-fit:cover;object-position:center ' +
+                 (p.focus == null ? 50 : p.focus) + '%;';
+        if (p.crop) st += '--crop:' + p.crop + ';';
+        if (p.tune) st += '--tune:' + p.tune + ';';
         const inner = p.photo
-          ? '<img src="' + esc(p.photo) + '" alt="' + esc(p.name) + '" loading="lazy" ' +
-            'style="width:100%;height:100%;object-fit:cover;object-position:center ' +
-            (p.focus == null ? 50 : p.focus) + '%;">'
+          ? '<img src="' + esc(p.photo) + '" alt="' + esc(p.name) + '" loading="lazy" style="' + st + '">'
           : esc(p.name[0] || '◆');
-        return '<div class="div-head-card">' +
+        return '<a class="div-head-card" href="#/leadership/' + p.slug + '">' +
           '<div class="portrait has-photo">' + inner + '</div>' +
-          '<div><h4>' + esc(p.name) + '</h4><div class="role">' + esc(role) + '</div></div>' +
-          '</div>';
+          '<div><h4>' + esc(p.name) + '</h4><div class="role">' + esc(role) + '</div>' +
+          '<div class="go">Read profile &rsaquo;</div></div>' +
+          '</a>';
       }).join('');
     });
   })();
@@ -1823,75 +1891,84 @@
   const artFor = {
     equities: (bg) => {
       bg.innerHTML = `
-        <svg class="art-svg" style="top:20px; left:6%; width:120px; opacity:0.16;"><use href="#bull-mark"/></svg>
-        <svg class="art-svg" style="top:60px; right:8%; width:120px; opacity:0.14;"><use href="#bear-mark"/></svg>
-        <svg class="art-svg" style="bottom:0; left:12%; width:200px; opacity:0.14;"><use href="#candle-cluster"/></svg>
-        <div class="art-token medium" style="top:40px; right:20%;">LONG /  SHORT</div>
-        <div class="art-token small" style="bottom:30px; left:4%;">P/E · EV/EBITDA · FCF</div>
+        <svg class="art-svg" data-side="l" style="top:20px; width:120px; opacity:0.16;"><use href="#bull-mark"/></svg>
+        <svg class="art-svg" data-side="r" style="top:60px; width:120px; opacity:0.14;"><use href="#bear-mark"/></svg>
+        <svg class="art-svg" data-side="l" style="bottom:0; width:200px; opacity:0.14;"><use href="#candle-cluster"/></svg>
+        <div class="art-token medium" data-side="r" style="top:40px;">LONG /  SHORT</div>
+        <div class="art-token small" data-side="l" style="bottom:30px;">P/E · EV/EBITDA · FCF</div>
       `;
     },
     macro: (bg) => {
       bg.innerHTML = `
-        <svg class="art-svg" style="top:10px; right:6%; width:220px;"><use href="#yield-curve"/></svg>
-        <svg class="art-svg" style="bottom:20px; left:6%; width:180px; opacity:0.14;"><use href="#candle-cluster"/></svg>
-        <div class="art-token large" style="top:20px; left:6%;">EUR / USD</div>
-        <div class="art-token medium" style="top:70px; left:14%;">GBP · JPY · CHF</div>
-        <div class="art-token small" style="bottom:80px; right:12%;">FED · ECB · BOJ · BOE</div>
+        <svg class="art-svg" data-side="r" style="top:10px; width:220px;"><use href="#yield-curve"/></svg>
+        <svg class="art-svg" data-side="l" style="bottom:20px; width:180px; opacity:0.14;"><use href="#candle-cluster"/></svg>
+        <div class="art-token large" data-side="l" style="top:20px;">EUR / USD</div>
+        <div class="art-token medium" data-side="l" style="top:70px;">GBP · JPY · CHF</div>
+        <div class="art-token small" data-side="r" style="bottom:80px;">FED · ECB · BOJ · BOE</div>
       `;
     },
     derivatives: (bg) => {
       bg.innerHTML = `
-        <svg class="art-svg" style="top:20px; right:5%; width:220px;"><use href="#vol-smile"/></svg>
-        <div class="art-token large" style="top:20px; left:5%;">Δ · Γ · Θ · Vega</div>
-        <div class="art-token small" style="top:70px; left:5%;">C = S·N(d₁) − K·e^(−rT)·N(d₂)</div>
-        <div class="art-token small" style="bottom:60px; left:6%;">dS = μS·dt + σS·dW</div>
-        <div class="art-token medium" style="bottom:30px; right:8%;">σ · IV · Skew</div>
+        <svg class="art-svg" data-side="r" style="top:20px; width:220px;"><use href="#vol-smile"/></svg>
+        <div class="art-token large" data-side="l" style="top:20px;">Δ · Γ · Θ · Vega</div>
+        <div class="art-token small" data-side="l" style="top:70px;">C = S·N(d₁) − K·e^(−rT)·N(d₂)</div>
+        <div class="art-token small" data-side="l" style="bottom:60px;">dS = μS·dt + σS·dW</div>
+        <div class="art-token medium" data-side="r" style="bottom:30px;">σ · IV · Skew</div>
       `;
     },
     commodities: (bg) => {
       bg.innerHTML = `
-        <svg class="art-svg" style="top:20px; left:6%; width:56px;"><use href="#oil-barrel"/></svg>
-        <svg class="art-svg" style="top:40px; left:14%; width:52px; opacity:0.12;"><use href="#oil-barrel"/></svg>
-        <svg class="art-svg" style="top:20px; right:6%; width:60px;"><use href="#oil-barrel"/></svg>
-        <svg class="art-svg" style="bottom:20px; right:14%; width:52px; opacity:0.12;"><use href="#oil-barrel"/></svg>
-        <svg class="art-svg" style="bottom:30px; left:8%; width:200px; opacity:0.14;"><use href="#candle-cluster"/></svg>
-        <div class="art-token medium" style="top:60px; right:22%;">BRENT · WTI · TTF</div>
-        <div class="art-token small" style="bottom:60px; right:6%;">GOLD · SILVER · COPPER · WHEAT</div>
+        <svg class="art-svg" data-side="l" style="top:20px; width:56px;"><use href="#oil-barrel"/></svg>
+        <svg class="art-svg" data-side="l" style="top:40px; width:52px; opacity:0.12;"><use href="#oil-barrel"/></svg>
+        <svg class="art-svg" data-side="r" style="top:20px; width:60px;"><use href="#oil-barrel"/></svg>
+        <svg class="art-svg" data-side="r" style="bottom:20px; width:52px; opacity:0.12;"><use href="#oil-barrel"/></svg>
+        <svg class="art-svg" data-side="l" style="bottom:30px; width:200px; opacity:0.14;"><use href="#candle-cluster"/></svg>
+        <div class="art-token medium" data-side="r" style="top:60px;">BRENT · WTI · TTF</div>
+        <div class="art-token small" data-side="r" style="bottom:60px;">GOLD · SILVER · COPPER · WHEAT</div>
       `;
     },
     em: (bg) => {
       bg.innerHTML = `
-        <div class="art-token large" style="top:20px; left:6%;">BRICS</div>
-        <div class="art-token medium" style="top:70px; left:6%;">BRA · RUS · IND · CHN · ZAF</div>
-        <div class="art-token small" style="top:110px; left:6%;">EMBI · EMFX · LOCAL RATES</div>
-        <div class="art-token medium" style="top:20px; right:5%;">MXN · BRL · ZAR</div>
-        <div class="art-token small" style="top:60px; right:5%;">TRY · IDR · INR · CNY</div>
-        <svg class="art-svg" style="bottom:0; left:20%; width:200px; opacity:0.14;"><use href="#candle-cluster"/></svg>
+        <div class="art-token large" data-side="l" style="top:20px;">BRICS</div>
+        <div class="art-token medium" data-side="l" style="top:70px;">BRA · RUS · IND · CHN · ZAF</div>
+        <div class="art-token small" data-side="l" style="top:110px;">EMBI · EMFX · LOCAL RATES</div>
+        <div class="art-token medium" data-side="r" style="top:20px;">MXN · BRL · ZAR</div>
+        <div class="art-token small" data-side="r" style="top:60px;">TRY · IDR · INR · CNY</div>
+        <svg class="art-svg" data-side="l" style="bottom:0; width:200px; opacity:0.14;"><use href="#candle-cluster"/></svg>
       `;
     },
     credit: (bg) => {
       bg.innerHTML = `
-        <svg class="art-svg" style="top:30px; right:6%; width:200px;"><use href="#yield-curve"/></svg>
-        <div class="art-token medium" style="top:40px; left:6%;">IG · HY · Distressed</div>
-        <div class="art-token small" style="top:80px; left:6%;">CDS · CLO · Direct Lending</div>
-        <div class="art-token small" style="bottom:40px; left:8%;">AAA · AA · A · BBB · BB · B · CCC</div>
-        <div class="art-token medium" style="bottom:60px; right:8%;">Spread · Duration · Recovery</div>
+        <svg class="art-svg" data-side="r" style="top:30px; width:200px;"><use href="#yield-curve"/></svg>
+        <div class="art-token medium" data-side="l" style="top:40px;">IG · HY · Distressed</div>
+        <div class="art-token small" data-side="l" style="top:80px;">CDS · CLO · Direct Lending</div>
+        <div class="art-token small" data-side="l" style="bottom:40px;">AAA · AA · A · BBB · BB · B · CCC</div>
+        <div class="art-token medium" data-side="r" style="bottom:60px;">Spread · Duration · Recovery</div>
       `;
     },
     "atp-equities": (bg) => {
       bg.innerHTML = `
-        <svg class="art-svg" style="top:20px; left:8%; width:200px; opacity:0.16;"><use href="#candle-cluster"/></svg>
-        <svg class="art-svg" style="bottom:20px; right:6%; width:200px; opacity:0.14;"><use href="#candle-cluster"/></svg>
-        <div class="art-token medium" style="top:30px; right:6%;">BID · ASK · SPREAD</div>
-        <div class="art-token small" style="bottom:70px; left:6%;">Market Making · Risk · Skew</div>
+        <svg class="art-svg" data-side="l" style="top:20px; width:200px; opacity:0.16;"><use href="#candle-cluster"/></svg>
+        <svg class="art-svg" data-side="r" style="bottom:20px; width:200px; opacity:0.14;"><use href="#candle-cluster"/></svg>
+        <div class="art-token medium" data-side="r" style="top:30px;">BID · ASK · SPREAD</div>
+        <div class="art-token small" data-side="l" style="bottom:70px;">Market Making · Risk · Skew</div>
+      `;
+    },
+    events: (bg) => {
+      bg.innerHTML = `
+        <div class="art-token medium" data-side="l" style="top:26px;">Speakers</div>
+        <div class="art-token small"  data-side="l" style="top:74px;">Socials</div>
+        <div class="art-token small"  data-side="l" style="bottom:60px;">Simulations</div>
+        <div class="art-token medium" data-side="r" style="top:34px;">Industry nights</div>
+        <div class="art-token small"  data-side="r" style="bottom:70px;">Outreach</div>
       `;
     },
     "atp-ficc": (bg) => {
       bg.innerHTML = `
-        <svg class="art-svg" style="top:20px; right:5%; width:220px;"><use href="#yield-curve"/></svg>
-        <div class="art-token medium" style="top:30px; left:6%;">FX · Rates · Credit · Commodities</div>
-        <div class="art-token small" style="bottom:80px; left:6%;">SOFR · SONIA · ESTR · TONA</div>
-        <div class="art-token small" style="bottom:40px; right:8%;">2Y / 10Y · 5Y / 30Y</div>
+        <svg class="art-svg" data-side="r" style="top:20px; width:220px;"><use href="#yield-curve"/></svg>
+        <div class="art-token small" data-side="l" style="top:30px;">FX · Rates · Credit · Commodities</div>
+        <div class="art-token small" data-side="l" style="bottom:80px;">SOFR · SONIA · ESTR · TONA</div>
+        <div class="art-token medium" data-side="r" style="bottom:40px;">2Y / 10Y · 5Y / 30Y</div>
       `;
     },
   };
@@ -2006,6 +2083,30 @@
     document.addEventListener('visibilitychange', () => document.hidden ? stop() : start());
   })();
 
+  // Open one committee card, scroll it into view and let it announce itself.
+  // Runs after the page is shown, so the card already has a layout position.
+  function focusPerson(slug) {
+    // setTimeout rather than requestAnimationFrame: rAF is suspended entirely
+    // in a hidden document, which would silently drop the whole behaviour.
+    setTimeout(() => {
+      const panel = document.getElementById('ab-' + slug);
+      if (!panel) return;
+      const card = panel.closest('.person');
+      const btn  = card && card.querySelector('.about-btn');
+      if (btn && btn.getAttribute('aria-expanded') !== 'true') {
+        btn.setAttribute('aria-expanded', 'true');
+        panel.classList.add('open');
+      }
+      document.querySelectorAll('.person.focused').forEach(el => el.classList.remove('focused'));
+      if (!card) return;
+      card.classList.add('focused');
+      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const y = card.getBoundingClientRect().top + window.scrollY - (window.innerHeight * 0.18);
+      window.scrollTo({ top: Math.max(0, y), behavior: reduce ? 'instant' : 'smooth' });
+      setTimeout(() => card.classList.remove('focused'), 2600);
+    }, 0);
+  }
+
   // ============== HASH ROUTING ==============
   const routes = {
     '': 'page-home', '/': 'page-home',
@@ -2019,17 +2120,21 @@
     '/division/credit': 'page-div-credit',
     '/division/atp-equities': 'page-div-atp-equities',
     '/division/atp-ficc': 'page-div-atp-ficc',
+    '/division/events': 'page-div-events',
   };
   function route() {
     const hash = window.location.hash.replace(/^#/, '') || '/';
-    const target = routes[hash] || 'page-home';
+    // /leadership/<slug> opens the committee page focused on one person
+    const deep = hash.match(/^\/leadership\/([a-z0-9-]+)$/);
+    const target = routes[deep ? '/leadership' : hash] || 'page-home';
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
     const el = document.getElementById(target);
     if (el) el.classList.add('active');
     window.scrollTo({ top: 0, behavior: 'instant' });
+    if (deep) focusPerson(deep[1]);
     document.querySelectorAll('nav ul.menu a').forEach(a => a.classList.remove('active'));
     const map = { '/': 'home', '/leadership': 'leadership', '/events': 'events' };
-    const key = map[hash];
+    const key = map[deep ? '/leadership' : hash];
     if (key) {
       const link = document.querySelector(`nav a[data-page="${key}"]`);
       if (link) link.classList.add('active');
