@@ -128,7 +128,7 @@
     padding: 80px 40px; display: grid; place-items: center;
   }
   .hero-bg { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
-  .hero-content { position: relative; z-index: 3; text-align: center; max-width: 940px; }
+  .hero-content { position: relative; z-index: 4; text-align: center; max-width: 940px; }
   .hero-content .eyebrow {
     font-size: 11px; letter-spacing: 0.32em; text-transform: uppercase;
     color: var(--gold); margin-bottom: 36px;
@@ -155,81 +155,25 @@
   .hero-cta:hover { background: var(--gold); color: var(--bg); }
   .hero-cta::after { content: "→"; font-size: 14px; letter-spacing: 0; }
 
-  /* ============== HERO BACKGROUND — animated layers ============== */
+  /* ============== HERO BACKGROUND: animated layers ============== */
   .grid-back {
     position: absolute; inset: 0;
     background-image: radial-gradient(circle at 1px 1px, rgba(201,167,90,0.06) 1px, transparent 1px);
     background-size: 32px 32px; z-index: 0;
   }
-  .line-chart-wide {
-    position: absolute; left: -5%; right: -5%; width: 110%;
-    height: 42%; top: 30%; opacity: 0.14; z-index: 1;
-  }
-  .line-chart-wide path.line {
-    fill: none; stroke: var(--gold); stroke-width: 1.4; stroke-linecap: round;
-    stroke-dasharray: 3000; stroke-dashoffset: 3000;
-    animation: draw 18s ease-in-out infinite;
-  }
-  @keyframes draw {
-    0%   { stroke-dashoffset: 3000; }
-    60%  { stroke-dashoffset: 0; }
-    80%  { stroke-dashoffset: 0; opacity: 1; }
-    100% { stroke-dashoffset: -3000; }
-  }
-  .line-chart-wide circle.pulse {
-    fill: var(--gold);
-    animation: pulseDot 1.6s ease-in-out infinite;
-  }
-  @keyframes pulseDot { 0%, 100% { r: 3; opacity: 1; } 50% { r: 6; opacity: 0.5; } }
-
-  /* candle clusters */
-  .chart-cluster { position: absolute; opacity: 0.16; }
-  .chart-cluster.tl { top: 40px; left: 40px; width: 220px; }
-  .chart-cluster.tr { top: 60px; right: 40px; width: 240px; }
-  .chart-cluster.bl { bottom: 80px; left: 60px; width: 200px; }
-  .chart-cluster.br { bottom: 60px; right: 60px; width: 220px; }
-  @keyframes floatSlow { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
-  .chart-cluster { animation: floatSlow 10s ease-in-out infinite; }
-  .chart-cluster.tr { animation-delay: -3s; }
-  .chart-cluster.bl { animation-delay: -6s; }
-  .chart-cluster.br { animation-delay: -1.5s; }
-
-  /* sparklines — small graphs that appear/redraw */
-  .sparkline {
-    position: absolute;
-    opacity: 0.20;
-    z-index: 1;
-  }
-  .sparkline.s1 { top: 18%; left: 8%; width: 130px; height: 40px; }
-  .sparkline.s2 { top: 22%; right: 10%; width: 140px; height: 44px; }
-  .sparkline.s3 { bottom: 24%; left: 12%; width: 130px; height: 40px; }
-  .sparkline.s4 { bottom: 20%; right: 8%; width: 150px; height: 44px; }
-  .sparkline path {
-    fill: none; stroke: var(--ink); stroke-width: 1.3; stroke-linecap: round;
-    stroke-dasharray: 400; stroke-dashoffset: 400;
-    animation: sparkDraw 6s ease-in-out infinite;
-  }
-  .sparkline.s2 path { stroke: var(--gold); animation-delay: -1.5s; }
-  .sparkline.s3 path { animation-delay: -3s; }
-  .sparkline.s4 path { stroke: var(--gold); animation-delay: -4.5s; }
-  @keyframes sparkDraw {
-    0%   { stroke-dashoffset: 400; opacity: 0.6; }
-    40%  { stroke-dashoffset: 0; opacity: 1; }
-    80%  { stroke-dashoffset: 0; opacity: 1; }
-    100% { stroke-dashoffset: -400; opacity: 0.6; }
+  /* The surface bleeds past the hero on every side so it reads as a slice of
+     something larger rather than a picture sitting in a box. */
+  .vol-surface {
+    position: absolute; inset: -6% -8%; width: 116%; height: 112%;
+    z-index: 1; display: block; pointer-events: none;
   }
 
-  /* Equations — Black-Scholes solving */
-  .equations {
-    position: absolute; inset: 0;
-    z-index: 1; pointer-events: none;
-  }
+  /* Equations cycling in and out */
+  .equations { position: absolute; inset: 0; z-index: 2; pointer-events: none; }
   .eq {
     position: absolute;
     font-family: 'JetBrains Mono', ui-monospace, monospace;
-    color: var(--gold);
-    letter-spacing: 0.02em;
-    opacity: 0;
+    color: var(--gold); letter-spacing: 0.02em; opacity: 0;
     animation: eqCycle 24s linear infinite;
   }
   .eq.e1 { top: 12%; left: 4%; font-size: 13px; animation-delay: 0s; }
@@ -546,6 +490,62 @@
   }
   .colophon span { color: var(--gold); }
 
+
+  /* ============== TWO WAYS IN (membership tiers) ============== */
+  .ways { display: grid; grid-template-columns: 1fr 1.15fr; gap: 28px; margin-top: 52px; }
+  .way {
+    border: 1px solid var(--line-2); background: var(--bg-2);
+    padding: 34px 32px 32px; position: relative;
+  }
+  .way.selective { border-color: var(--gold-dim); background: linear-gradient(180deg, var(--bg-3), var(--bg-2)); }
+  .way .tier {
+    font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .26em;
+    text-transform: uppercase; color: var(--muted); margin-bottom: 16px;
+  }
+  .way.selective .tier { color: var(--gold); }
+  .way h3 {
+    font-family: 'Newsreader', Georgia, serif; font-variation-settings: 'opsz' 40;
+    font-size: 30px; font-weight: 500; color: var(--ink); margin-bottom: 10px;
+    letter-spacing: -.015em;
+  }
+  .way h3 em { font-style: italic; color: var(--gold); }
+  .way .when {
+    font-family: 'Newsreader', Georgia, serif; font-style: italic; font-size: 15px;
+    color: var(--gold); margin-bottom: 18px;
+  }
+  .way p { color: var(--ink-2); font-size: 14.5px; line-height: 1.7; margin-bottom: 20px; }
+  .way ul { list-style: none; margin: 0 0 22px; padding: 0; }
+  .way li {
+    color: var(--ink-2); font-size: 13.5px; line-height: 1.55;
+    padding: 8px 0 8px 20px; border-top: 1px solid var(--line); position: relative;
+  }
+  .way li::before {
+    content: ""; position: absolute; left: 0; top: 15px;
+    width: 7px; height: 1px; background: var(--gold);
+  }
+  .way .way-cta {
+    display: inline-flex; align-items: center; gap: 10px; padding: 11px 22px;
+    border: 1px solid var(--gold); color: var(--gold); font-size: 11px;
+    letter-spacing: .2em; text-transform: uppercase; transition: background 220ms, color 220ms;
+  }
+  .way .way-cta:hover { background: var(--gold); color: var(--bg); }
+
+  .desk-pick {
+    font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .2em;
+    text-transform: uppercase; color: var(--muted); margin: 4px 0 12px;
+  }
+  .desk-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .desk-chips a {
+    display: inline-block; padding: 8px 14px;
+    border: 1px solid var(--line-2); color: var(--ink-2);
+    font-family: 'JetBrains Mono', monospace; font-size: 10.5px;
+    letter-spacing: .1em; text-transform: uppercase;
+    transition: border-color 200ms, color 200ms, background 200ms;
+  }
+  .desk-chips a:hover { border-color: var(--gold); color: var(--gold); background: rgba(201,167,90,.07); }
+
+  @media (max-width: 860px) { .ways { grid-template-columns: 1fr; } }
+
   /* ============== COMMITTEE (leadership page) ==============
      Scoped under .committee so it overrides the older .persons / .person
      rules further up this stylesheet without needing them deleted. */
@@ -801,12 +801,8 @@
     .events-columns > div:first-child { border-right: none; border-bottom: 1px solid var(--line); padding-bottom: 40px; margin-bottom: 40px; }
     .sponsor-tiles { grid-template-columns: 1fr; }
     footer { grid-template-columns: 1fr; gap: 32px; padding: 40px 20px; }
-    .chart-cluster { width: 130px !important; opacity: 0.10; }
-    .chart-cluster.tl { left: 10px; top: 10px; }
-    .chart-cluster.tr { right: 10px; top: 20px; }
-    .chart-cluster.bl { left: 10px; bottom: 20px; }
-    .chart-cluster.br { right: 10px; bottom: 10px; }
-    .sparkline, .eq { display: none; }
+    .eq { display: none; }
+    .vol-surface { inset: -4% -10%; width: 120%; height: 108%; }
   }
 </style>
 </head>
@@ -948,23 +944,9 @@
     <div class="hero-bg">
       <div class="grid-back"></div>
 
-      <!-- long meandering line (kept) -->
-      <svg class="line-chart-wide" viewBox="0 0 1600 400" preserveAspectRatio="none">
-        <path class="line" d="M 0 260 C 120 240, 200 200, 300 210 S 480 260, 560 240 S 720 160, 820 180 S 980 260, 1080 220 S 1240 120, 1340 150 S 1500 100, 1600 130"/>
-        <circle class="pulse" cx="1600" cy="130" r="3"/>
-      </svg>
-
-      <!-- candle clusters at corners -->
-      <svg class="chart-cluster tl"><use href="#candle-cluster"/></svg>
-      <svg class="chart-cluster tr"><use href="#candle-cluster"/></svg>
-      <svg class="chart-cluster bl"><use href="#candle-cluster"/></svg>
-      <svg class="chart-cluster br"><use href="#candle-cluster"/></svg>
-
-      <!-- sparklines redrawing on loop -->
-      <svg class="sparkline s1" viewBox="0 0 200 60"><path d="M 4 42 L 24 30 L 40 36 L 58 22 L 76 28 L 96 18 L 118 24 L 138 12 L 158 20 L 180 8 L 196 14"/></svg>
-      <svg class="sparkline s2" viewBox="0 0 200 60"><path d="M 4 18 L 24 26 L 44 20 L 62 34 L 80 28 L 100 38 L 122 30 L 142 44 L 162 36 L 182 46 L 196 40"/></svg>
-      <svg class="sparkline s3" viewBox="0 0 200 60"><path d="M 4 36 L 22 24 L 42 30 L 62 18 L 82 26 L 104 16 L 124 22 L 144 12 L 164 20 L 184 10 L 196 16"/></svg>
-      <svg class="sparkline s4" viewBox="0 0 200 60"><path d="M 4 22 L 22 34 L 42 28 L 62 40 L 82 30 L 100 42 L 122 34 L 142 46 L 162 38 L 182 48 L 196 42"/></svg>
+      <!-- One dominant object instead of nine competing ornaments: a live
+           implied volatility surface, drawn on canvas. -->
+      <canvas class="vol-surface" id="vol-surface" aria-hidden="true"></canvas>
 
       <!-- Black-Scholes and other equations cycling -->
       <div class="equations">
@@ -993,9 +975,9 @@
     <div class="section-label">What we do</div>
     <h2>An elite pipeline to the <em>trading floor</em></h2>
     <div class="prose">
-      <p>The Trading Society exists to take students from every background at LSE and hand them the vocabulary, the reps, and the network to step onto a real trading desk. No prior finance degree required, only ambition.</p>
+      <p>The Trading Society exists to take students from every background at LSE and hand them the vocabulary, the reps, and the network to step onto a real trading floor. No prior finance degree required, only ambition.</p>
       <p>Our subcommittees run the year like a training programme. Members learn markets from the inside through weekly workshops, live trading simulations, testimonies from practitioners across the buy side and sell side, and classes that go from first principles up to the maths that desks actually use.</p>
-      <p>By the end of the year, members leave with a full year's worth of preparation for spring weeks, summer internships, and full time seats — and, more importantly, the community of traders they trained alongside.</p>
+      <p>By the end of the year, members leave with a full year's worth of preparation for spring weeks, summer internships, and full time seats, and more importantly the community of traders they trained alongside.</p>
     </div>
 
     <div class="pillars">
@@ -1024,7 +1006,7 @@
           </svg>
         </div>
         <h3>Speakers</h3>
-        <p>The people who matter — MDs, portfolio managers, senior traders — explaining, in their words, how to reach the top.</p>
+        <p>The people who matter: MDs, portfolio managers and senior traders, explaining in their words how to reach the top.</p>
       </div>
       <div class="pillar">
         <div class="icon">
@@ -1035,8 +1017,54 @@
           </svg>
         </div>
         <h3>Networking Events</h3>
-        <p>The biggest firms come to the society to recruit — a direct funnel from the committee room to their front office desks.</p>
+        <p>The biggest firms come to the society to recruit, a direct funnel from the committee room to their front office desks.</p>
       </div>
+    </div>
+  </section>
+
+  <!-- Membership tiers -->
+  <section class="block">
+    <div class="section-label">Getting involved</div>
+    <h2>Two ways <em>in</em></h2>
+    <div class="ways">
+
+      <div class="way">
+        <div class="tier">Open to everyone</div>
+        <h3>Member</h3>
+        <div class="when">Sign up any time</div>
+        <p>Join on the LSESU website for &pound;5 and you are a member for the year. No application, no interview, no prior finance background needed.</p>
+        <ul>
+          <li>Weekly workshops and classes, from first principles upward</li>
+          <li>Speaker events with practitioners from the buy side and sell side</li>
+          <li>Trading simulations, competitions and socials</li>
+        </ul>
+        <a class="way-cta" href="https://www.lsesu.com/communities/societies/group/trading/" target="_blank" rel="noopener">Join for &pound;5</a>
+      </div>
+
+      <div class="way selective">
+        <div class="tier">By application &middot; selective</div>
+        <h3>The <em>Subcommittee</em></h3>
+        <div class="when">Applications open October 2026</div>
+        <p>The subcommittee is the society's training programme proper. You apply to one division, and if you are selected you spend the year as an analyst on that desk, working under its head. Places are limited and the process is competitive.</p>
+        <ul>
+          <li>Everything membership includes</li>
+          <li>A division of your own, and a head who mentors you through the year</li>
+          <li>Research and pitches published under the society's name</li>
+          <li>Spring week and internship preparation, including mock interviews</li>
+        </ul>
+        <div class="desk-pick">Choose your division</div>
+        <div class="desk-chips">
+          <a href="#/division/equities">Equities</a>
+          <a href="#/division/macro">Macro</a>
+          <a href="#/division/derivatives">Derivatives</a>
+          <a href="#/division/commodities">Commodities</a>
+          <a href="#/division/em">Emerging Markets</a>
+          <a href="#/division/credit">Credit</a>
+          <a href="#/division/atp-equities">ATP &middot; Equities</a>
+          <a href="#/division/atp-ficc">ATP &middot; FICC</a>
+        </div>
+      </div>
+
     </div>
   </section>
 
@@ -1055,7 +1083,7 @@
     <div class="sponsor-tiles">
       <a class="sponsor-tile" data-slug="jane-street" href="https://www.janestreet.com/" target="_blank" rel="noopener">
         <div class="logo-slot">Jane Street</div>
-        <p><span class="placeholder">One line on the Jane Street sponsored events — workshop, speaker series, competition, etc. Coming from you.</span></p>
+        <p><span class="placeholder">One line on the Jane Street sponsored events: workshop, speaker series, competition and so on. Coming from you.</span></p>
       </a>
       <a class="sponsor-tile" data-slug="de-shaw" href="https://www.deshaw.com/" target="_blank" rel="noopener">
         <div class="logo-slot">D. E. Shaw &amp; Co.</div>
@@ -1087,7 +1115,7 @@
   <section class="division-hero">
     <div class="division-hero-bg" data-art="equities"></div>
     <h1><em>Equities</em></h1>
-    <p class="division-paragraph"><span class="placeholder">Full paragraph for Equities — coming from you. Match the length and voice of the Derivatives paragraph.</span></p>
+    <p class="division-paragraph"><span class="placeholder">Full paragraph for Equities, coming from you. Match the length and voice of the Derivatives paragraph.</span></p>
     <div class="div-heads-row single" data-div="equities"></div>
   </section>
   <div class="members-panel">
@@ -1105,7 +1133,7 @@
   <section class="division-hero">
     <div class="division-hero-bg" data-art="macro"></div>
     <h1><em>Macro</em></h1>
-    <p class="division-paragraph"><span class="placeholder">Full paragraph for Macro — coming from you.</span></p>
+    <p class="division-paragraph"><span class="placeholder">Full paragraph for Macro, coming from you.</span></p>
     <div class="div-heads-row double" data-div="macro"></div>
   </section>
   <div class="members-panel">
@@ -1124,7 +1152,7 @@
     <div class="division-hero-bg" data-art="derivatives"></div>
     <h1><em>Derivatives</em></h1>
     <p class="division-paragraph">
-      Ready to actually be prepared for the trading floor? Join the Derivatives Subcommittee. You'll become part of an elite group of students where no prior experience or specific degree is required, just ambition. Don't worry, it's not calculus — every asset is actually traded using derivatives, so this is where you learn how markets work in the real world. Level up through classes, interactive workshops, and competitions with unique prizes, and get a real edge on your career with spring week and internship prep through mock interviews and live trading simulations. And it's fun, trust us: a tight-knit, motivated crew with socials all year round. Forget the rest: this is the real stuff, and this is where it starts. <strong>Join us!</strong>
+      Ready to actually be prepared for the trading floor? Join the Derivatives Subcommittee. You'll become part of an elite group of students where no prior experience or specific degree is required, just ambition. Don't worry, it's not calculus. Every asset is actually traded using derivatives, so this is where you learn how markets work in the real world. Level up through classes, interactive workshops, and competitions with unique prizes, and get a real edge on your career with spring week and internship prep through mock interviews and live trading simulations. And it's fun, trust us: a tight-knit, motivated crew with socials all year round. Forget the rest: this is the real stuff, and this is where it starts. <strong>Join us!</strong>
     </p>
     <div class="div-heads-row double" data-div="derivatives"></div>
   </section>
@@ -1143,7 +1171,7 @@
   <section class="division-hero">
     <div class="division-hero-bg" data-art="commodities"></div>
     <h1><em>Commodities</em></h1>
-    <p class="division-paragraph"><span class="placeholder">Full paragraph for Commodities — coming from you.</span></p>
+    <p class="division-paragraph"><span class="placeholder">Full paragraph for Commodities, coming from you.</span></p>
     <div class="div-heads-row single" data-div="commodities"></div>
   </section>
   <div class="members-panel">
@@ -1161,7 +1189,7 @@
   <section class="division-hero">
     <div class="division-hero-bg" data-art="em"></div>
     <h1>Emerging <em>Markets</em></h1>
-    <p class="division-paragraph"><span class="placeholder">Full paragraph for Emerging Markets — coming from you.</span></p>
+    <p class="division-paragraph"><span class="placeholder">Full paragraph for Emerging Markets, coming from you.</span></p>
     <div class="div-heads-row single" data-div="em"></div>
   </section>
   <div class="members-panel">
@@ -1179,7 +1207,7 @@
   <section class="division-hero">
     <div class="division-hero-bg" data-art="credit"></div>
     <h1><em>Credit</em></h1>
-    <p class="division-paragraph"><span class="placeholder">Full paragraph for Credit — coming from you.</span></p>
+    <p class="division-paragraph"><span class="placeholder">Full paragraph for Credit, coming from you.</span></p>
     <div class="div-heads-row single" data-div="credit"></div>
   </section>
   <div class="members-panel">
@@ -1197,7 +1225,7 @@
   <section class="division-hero">
     <div class="division-hero-bg" data-art="atp-equities"></div>
     <h1>Advanced Trader · <em>Equities</em></h1>
-    <p class="division-paragraph"><span class="placeholder">Full paragraph for ATP Equities — coming from you.</span></p>
+    <p class="division-paragraph"><span class="placeholder">Full paragraph for ATP Equities, coming from you.</span></p>
     <div class="div-heads-row single" data-div="atp-equities"></div>
   </section>
   <div class="members-panel">
@@ -1215,7 +1243,7 @@
   <section class="division-hero">
     <div class="division-hero-bg" data-art="atp-ficc"></div>
     <h1>Advanced Trader · <em>FICC</em></h1>
-    <p class="division-paragraph"><span class="placeholder">Full paragraph for ATP FICC — coming from you.</span></p>
+    <p class="division-paragraph"><span class="placeholder">Full paragraph for ATP FICC, coming from you.</span></p>
     <div class="div-heads-row single" data-div="atp-ficc"></div>
   </section>
   <div class="members-panel">
@@ -1234,7 +1262,7 @@
   <section class="events-hero">
     <div class="tag">Programme · 2026 / 27</div>
     <h1>Events &amp; <em>Competitions</em></h1>
-    <p class="lede">Every year the Trading Society improves and adapts its programme — competitions, workshops, and speaker events — to keep producing the best traders and salespeople to hit the floor.</p>
+    <p class="lede">Every year the Trading Society improves and adapts its programme of competitions, workshops and speaker events, to keep producing the best traders and salespeople to hit the floor.</p>
   </section>
 
   <div class="events-columns">
@@ -1243,12 +1271,12 @@
       <div class="event-card">
         <div class="when">Michaelmas 2026 · TBC</div>
         <h4>FX Stock Pitch Competition</h4>
-        <p><span class="placeholder">Format, prize, sponsor — details to come</span></p>
+        <p><span class="placeholder">Format, prize and sponsor to come</span></p>
       </div>
       <div class="event-card">
         <div class="when">Lent 2027 · TBC</div>
         <h4>Paper Trading Interdivision Competition</h4>
-        <p><span class="placeholder">Divisions compete on P&amp;L across a live paper book — format and prizes to come</span></p>
+        <p><span class="placeholder">Divisions compete on P&amp;L across a live paper book. Format and prizes to come</span></p>
       </div>
       <div class="event-card">
         <div class="when">Rolling</div>
@@ -1291,11 +1319,11 @@
     </div>
   </div>
 
-  <!-- Past speakers grid — separate from past events -->
+  <!-- Past speakers grid, separate from past events -->
   <div class="archive-block">
     <div class="section-label">Past Speakers</div>
     <div class="archive-title">The people <em>who came through</em></div>
-    <div class="archive-sub">Recent speaker events — drop in the banner images from Instagram to replace each slot.</div>
+    <div class="archive-sub">Recent speaker events. Drop in the banner images from Instagram to replace each slot.</div>
     <div class="archive-grid" id="past-speakers"></div>
   </div>
 
@@ -1307,11 +1335,11 @@
     <div class="sponsor-tiles">
       <a class="sponsor-tile" data-slug="jane-street" href="https://www.janestreet.com/" target="_blank" rel="noopener">
         <div class="logo-slot">Jane Street</div>
-        <p><span class="placeholder">What Jane Street's 2026 / 27 events cover — details to come</span></p>
+        <p><span class="placeholder">What Jane Street's 2026 / 27 events cover, details to come</span></p>
       </a>
       <a class="sponsor-tile" data-slug="de-shaw" href="https://www.deshaw.com/" target="_blank" rel="noopener">
         <div class="logo-slot">D. E. Shaw &amp; Co.</div>
-        <p><span class="placeholder">What D. E. Shaw's 2026 / 27 events cover — details to come</span></p>
+        <p><span class="placeholder">What D. E. Shaw's 2026 / 27 events cover, details to come</span></p>
       </a>
     </div>
   </div>
@@ -1763,7 +1791,7 @@ const VACANT = {
 </script>
 <script>
   // ============== DATA ==============
-  // Only firms whose logos are actually embedded — sorted for a clean scroll.
+  // Only firms whose logos we actually hold, sorted for a clean scroll.
   const placementsSell = [
     {n:"Goldman Sachs",s:"goldman-sachs"},{n:"Morgan Stanley",s:"morgan-stanley"},
     {n:"J.P. Morgan",s:"jpmorgan"},{n:"BofA Securities",s:"bofa-securities"},
@@ -2132,7 +2160,7 @@ const BUNDLED_LOGOS = {"bam":"data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4w
     });
   });
 
-  // Manual wheel scroll on hover — auto stops, mouse wheel drives the track,
+  // Manual wheel scroll on hover: auto stops, mouse wheel drives the track,
   // then the auto animation resumes from wherever it was left.
   document.querySelectorAll('.placement-scroll').forEach(scroll => {
     const track = scroll.querySelector('.placement-track');
@@ -2275,6 +2303,138 @@ const BUNDLED_LOGOS = {"bam":"data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4w
     const kind = bg.getAttribute('data-art');
     if (artFor[kind]) artFor[kind](bg);
   });
+
+
+  // ============== HERO: LIVE VOLATILITY SURFACE ==============
+  // sigma(k, tau) built from an ATM level, a smile in k squared, a negative
+  // skew, and term structure flattening into the back months. It is a real
+  // surface shape, not noise, and it drifts slowly rather than animating.
+  (function volSurface() {
+    const cv = document.getElementById('vol-surface');
+    if (!cv) return;
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const NK = 44, NT = 30;
+    let ctx, W, H, t = 0, raf = null, running = false;
+    let tiltX = 0, tiltY = 0, aimX = 0, aimY = 0;   // eased pointer parallax
+
+    function fit() {
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const r = cv.getBoundingClientRect();
+      if (!r.width || !r.height) return false;
+      W = r.width; H = r.height;
+      cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr);
+      ctx = cv.getContext('2d');
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      return true;
+    }
+
+    function sigma(k, tau) {
+      const atm   = 0.19 + 0.015 * Math.sin(t * 0.10);
+      const smile = 0.30 * k * k / (0.55 + tau);
+      const skew  = -0.13 * k / (0.42 + tau);
+      const term  = 0.030 * Math.sqrt(tau);
+      const drift = 0.010 * Math.sin(t * 0.22 + k * 2.4 + tau * 1.7);
+      return atm + smile + skew + term + drift;
+    }
+
+    function frame() {
+      if (!ctx) { raf = requestAnimationFrame(frame); return; }
+      t += 0.006;
+      tiltX += (aimX - tiltX) * 0.045;         // ease toward the pointer
+      tiltY += (aimY - tiltY) * 0.045;
+
+      ctx.clearRect(0, 0, W, H);
+
+      // These constants were solved so the mesh stays inside the canvas across
+      // a full rotation: at lift 2.9 the peak overflowed the top by ~490px and
+      // was sheared flat. Sampled every few seconds of rotation to confirm.
+      const rot   = t * 0.085 + tiltX * 0.5;
+      const cos   = Math.cos(rot), sin = Math.sin(rot);
+      const scale = Math.min(W / 4.4, H / 2.5);
+      const cx    = W / 2;
+      const cy    = H * (0.68 + tiltY * 0.03);
+      const lift  = 1.6 + tiltY * 0.18;
+
+      const pts = [];
+      let minD = Infinity, maxD = -Infinity;
+      for (let i = 0; i < NK; i++) {
+        pts[i] = [];
+        for (let j = 0; j < NT; j++) {
+          const k   = (i / (NK - 1)) * 2 - 1;
+          const tau = 0.08 + (j / (NT - 1)) * 1.5;
+          const kx  = k * 1.5;
+          const ty  = (j / (NT - 1)) * 2 - 1;
+          const x   = kx * cos - ty * sin;
+          const y   = kx * sin + ty * cos;
+          const p = {
+            x: cx + x * scale,
+            y: cy + y * scale * 0.30 - (sigma(k, tau) - 0.20) * scale * lift,
+            d: y
+          };
+          pts[i][j] = p;
+          if (y < minD) minD = y;
+          if (y > maxD) maxD = y;
+        }
+      }
+      const depth = d => 0.10 + ((d - minD) / (maxD - minD || 1)) * 0.90;
+
+      ctx.lineWidth = 1;
+      // strike-wise ribs, gold
+      for (let j = 0; j < NT; j++) {
+        ctx.beginPath();
+        for (let i = 0; i < NK; i++) {
+          const q = pts[i][j];
+          i ? ctx.lineTo(q.x, q.y) : ctx.moveTo(q.x, q.y);
+        }
+        ctx.strokeStyle = 'rgba(201,167,90,' + (depth(pts[0][j].d) * 0.30).toFixed(3) + ')';
+        ctx.stroke();
+      }
+      // expiry-wise ribs, cream and fainter, so the mesh reads as a weave
+      for (let i = 0; i < NK; i++) {
+        ctx.beginPath();
+        for (let j = 0; j < NT; j++) {
+          const q = pts[i][j];
+          j ? ctx.lineTo(q.x, q.y) : ctx.moveTo(q.x, q.y);
+        }
+        ctx.strokeStyle = 'rgba(234,223,199,' + (depth(pts[i][0].d) * 0.13).toFixed(3) + ')';
+        ctx.stroke();
+      }
+      // the at-the-money slice, drawn proud
+      const mid = Math.floor(NK / 2);
+      ctx.beginPath();
+      for (let j = 0; j < NT; j++) {
+        const q = pts[mid][j];
+        j ? ctx.lineTo(q.x, q.y) : ctx.moveTo(q.x, q.y);
+      }
+      ctx.strokeStyle = 'rgba(201,167,90,.42)';
+      ctx.lineWidth = 1.5;
+      ctx.stroke();
+
+      raf = requestAnimationFrame(frame);
+    }
+
+    function start() { if (!running) { running = true; raf = requestAnimationFrame(frame); } }
+    function stop()  { if (running) { running = false; cancelAnimationFrame(raf); } }
+
+    if (!fit()) window.addEventListener('load', fit, { once: true });
+    window.addEventListener('resize', () => { if (fit() && !running) frame(); });
+
+    // Pointer parallax: the surface leans toward the cursor across the hero.
+    const hero = cv.closest('.hero');
+    if (hero && !reduce) {
+      hero.addEventListener('pointermove', e => {
+        const r = hero.getBoundingClientRect();
+        aimX = ((e.clientX - r.left) / r.width) * 2 - 1;
+        aimY = ((e.clientY - r.top) / r.height) * 2 - 1;
+      });
+      hero.addEventListener('pointerleave', () => { aimX = 0; aimY = 0; });
+    }
+
+    if (reduce) { fit(); frame(); stop(); return; }   // one static frame
+    new IntersectionObserver(es => es[0].isIntersecting ? start() : stop(),
+      { threshold: 0 }).observe(cv);
+    document.addEventListener('visibilitychange', () => document.hidden ? stop() : start());
+  })();
 
   // ============== HASH ROUTING ==============
   const routes = {
