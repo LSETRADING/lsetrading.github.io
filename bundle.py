@@ -60,9 +60,33 @@ def main():
                         '      return;\n'
                         '    }\n')
 
+    # 4. banners are fetched at runtime by slug, same as logos
+    banners = {}
+    bdir = os.path.join(HERE, 'banners')
+    if os.path.isdir(bdir):
+        for name in sorted(os.listdir(bdir)):
+            f = os.path.join(bdir, name)
+            if os.path.isfile(f) and not name.startswith('.'):
+                banners[os.path.splitext(name)[0]] = data_uri(f)
+    btable = 'const BUNDLED_BANNERS = {' + ','.join(
+        f'"{k}":"{v}"' for k, v in sorted(banners.items())) + '};\n'
+    banchor = "  document.querySelectorAll('.archive-card[data-banner]').forEach(card => {\n"
+    assert html.count(banchor) == 1, 'banner loader not found'
+    html = html.replace(banchor, btable + banchor +
+        '    if (typeof BUNDLED_BANNERS !== "undefined" && BUNDLED_BANNERS[card.dataset.banner]) {\n'
+        '      const bi = new Image();\n'
+        '      bi.onload = () => {\n'
+        '        card.classList.add("has-banner");\n'
+        '        card.style.backgroundImage = `url("${bi.src}")`;\n'
+        '        const sl = card.querySelector(".banner-slot"); if (sl) sl.remove();\n'
+        '      };\n'
+        '      bi.src = BUNDLED_BANNERS[card.dataset.banner];\n'
+        '      return;\n'
+        '    }\n')
+
     open(OUT, 'w', encoding='utf-8').write(html)
     print(f'wrote {os.path.basename(OUT)}  ({len(html)/1024/1024:.1f} MB)')
-    print(f'  {len(photos)} photos, {len(logos)} logos, committee.js inlined')
+    print(f'  {len(photos)} photos, {len(logos)} logos, {len(banners)} banners, committee.js inlined')
     leftover = re.findall(r'(?:src|href)="(?!data:|https?:|#)([^"]+)"', html)
     print('  remaining external file references:', sorted(set(leftover)) or 'none')
 
