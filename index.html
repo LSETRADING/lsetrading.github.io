@@ -506,25 +506,66 @@
   .archive-sub { text-align: center; color: var(--ink-2); font-style: italic; font-family: 'Newsreader', Georgia, 'Times New Roman', serif; margin-bottom: 40px; }
 
   .archive-grid {
-    display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px;
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
   }
+  /* Banners are landscape, so the card is too. Until one is dropped in, the
+     card falls back to type on the house gradient. */
   .archive-card {
-    aspect-ratio: 4 / 5;
+    aspect-ratio: 4 / 3;
     background: linear-gradient(135deg, var(--bg-2), var(--bg-3));
+    background-size: cover; background-position: center;
     border: 1px solid var(--line-2);
-    padding: 18px; display: flex; flex-direction: column; justify-content: flex-end;
+    padding: 20px; display: flex; flex-direction: column; justify-content: flex-end;
     position: relative; overflow: hidden;
-    cursor: pointer; transition: transform 200ms, border-color 200ms;
+    transition: transform 320ms cubic-bezier(.16,.8,.24,1), border-color 320ms;
   }
-  .archive-card:hover { transform: translateY(-3px); border-color: var(--gold-dim); }
+  .archive-card:hover { transform: translateY(-4px); border-color: var(--gold-dim); }
+
+  /* A card that would sit alone in the final row runs the full width instead,
+     which reads as a closing feature rather than a stranded tile. Recomputes
+     itself as speakers are added, so it is not tied to today's count. */
+  .archive-card:last-child:nth-child(3n + 1) {
+    grid-column: 1 / -1; aspect-ratio: 24 / 7;
+    background-position: center 28%;
+  }
+  .archive-card:last-child:nth-child(3n + 1) .title { font-size: 26px; }
+  @media (max-width: 1024px) {
+    .archive-card:last-child:nth-child(3n + 1) { grid-column: auto; aspect-ratio: 4 / 3; }
+    .archive-card:last-child:nth-child(2n + 1) { grid-column: 1 / -1; aspect-ratio: 24 / 7; }
+  }
+
+  /* The banners are mostly black and white studio art. This sinks them into
+     the site's green rather than leaving bright rectangles on a dark page. */
+  .archive-card.has-banner::before {
+    content: ""; position: absolute; inset: 0; pointer-events: none;
+    background:
+      linear-gradient(180deg, rgba(15,30,21,.30) 0%, rgba(15,30,21,.62) 46%, rgba(15,30,21,.94) 100%),
+      linear-gradient(0deg, rgba(21,44,30,.34), rgba(21,44,30,.34));
+    transition: opacity 320ms;
+  }
+  .archive-card.has-banner:hover::before { opacity: .72; }
+
   .archive-card .banner-slot {
     position: absolute; inset: 0; display: grid; place-items: center;
-    color: var(--muted); font-family: 'Newsreader', Georgia, 'Times New Roman', serif;
+    color: var(--muted); font-family: 'Newsreader', Georgia, serif;
     font-style: italic; font-size: 12px; letter-spacing: 0.16em;
     text-transform: uppercase; opacity: 0.4;
   }
-  .archive-card .title { position: relative; font-family: 'Newsreader', Georgia, 'Times New Roman', serif; font-size: 15px; color: var(--ink); margin-bottom: 4px; line-height: 1.25; }
-  .archive-card .date { position: relative; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); }
+  .archive-card .title {
+    position: relative; z-index: 2;
+    font-family: 'Newsreader', Georgia, serif; font-variation-settings: 'opsz' 28;
+    font-size: 20px; font-weight: 500; color: var(--ink);
+    margin-bottom: 6px; line-height: 1.2; letter-spacing: -.01em;
+  }
+  .archive-card .who {
+    display: block; margin-top: 5px;
+    font-family: 'Inter', sans-serif; font-style: normal; font-weight: 300;
+    font-size: 12px; line-height: 1.45; color: var(--ink-2); letter-spacing: 0;
+  }
+  .archive-card .date {
+    position: relative; z-index: 2; font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold);
+  }
 
   /* Events sponsor block */
   .events-sponsors { padding: 80px 40px; max-width: 1200px; margin: 60px auto 0; border-top: 1px solid var(--line); text-align: center; }
@@ -874,7 +915,7 @@
   /* ============== RESPONSIVE ============== */
   @media (max-width: 1024px) {
     .persons { grid-template-columns: repeat(2, 1fr); }
-    .archive-grid { grid-template-columns: repeat(3, 1fr); }
+    .archive-grid { grid-template-columns: repeat(2, 1fr); }
     .placements { grid-template-columns: 1fr; }
     .placement-box { height: 380px; }
   }
@@ -889,7 +930,7 @@
     .persons, .div-heads-row { grid-template-columns: 1fr; padding: 0 20px; }
     .persons.co-heads, .div-heads-row.double { grid-template-columns: 1fr; }
     .div-heads-row.single { grid-template-columns: 1fr; }
-    .archive-grid { grid-template-columns: 1fr 1fr; }
+    .archive-grid { grid-template-columns: 1fr; }
     .events-columns { grid-template-columns: 1fr; padding: 0 20px; }
     .events-columns > div:first-child { border-right: none; border-bottom: 1px solid var(--line); padding-bottom: 40px; margin-bottom: 40px; }
     .sponsor-tiles { grid-template-columns: 1fr; }
@@ -1449,11 +1490,6 @@
         <p>£15 buy-in, £5 bounties, unlimited rebuys. Susquehanna merch to the winners.</p>
       </div>
       <div class="event-card">
-        <div class="when">Spring 2026</div>
-        <h4>LSE Alternative Investments Conference</h4>
-        <p>Society sponsored delegation with entry code LSETRG.</p>
-      </div>
-      <div class="event-card">
         <div class="when">2025 / 26</div>
         <h4>CME Group Trading Competition</h4>
         <p>Ten-day live trading simulation. Top 10 by P&amp;L took prizes.</p>
@@ -1935,26 +1971,47 @@
 
   // ============== RENDER: PAST SPEAKERS ==============
   const pastSpeakers = [
-    { name: "Jonathan Bayliss", firm: "Citadel · Senior PM", date: "2025 / 26" },
-    { name: "Dixit Joshi", firm: "Former CFO · Credit Suisse", date: "2025 / 26" },
-    { name: "Alan Vaksman", firm: "CEO · Launchbay Capital", date: "09.10.24" },
-    { name: "Bobby Previti", firm: "MD Head USA Covered Bonds · BofA", date: "03.10.24" },
-    { name: "Christopher Williams", firm: "Deutsche Bank · IB", date: "12.11.24" },
-    { name: "Salomon Sebbag", firm: "Former MD EM Trading", date: "26.11.24" },
-    { name: "Kent Bray", firm: "Former Trader · Citibank", date: "02.10.24" },
-    { name: "Sagar Sambrani", firm: "Executive Director FX · Nomura", date: "2024 / 25" },
-    { name: "Derome Robinson", firm: "Global Macro Strategy · Citi", date: "01.26" },
-    { name: "Alex Morgan", firm: "Macro Portfolio Manager", date: "01.04.25" },
-    { name: "Christian Stracke", firm: "President · PIMCO", date: "29.01" },
-    { name: "Jean-François Lambert", firm: "Lecturer · Sciences Po", date: "20.11.25" },
+    { slug:"dixit-joshi",        name:"Dixit Joshi",        firm:"Former Group CFO · Credit Suisse. Previously Deutsche Bank and Barclays", date:"2025 / 26" },
+    { slug:"christian-stracke",  name:"Christian Stracke",  firm:"President · PIMCO", date:"29.01" },
+    { slug:"jonathan-bayliss",   name:"Jonathan Bayliss",   firm:"Senior Portfolio Manager · Citadel", date:"2025 / 26" },
+    { slug:"christopher-williams",name:"Christopher Williams",firm:"Chair, EMEA Financial Institutions · Deutsche Bank", date:"12.11.24" },
+    { slug:"salomon-sebbag",     name:"Salomon Sebbag",     firm:"Former Managing Director, EM Trading · J.P. Morgan and Morgan Stanley", date:"26.11.24" },
+    { slug:"jf-lambert",         name:"Jean-François Lambert", firm:"Ex HSBC Managing Director, Global Head of Commodity and Structured Trade Finance", date:"20.11.25" },
+    { slug:"bobby-previti",      name:"Bobby Previti",      firm:"Managing Director, Head of SSA and Covered Bonds Trading · Bank of America", date:"03.10.24" },
+    { slug:"sagar-sambrani",     name:"Sagar Sambrani",     firm:"Executive Director, FX Options · Nomura. Ex Global Head of Asia FX Options, Barclays", date:"2024 / 25" },
+    { slug:"alex-morgan",        name:"Alex Morgan",        firm:"Macro Portfolio Manager · Eisler Capital. Ex Citi", date:"01.04.25" },
+    { slug:"derome-robinson",    name:"Derome Robinson",    firm:"Macro Analyst · IMC Trading. Ex Global Macro Strategy, Citi", date:"01.26" },
+    { slug:"sig-hrt",            name:"Matic McDonnell Kozuh & Robert Clark", firm:"ETF Quant Traders · Susquehanna and Hudson River Trading", date:"2025 / 26" },
+    { slug:"kent-bray",          name:"Kent Bray",          firm:"Former Trader · Citibank. Gary Stevenson's mentor", date:"02.10.24" },
+    { slug:"alan-vaksman",       name:"Alan Vaksman",       firm:"CEO · Launchbay Capital", date:"09.10.24" },
   ];
-  document.getElementById('past-speakers').innerHTML = pastSpeakers.map(s => `
-    <div class="archive-card">
-      <div class="banner-slot">Banner · pending</div>
-      <div class="title">${s.name}<br/><span style="color:var(--ink-2); font-size:12px; font-style:italic;">${s.firm}</span></div>
-      <div class="date">${s.date}</div>
+  document.getElementById('past-speakers').innerHTML = pastSpeakers.map(sp => `
+    <div class="archive-card" data-banner="${sp.slug}">
+      <div class="banner-slot">Banner pending</div>
+      <div class="title">${sp.name}<br/><span class="who">${sp.firm}</span></div>
+      <div class="date">${sp.date}</div>
     </div>
   `).join('');
+
+  // Banners live in banners/<slug>.<ext>. Drop a file in and it appears; until
+  // then the card keeps its typographic fallback.
+  document.querySelectorAll('.archive-card[data-banner]').forEach(card => {
+    const exts = ['jpg', 'jpeg', 'png', 'webp'];
+    let i = 0;
+    const attempt = () => {
+      if (i >= exts.length) return;
+      const img = new Image();
+      img.onload = () => {
+        card.classList.add('has-banner');
+        card.style.backgroundImage = `url("${img.src}")`;
+        const slot = card.querySelector('.banner-slot');
+        if (slot) slot.remove();
+      };
+      img.onerror = () => { i++; attempt(); };
+      img.src = `banners/${card.dataset.banner}.${exts[i]}`;
+    };
+    attempt();
+  });
 
   // ============== RENDER: DIVISION BACKGROUND ART ==============
   const artFor = {
