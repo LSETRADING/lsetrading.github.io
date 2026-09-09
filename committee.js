@@ -72,7 +72,7 @@ const COMMITTEE = [
     roles: ['Treasurer'],
     group: 'exec',
     divisions: [],
-    course: '',                 // not supplied
+    course: 'BSc International Social & Public Policy and Economics',
     year: '',
     photo: 'photos/constance-zhang.jpg',
     linkedin: 'https://www.linkedin.com/in/constance-yili-zhang/',
@@ -224,7 +224,7 @@ const COMMITTEE = [
     roles: ['Head of FICC Trading'],
     group: 'divisions',
     divisions: ['atp-ficc'],    // CHECK with Ben: is this the ATP FICC seat?
-    course: '',                 // not supplied yet
+    course: 'BSc Accounting & Finance',
     year: '',
     photo: 'photos/filip-surbek.jpg',
     linkedin: 'https://www.linkedin.com/in/filip-surbek-47585b313/',
@@ -268,7 +268,7 @@ const COMMITTEE = [
     roles: ['Head of Commodities'],
     group: 'divisions',
     divisions: ['commodities'],
-    course: '',                 // not supplied
+    course: 'BSc Politics & Philosophy',
     year: '',
     photo: 'photos/ali-karimov.jpg',
     linkedin: 'https://www.linkedin.com/in/ali-karimov-88496123b/',
@@ -338,7 +338,7 @@ const COMMITTEE = [
     roles: ['Head of Digital Strategy'],
     group: 'ops',
     divisions: [],
-    course: '',                 // not supplied yet
+    course: 'BSc Philosophy & Economics',
     year: '',
     photo: 'photos/smile-gu.jpg',
     linkedin: 'https://www.linkedin.com/in/smile-gu-114018331/',
