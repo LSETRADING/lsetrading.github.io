@@ -168,14 +168,6 @@
     z-index: 1; display: block; pointer-events: none;
   }
 
-  /* Two members talking, tucked into the bottom left of the hero. */
-  .two-talking {
-    position: absolute; left: 3%; bottom: 0;
-    width: clamp(170px, 17vw, 250px); height: auto;
-    z-index: 2; opacity: 0.30; pointer-events: none;
-  }
-  @media (max-width: 900px) { .two-talking { display: none; } }
-
   /* Equations cycling in and out */
   .equations { position: absolute; inset: 0; z-index: 2; pointer-events: none; }
   .eq {
@@ -188,7 +180,7 @@
   .eq.e2 { top: 16%; right: 5%; font-size: 12px; animation-delay: -4s; color: var(--ink-2); }
   .eq.e3 { top: 46%; left: 3%; font-size: 12px; animation-delay: -8s; }
   .eq.e4 { top: 50%; right: 4%; font-size: 13px; animation-delay: -12s; color: var(--ink-2); }
-  .eq.e5 { bottom: 12%; left: 30%; font-size: 12px; animation-delay: -16s; }
+  .eq.e5 { bottom: 12%; left: 6%; font-size: 12px; animation-delay: -16s; }
   .eq.e6 { bottom: 15%; right: 6%; font-size: 13px; animation-delay: -20s; color: var(--ink-2); }
   .eq.e7 { top: 30%; left: 42%; font-size: 12px; animation-delay: -6s; }
   .eq.e8 { bottom: 34%; right: 40%; font-size: 12px; animation-delay: -14s; color: var(--ink-2); }
@@ -512,9 +504,9 @@
   }
   .way.selective .tier { color: var(--gold); }
   .way h3 {
-    font-family: 'Newsreader', Georgia, serif; font-variation-settings: 'opsz' 40;
-    font-size: 30px; font-weight: 500; color: var(--ink); margin-bottom: 10px;
-    letter-spacing: -.015em;
+    font-family: 'Newsreader', Georgia, serif; font-variation-settings: 'opsz' 48;
+    font-size: 38px; font-weight: 500; color: var(--ink); margin-bottom: 10px;
+    letter-spacing: -.02em; line-height: 1.05;
   }
   .way h3 em { font-style: italic; color: var(--gold); }
   .way .when {
@@ -537,6 +529,17 @@
     letter-spacing: .2em; text-transform: uppercase; transition: background 220ms, color 220ms;
   }
   .way .way-cta:hover { background: var(--gold); color: var(--bg); }
+
+  .live-book {
+    border-left: 2px solid var(--gold);
+    background: rgba(201,167,90,.055);
+    padding: 16px 20px 18px; margin: 4px 0 24px;
+  }
+  .live-book .lb-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .24em;
+    text-transform: uppercase; color: var(--gold); margin-bottom: 9px;
+  }
+  .live-book p { color: var(--ink); font-size: 14px; line-height: 1.7; margin: 0; }
 
   .desk-pick {
     font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .2em;
@@ -957,62 +960,6 @@
       <canvas class="vol-surface" id="vol-surface" aria-hidden="true"></canvas>
 
 
-      <!-- Two members mid conversation, in the society quarter zip. A small
-           human detail against the abstract surface; sits behind everything. -->
-      <svg class="two-talking" viewBox="0 0 300 430" aria-hidden="true">
-        <g class="fig">
-          <!-- left figure, facing right -->
-          <polygon fill="#6E4E35" points="56,30 64,17 86,16 96,31 93,45 88,30 66,29 60,47"/>
-          <polygon fill="#C29C7B" points="62,29 86,27 92,44 86,60 70,65 59,50"/>
-          <polygon fill="#B08A69" points="86,27 92,44 86,60 82,44"/>
-          <polygon fill="#C29C7B" points="71,62 84,60 85,74 72,76"/>
-          <polygon fill="#1B1E21" points="55,74 97,69 106,122 101,172 57,176 48,122"/>
-          <polygon fill="#25292D" points="55,74 76,72 74,176 57,176 48,122"/>
-          <polygon fill="#2E3338" points="67,70 90,66 93,79 69,84"/>
-          <line x1="77" y1="72" x2="76" y2="126" stroke="#3A4046" stroke-width="1.4"/>
-          <polygon fill="#1B1E21" points="97,84 121,97 133,106 128,115 111,107 95,99"/>
-          <polygon fill="#C29C7B" points="129,103 141,101 145,109 136,116 127,113"/>
-          <polygon fill="#25292D" points="55,86 45,122 43,153 52,155 59,124 63,93"/>
-          <polygon fill="#33383D" points="58,172 79,170 77,248 62,250"/>
-          <polygon fill="#3B4147" points="82,170 101,172 97,250 83,249"/>
-          <polygon fill="#141618" points="57,246 79,244 82,258 53,260"/>
-          <polygon fill="#141618" points="83,246 98,246 103,259 81,258"/>
-          <text x="62" y="103" font-family="Newsreader, Georgia, serif" font-size="9"
-                fill="#C9A75A" opacity=".92">President</text>
-          <g fill="#C9A75A" opacity=".8">
-            <rect x="62" y="112" width="2" height="9"/>
-            <rect x="66" y="108" width="2" height="13"/>
-            <rect x="70" y="114" width="2" height="7"/>
-          </g>
-        </g>
-
-        <g class="fig">
-          <!-- right figure, facing left -->
-          <polygon fill="#B8863F" points="196,32 204,17 228,16 240,33 238,52 231,33 206,32 199,52"/>
-          <polygon fill="#C9A382" points="204,30 228,29 233,46 226,62 210,66 200,50"/>
-          <polygon fill="#B48D6D" points="204,30 210,66 200,50"/>
-          <polygon fill="#C9A382" points="211,63 224,62 225,76 212,77"/>
-          <polygon fill="#1B1E21" points="199,76 240,71 248,120 244,168 202,172 192,120"/>
-          <polygon fill="#25292D" points="199,76 219,74 217,172 202,172 192,120"/>
-          <polygon fill="#2E3338" points="211,72 234,68 237,81 213,86"/>
-          <line x1="221" y1="74" x2="220" y2="124" stroke="#3A4046" stroke-width="1.4"/>
-          <polygon fill="#1B1E21" points="199,88 176,100 164,109 169,118 186,110 201,101"/>
-          <polygon fill="#C9A382" points="168,106 156,105 152,113 161,120 170,116"/>
-          <polygon fill="#1B1E21" points="242,88 256,112 250,140 242,138 244,114 238,96"/>
-          <polygon fill="#33383D" points="201,168 245,165 240,206 205,208"/>
-          <polygon fill="#C9A382" points="209,206 222,205 219,252 208,252"/>
-          <polygon fill="#C9A382" points="226,205 238,205 234,252 223,252"/>
-          <polygon fill="#141618" points="205,249 221,248 223,261 202,261"/>
-          <polygon fill="#141618" points="223,249 236,249 239,261 220,261"/>
-          <text x="200" y="105" font-family="Newsreader, Georgia, serif" font-size="8"
-                fill="#C9A75A" opacity=".92">Head of Derivatives</text>
-          <g fill="#C9A75A" opacity=".8">
-            <rect x="200" y="114" width="2" height="9"/>
-            <rect x="204" y="110" width="2" height="13"/>
-            <rect x="208" y="116" width="2" height="7"/>
-          </g>
-        </g>
-      </svg>
 
       <!-- Black-Scholes and other equations cycling -->
       <div class="equations">
@@ -1090,34 +1037,39 @@
 
   <!-- Membership tiers -->
   <section class="block">
-    <div class="section-label">Getting involved</div>
-    <h2>Two ways <em>in</em></h2>
+    <div class="section-label">Membership &middot; 2026 / 27</div>
+    <h2>Getting <em>involved</em></h2>
     <div class="ways">
 
       <div class="way">
         <div class="tier">Open to everyone</div>
         <h3>Member</h3>
         <div class="when">Sign up any time</div>
-        <p>Join on the LSESU website for &pound;5 and you are a member for the year. No application, no interview, no prior finance background needed.</p>
+        <p>Join on the LSESU website for &pound;5 and you are a member for the year. No application, no interview, and no prior finance background needed.</p>
         <ul>
-          <li>Weekly workshops and classes, from first principles upward</li>
-          <li>Speaker events with practitioners from the buy side and sell side</li>
-          <li>Trading simulations, competitions and socials</li>
+          <li>Speaker events with practitioners, running all year</li>
+          <li>Networking events with the firms that recruit here</li>
+          <li>Real trading simulations</li>
+          <li>Socials across the year</li>
         </ul>
         <a class="way-cta" href="https://www.lsesu.com/communities/societies/group/trading/" target="_blank" rel="noopener">Join for &pound;5</a>
       </div>
 
       <div class="way selective">
-        <div class="tier">By application &middot; selective</div>
+        <div class="tier">By application &middot; selective &middot; October</div>
         <h3>The <em>Subcommittee</em></h3>
         <div class="when">Applications open October 2026</div>
-        <p>The subcommittee is the society's training programme proper. You apply to one division, and if you are selected you spend the year as an analyst on that desk, working under its head. Places are limited and the process is competitive.</p>
+        <p>This is the society's training programme, and it is the reason most people are here. You apply to one division, and if you are taken you spend the year as an analyst on that desk, working directly under its head. A full year of structured teaching, real research, and a book with your trades in it.</p>
         <ul>
-          <li>Everything membership includes</li>
-          <li>A division of your own, and a head who mentors you through the year</li>
+          <li>Weekly classes led by your division head</li>
+          <li>Customised interactive workshops</li>
+          <li>Extensive spring week and internship preparation, including mock interviews</li>
           <li>Research and pitches published under the society's name</li>
-          <li>Spring week and internship preparation, including mock interviews</li>
         </ul>
+        <div class="live-book">
+          <div class="lb-label">The live book</div>
+          <p>Every division runs its own portfolio. Your strongest ideas each week are taken into it, so your research carries a real position and a real result. The divisions then compete against each other on performance, and the society enters external competitions on top of that. We go to win them.</p>
+        </div>
         <div class="desk-pick">Choose your division</div>
         <div class="desk-chips">
           <a href="#/division/equities">Equities</a>
@@ -1181,7 +1133,7 @@
   <section class="division-hero">
     <div class="division-hero-bg" data-art="equities"></div>
     <h1><em>Equities</em></h1>
-    <p class="division-paragraph"><span class="placeholder">Full paragraph for Equities, coming from you. Match the length and voice of the Derivatives paragraph.</span></p>
+    <p class="division-paragraph">Our Equities division trains analysts to dissect a company's fundamentals and confidently argue an investment thesis in front of others. Working alongside the Head of Equities, you build the foundation in Autumn Term: fundamental and technical analysis, valuation through DCF and peer comparables, and a working understanding of how different markets behave. Winter Term is where you apply it. Analysts construct full stock pitches, defend them under scrutiny, and test their calls through chart simulations. The strongest pitches enter the society's discretionary simulated equities book, so your research carries a real position and a real result behind it.</p>
     <div class="div-heads-row single" data-div="equities"></div>
   </section>
   <div class="members-panel">
@@ -1199,7 +1151,7 @@
   <section class="division-hero">
     <div class="division-hero-bg" data-art="macro"></div>
     <h1><em>Macro</em></h1>
-    <p class="division-paragraph"><span class="placeholder">Full paragraph for Macro, coming from you.</span></p>
+    <p class="division-paragraph">Our Macro division gives analysts experience in analysing global macroeconomic trading strategies. You will learn how currencies, government bonds and interest rates move in response to inflation, growth and global events, through weekly one hour classes delivered by the division heads. We cover the function of a macro desk, the uses of FX markets and the role of central banks, before building towards debating your own macro views and expressing them as trade ideas in the subcommittee trading book. No prior knowledge is required. We are looking for students with a real interest which they can demonstrate.</p>
     <div class="div-heads-row double" data-div="macro"></div>
   </section>
   <div class="members-panel">
@@ -1237,7 +1189,7 @@
   <section class="division-hero">
     <div class="division-hero-bg" data-art="commodities"></div>
     <h1><em>Commodities</em></h1>
-    <p class="division-paragraph"><span class="placeholder">Full paragraph for Commodities, coming from you.</span></p>
+    <p class="division-paragraph">Commodities are the physical goods the world runs on: oil, gas, metals and crops. This subcommittee is about how they get priced and traded. Across the term we look at why prices move, how supply and demand get tracked, and how traders build a view on a market and act on it, including the contracts used to trade commodities across energy, metals and agriculture. We also run events with people working in the industry. <strong>More to come soon.</strong></p>
     <div class="div-heads-row single" data-div="commodities"></div>
   </section>
   <div class="members-panel">
@@ -1255,7 +1207,7 @@
   <section class="division-hero">
     <div class="division-hero-bg" data-art="em"></div>
     <h1>Emerging <em>Markets</em></h1>
-    <p class="division-paragraph"><span class="placeholder">Full paragraph for Emerging Markets, coming from you.</span></p>
+    <p class="division-paragraph">Our Emerging Markets division gives analysts the chance to broaden the geographic reach of their commercial awareness and build a solid technical foundation. You will cover BRICS economies, Southeast Asia, Latin America, Central and Eastern Europe, the Middle East and Africa, following the developments that move these markets on a weekly basis. The focus of this subcommittee is practical. You will develop expertise in currency positioning, sovereign credit analysis and equity research in developing economies, alongside an understanding of the local dynamics. Expect weekly homework and open discussions. The term closes with an internal pitch, where you work in groups of two or three over a week to build a trade idea and present it to the subcommittee. Analysts leave with a strong read of emerging markets and a pitch that is ready for interview.</p>
     <div class="div-heads-row single" data-div="em"></div>
   </section>
   <div class="members-panel">
@@ -1273,7 +1225,7 @@
   <section class="division-hero">
     <div class="division-hero-bg" data-art="credit"></div>
     <h1><em>Credit</em></h1>
-    <p class="division-paragraph"><span class="placeholder">Full paragraph for Credit, coming from you.</span></p>
+    <p class="division-paragraph">Our Credit division offers analysts a direct route into the full capital structure, spanning investment grade bonds, high yield, leveraged loans and fast growing private credit. You work closely with our Head of Credit to build, present and defend sophisticated relative value trades, pitching long and short ideas on real issuers and pricing risk the way an institutional desk would. The strongest ideas each week are taken into a live credit book that competes directly against the other divisions.</p>
     <div class="div-heads-row single" data-div="credit"></div>
   </section>
   <div class="members-panel">
@@ -1291,7 +1243,7 @@
   <section class="division-hero">
     <div class="division-hero-bg" data-art="atp-equities"></div>
     <h1>Advanced Trader · <em>Equities</em></h1>
-    <p class="division-paragraph"><span class="placeholder">Full paragraph for ATP Equities, coming from you.</span></p>
+    <p class="division-paragraph">The Advanced Traders Programme (Equities) is for second year, third year and master's students looking to apply their skills in equity and equity derivatives research and execution. Members undertake weekly research, modelling and thesis formulation, which is then presented to the cohort. We trade a portfolio of our highest conviction ideas, publish our best research as it lands, and release a monthly State of the Market article alongside our FICC counterparts on the most pressing trends in the market as a whole. We aim to compete, and win, in as many competitions as possible, bringing high quality differentiated analysis whenever we represent the Trading Society.</p>
     <div class="div-heads-row single" data-div="atp-equities"></div>
   </section>
   <div class="members-panel">
@@ -1309,7 +1261,7 @@
   <section class="division-hero">
     <div class="division-hero-bg" data-art="atp-ficc"></div>
     <h1>Advanced Trader · <em>FICC</em></h1>
-    <p class="division-paragraph"><span class="placeholder">Full paragraph for ATP FICC, coming from you.</span></p>
+    <p class="division-paragraph">The FICC Advanced Traders Programme builds a research driven approach while giving comprehensive exposure to Fixed Income, Currencies and Commodities across emerging and developed markets. Analysts develop expertise in global macro, learning the interconnected nature of these products alongside extensive training in the pricing and use of practical financial derivatives. Analysts regularly develop and present trading ideas, contribute to analytical discussions, and follow current events and their effects on markets. Working alongside the Equities programme, analysts contribute to a broader understanding of markets through shared research and the monthly State of the Market publication, bringing together perspectives across asset classes. The programme develops independent thinkers who can form their own market views, articulate their rationale, and turn them into actionable trades.</p>
     <div class="div-heads-row single" data-div="atp-ficc"></div>
   </section>
   <div class="members-panel">
