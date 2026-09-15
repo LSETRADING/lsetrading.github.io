@@ -477,11 +477,15 @@
   .art-token[data-side="r"] { right: 0; text-align: right; }
   .art-svg[data-side="l"] { left: 0; }
   .art-svg[data-side="r"] { right: 0; }
-  @media (max-width: 1080px) { .art-token, .art-svg { display: none; } }
+  @media (max-width: 1080px) { .art-token, .art-svg, .art-live { display: none; } }
   .art-token.small { font-size: 12px; opacity: 0.16; }
   .art-token.medium { font-size: 16px; opacity: 0.18; }
   .art-token.large { font-size: 22px; opacity: 0.14; }
   .art-svg { position: absolute; opacity: 0.14; }
+  /* live gutter engines: one canvas each, sized inline by the renderer */
+  .art-live { position: absolute; opacity: 0.46; pointer-events: none; }
+  .art-live[data-side="l"] { left: 0; }
+  .art-live[data-side="r"] { right: 0; }
 
   /* ============== EVENTS PAGE ============== */
   .events-hero { padding: 100px 40px 60px; text-align: center; max-width: 900px; margin: 0 auto; }
@@ -912,6 +916,83 @@
     .committee .about-panel p { opacity: 1; transform: none; }
   }
 
+  /* ============== MAKE ME A MARKET ============== */
+  .mm { border-top: 1px solid var(--line); padding: 78px 40px 10px; max-width: 1200px; margin: 60px auto 0; }
+  .mm-wrap { max-width: 620px; margin: 0 auto; }
+  .mm-eyebrow { font-size: 11px; letter-spacing: 0.32em; text-transform: uppercase; color: var(--gold); text-align: center; margin-bottom: 18px; }
+  .mm h2 {
+    font-family: 'Newsreader', Georgia, 'Times New Roman', serif;
+    font-variation-settings: 'opsz' 40;
+    font-size: clamp(32px, 4vw, 42px); font-weight: 500; color: var(--ink);
+    text-align: center; letter-spacing: -0.015em; margin-bottom: 16px;
+  }
+  .mm h2 em { font-style: italic; color: var(--gold); }
+  .mm-lede {
+    font-family: 'Newsreader', Georgia, 'Times New Roman', serif;
+    font-variation-settings: 'opsz' 18;
+    font-size: 17px; line-height: 1.66; color: var(--ink-2);
+    text-align: center; margin: 0 auto 36px; max-width: 34em;
+  }
+  .mm-card { border: 1px solid var(--line-2); background: var(--bg-2); padding: 34px 34px 30px; }
+  .mm-q {
+    font-family: 'Newsreader', Georgia, 'Times New Roman', serif;
+    font-variation-settings: 'opsz' 28;
+    font-size: 25px; line-height: 1.4; color: var(--ink);
+    text-align: center; margin-bottom: 4px; min-height: 2.8em;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .mm-unit { font-size: 12px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted); text-align: center; margin-bottom: 26px; }
+
+  .mm-form { display: flex; align-items: flex-end; justify-content: center; gap: 12px; flex-wrap: wrap; }
+  .mm-field { display: flex; flex-direction: column; gap: 7px; }
+  .mm-field span { font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--muted); }
+  .mm-field input {
+    width: 120px; padding: 11px 12px; background: var(--bg); color: var(--ink);
+    border: 1px solid var(--line-2); border-radius: 2px;
+    font-family: 'JetBrains Mono', monospace; font-size: 19px; text-align: center;
+    -moz-appearance: textfield; transition: border-color 160ms, box-shadow 160ms;
+  }
+  .mm-field input::-webkit-outer-spin-button,
+  .mm-field input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+  .mm-field input:focus-visible { outline: none; border-color: var(--gold); box-shadow: 0 0 0 2px rgba(201,167,90,.18); }
+  .mm-at { font-family: 'Newsreader', Georgia, serif; font-style: italic; color: var(--muted); padding-bottom: 13px; }
+  .mm-go, .mm-next {
+    font-family: 'Inter', sans-serif; font-size: 11px; letter-spacing: 0.20em; text-transform: uppercase;
+    padding: 13px 22px; border: 1px solid var(--gold); border-radius: 2px;
+    background: transparent; color: var(--gold); cursor: pointer;
+    transition: background 180ms, color 180ms;
+  }
+  .mm-go:hover, .mm-next:hover { background: var(--gold); color: var(--bg); }
+  .mm-go:disabled { border-color: var(--line-2); color: var(--muted); cursor: default; }
+  .mm-go:disabled:hover { background: transparent; color: var(--muted); }
+  .mm-go:focus-visible, .mm-next:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+
+  .mm-hint { min-height: 20px; text-align: center; margin-top: 14px; font-size: 13px; color: var(--gold-dim); }
+  .mm-out { display: none; margin-top: 24px; border-top: 1px solid var(--line); padding-top: 22px; }
+  .mm-out.show { display: block; animation: fadeIn 380ms ease-out; }
+  .mm-line { display: block; width: 100%; height: 88px; }
+  .mm-verdict {
+    font-family: 'Newsreader', Georgia, 'Times New Roman', serif;
+    font-variation-settings: 'opsz' 26; font-size: 23px; color: var(--ink);
+    text-align: center; margin: 14px 0 8px;
+  }
+  .mm-verdict em { font-style: italic; color: var(--gold); }
+  .mm-verdict.bad em { color: var(--ink-2); }
+  .mm-detail { text-align: center; font-size: 14px; line-height: 1.7; color: var(--ink-2); max-width: 34em; margin: 0 auto 22px; }
+  .mm-detail b { color: var(--ink); font-weight: 500; font-family: 'JetBrains Mono', monospace; font-size: 13px; }
+  .mm-out .mm-next { display: block; margin: 0 auto; }
+  .mm-tally {
+    margin-top: 24px; padding-top: 16px; border-top: 1px solid var(--line);
+    display: flex; justify-content: center; gap: 30px; flex-wrap: wrap;
+    font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--muted);
+    letter-spacing: 0.06em;
+  }
+  .mm-tally b { color: var(--ink-2); font-weight: 400; }
+  @media (max-width: 560px) {
+    .mm { padding: 60px 22px 10px; }
+    .mm-card { padding: 26px 20px 24px; }
+    .mm-field input { width: 104px; }
+  }
   /* ============== RESPONSIVE ============== */
   @media (max-width: 1024px) {
     .persons { grid-template-columns: repeat(2, 1fr); }
@@ -1402,6 +1483,42 @@
     <p class="eligibility"><strong>Eligibility</strong> The Advanced Traders Programme is not open to first year students. Applications are for second year, third year and master's students only.</p>
     <div class="div-heads-row single" data-div="atp-equities"></div>
   </section>
+
+  <section class="mm" aria-labelledby="mm-h">
+    <div class="mm-wrap">
+      <div class="mm-eyebrow">The interview question</div>
+      <h2 id="mm-h">Make me a <em>market</em></h2>
+      <p class="mm-lede">Quote two sided and the trader opposite takes whichever side you have wrong. Too wide and nobody deals with you. Too tight and you get picked off. Finding the width is the job, and it is the question you will be asked.</p>
+
+      <div class="mm-card">
+        <div class="mm-q" id="mm-q">Loading</div>
+        <div class="mm-unit" id="mm-unit"></div>
+        <form class="mm-form" id="mm-form" novalidate>
+          <label class="mm-field">
+            <span>Your bid</span>
+            <input id="mm-bid" type="number" inputmode="decimal" step="any" autocomplete="off" placeholder="0">
+          </label>
+          <div class="mm-at">at</div>
+          <label class="mm-field">
+            <span>Your offer</span>
+            <input id="mm-ask" type="number" inputmode="decimal" step="any" autocomplete="off" placeholder="0">
+          </label>
+          <button class="mm-go" type="submit">Show market</button>
+        </form>
+        <div class="mm-hint" id="mm-hint" role="status"></div>
+
+        <div class="mm-out" id="mm-out">
+          <canvas class="mm-line" id="mm-line" aria-hidden="true"></canvas>
+          <div class="mm-verdict" id="mm-verdict"></div>
+          <div class="mm-detail" id="mm-detail"></div>
+          <button class="mm-next" id="mm-next" type="button">Next market</button>
+        </div>
+
+        <div class="mm-tally" id="mm-tally"></div>
+      </div>
+    </div>
+  </section>
+
   <div class="members-panel">
     <h3>Current Members</h3>
     <div class="sub">Recruitment cycle</div>
@@ -2446,29 +2563,391 @@ const BUNDLED_BANNERS = {"alan-vaksman":"data:image/jpeg;base64,/9j/4AAQSkZJRgAB
     attempt();
   });
 
+  // ============== DIVISION GUTTER ENGINES ==============
+  // Every division page carries one or two live canvases in the gutters either
+  // side of the paragraph, never behind it: you should be able to read without
+  // anything moving under the text. Each engine is a small honest model of
+  // what that desk actually looks at, not decorative noise.
+  //
+  // One requestAnimationFrame drives all of them. A page that is not routed to
+  // is display:none, so its canvases report zero width and are skipped, which
+  // means only the division you are looking at costs anything.
+
+  const GOLD = '201,167,90';     // --gold
+  const INK2 = '184,172,145';    // --ink-2
+  const LINE = '46,61,51';       // --line-2
+  const MONO = "10px 'JetBrains Mono', monospace";
+
+  const ENGINES = {};
+
+  // markup helper: a gutter canvas bound to one engine
+  function live(engine, side, pos, w, h) {
+    return '<canvas class="art-live" aria-hidden="true" data-engine="' + engine +
+           '" data-side="' + side + '" style="' + pos +
+           ' width:' + w + 'px; height:' + h + 'px;"></canvas>';
+  }
+
+  // a smooth pseudo random walk: three incommensurate sines, so it never loops
+  function wob(t, a, b, c) {
+    return Math.sin(t * a) * 0.5 + Math.sin(t * b + 1.7) * 0.32 + Math.sin(t * c + 4.1) * 0.18;
+  }
+
+  // ---- candles: OHLC bars, the newest one still forming ----------------
+  ENGINES.candles = () => {
+    const N = 20;
+    let px = 100, bars = [], tick = 0, age = 0;
+    const open = () => ({ o: px, h: px, l: px, c: px });
+    for (let i = 0; i < N; i++) {
+      const b = open();
+      px += (Math.random() - 0.47) * 2.4;
+      b.c = px;
+      b.h = Math.max(b.o, b.c) + Math.random() * 1.1;
+      b.l = Math.min(b.o, b.c) - Math.random() * 1.1;
+      bars.push(b);
+    }
+    return (g, W, H, dt) => {
+      tick += dt; age += dt;
+      if (tick > 0.13) {
+        tick = 0;
+        px += (Math.random() - 0.5) * 1.15 + (100 - px) * 0.010;
+        const b = bars[bars.length - 1];
+        b.c = px; b.h = Math.max(b.h, px); b.l = Math.min(b.l, px);
+      }
+      if (age > 2.4) { age = 0; bars.push(open()); if (bars.length > N) bars.shift(); }
+
+      let lo = Infinity, hi = -Infinity;
+      for (const b of bars) { if (b.l < lo) lo = b.l; if (b.h > hi) hi = b.h; }
+      const pad = (hi - lo) * 0.14 || 1;
+      lo -= pad; hi += pad;
+      const y = v => H - (v - lo) / (hi - lo) * H;
+      const step = W / bars.length, bw = Math.max(3, step * 0.52);
+
+      bars.forEach((b, i) => {
+        const cx = i * step + step / 2;
+        const up = b.c >= b.o;
+        const near = i >= bars.length - 1 ? 0.92 : 0.30 + 0.34 * (i / bars.length);
+        const col = up ? GOLD : INK2;
+        g.strokeStyle = 'rgba(' + col + ',' + (near * 0.7) + ')';
+        g.lineWidth = 1;
+        g.beginPath(); g.moveTo(cx, y(b.h)); g.lineTo(cx, y(b.l)); g.stroke();
+        const top = y(Math.max(b.o, b.c)), bot = y(Math.min(b.o, b.c));
+        if (up) {
+          g.fillStyle = 'rgba(' + col + ',' + (near * 0.62) + ')';
+          g.fillRect(cx - bw / 2, top, bw, Math.max(1, bot - top));
+        } else {
+          g.strokeStyle = 'rgba(' + col + ',' + near + ')';
+          g.strokeRect(cx - bw / 2 + 0.5, top + 0.5, bw - 1, Math.max(1, bot - top - 1));
+        }
+      });
+
+      // last traded price, dashed across the frame
+      g.setLineDash([2, 4]);
+      g.strokeStyle = 'rgba(' + GOLD + ',0.45)';
+      g.beginPath(); g.moveTo(0, y(px)); g.lineTo(W, y(px)); g.stroke();
+      g.setLineDash([]);
+    };
+  };
+
+  // ---- curve: Nelson Siegel, the model a rates desk actually fits -------
+  // y(t) = b0 + b1 (1-e^-t/l)/(t/l) + b2 [ (1-e^-t/l)/(t/l) - e^-t/l ]
+  // b0 is the level, b1 the slope, b2 the hump. Drift all three and the curve
+  // steepens, flattens and inverts the way a real one does.
+  function ns(tau, b0, b1, b2, lam) {
+    const x = tau / lam, e = Math.exp(-x), f = x < 1e-6 ? 1 : (1 - e) / x;
+    return b0 + b1 * f + b2 * (f - e);
+  }
+  function drawCurve(g, W, H, t, seed, alpha, dots) {
+    const TEN = [0.25, 0.5, 1, 2, 3, 5, 7, 10, 20, 30];
+    const b0 =  4.0 + 0.40 * wob(t * 0.07 + seed, 1, 0.41, 0.23);
+    const b1 = -1.2 + 0.90 * wob(t * 0.05 + seed * 2, 0.8, 0.37, 0.19);
+    const b2 =  1.0 + 1.10 * wob(t * 0.09 + seed * 3, 0.6, 0.29, 0.17);
+    const xs = tau => Math.log(tau / 0.25) / Math.log(120) * W;
+    const ys = v => H - (v - 1.3) / 3.9 * H;
+    g.beginPath();
+    for (let i = 0; i <= 90; i++) {
+      const tau = 0.25 * Math.pow(120, i / 90);
+      const X = xs(tau), Y = Math.max(2, Math.min(H - 2, ys(ns(tau, b0, b1, b2, 2.6))));
+      i ? g.lineTo(X, Y) : g.moveTo(X, Y);
+    }
+    g.strokeStyle = 'rgba(' + GOLD + ',' + alpha + ')';
+    g.lineWidth = 1.4;
+    g.stroke();
+    if (!dots) return;
+    for (const tau of TEN) {
+      const X = xs(tau), Y = Math.max(2, Math.min(H - 2, ys(ns(tau, b0, b1, b2, 2.6))));
+      g.fillStyle = 'rgba(' + GOLD + ',' + (alpha * 0.9) + ')';
+      g.beginPath(); g.arc(X, Y, 1.7, 0, 6.2832); g.fill();
+    }
+  }
+  ENGINES.curve = () => {
+    let t = Math.random() * 300;
+    return (g, W, H, dt) => {
+      t += dt;
+      g.strokeStyle = 'rgba(' + LINE + ',0.9)';
+      g.lineWidth = 1;
+      g.beginPath(); g.moveTo(0, H - 1); g.lineTo(W, H - 1); g.stroke();
+      drawCurve(g, W, H - 6, t - 22, 0, 0.22, false);   // where it closed
+      drawCurve(g, W, H - 6, t, 0, 0.85, true);         // where it is
+    };
+  };
+  // three funding curves laid over one another: SOFR, SONIA, ESTR
+  ENGINES.complex = () => {
+    let t = Math.random() * 300;
+    return (g, W, H, dt) => {
+      t += dt;
+      g.strokeStyle = 'rgba(' + LINE + ',0.9)';
+      g.lineWidth = 1;
+      g.beginPath(); g.moveTo(0, H - 1); g.lineTo(W, H - 1); g.stroke();
+      drawCurve(g, W, H - 6, t, 0.0, 0.80, true);
+      drawCurve(g, W, H - 6, t, 1.3, 0.42, false);
+      drawCurve(g, W, H - 6, t, 2.7, 0.28, false);
+    };
+  };
+
+  // ---- smile: implied vol against strike, two maturities ----------------
+  ENGINES.smile = () => {
+    let t = Math.random() * 200;
+    return (g, W, H, dt) => {
+      t += dt;
+      const draw = (tau, alpha, dots) => {
+        const atm  = 0.17 + 0.014 * wob(t * 0.10, 1, 0.43, 0.21);
+        const skew = -0.11 - 0.05 * wob(t * 0.06, 0.9, 0.31, 0.17);
+        const sm   = 0.11, wing = 0.26;
+        const sig = k => atm + wing * Math.pow(Math.abs(k), 4) / (0.22 + tau * 1.5)
+                             + sm * k * k / (0.5 + tau) + skew * k / (0.4 + tau);
+        const xs = k => (k + 0.55) / 1.10 * W;
+        const ys = v => H - (v - 0.10) / 0.38 * H;
+        g.beginPath();
+        for (let i = 0; i <= 80; i++) {
+          const k = -0.55 + 1.10 * i / 80;
+          const X = xs(k), Y = Math.max(2, Math.min(H - 2, ys(sig(k))));
+          i ? g.lineTo(X, Y) : g.moveTo(X, Y);
+        }
+        g.strokeStyle = 'rgba(' + GOLD + ',' + alpha + ')';
+        g.lineWidth = 1.4; g.stroke();
+        if (!dots) return;
+        for (let k = -0.4; k <= 0.41; k += 0.2) {
+          const X = xs(k), Y = Math.max(2, Math.min(H - 2, ys(sig(k))));
+          g.fillStyle = 'rgba(' + GOLD + ',' + (alpha * 0.9) + ')';
+          g.beginPath(); g.arc(X, Y, 1.7, 0, 6.2832); g.fill();
+        }
+      };
+      // the forward, where the smile is anchored
+      g.strokeStyle = 'rgba(' + LINE + ',1)';
+      g.setLineDash([2, 4]); g.lineWidth = 1;
+      g.beginPath(); g.moveTo(W * 0.5, 0); g.lineTo(W * 0.5, H); g.stroke();
+      g.setLineDash([]);
+      draw(1.00, 0.30, false);   // one year, flatter
+      draw(0.12, 0.85, true);    // six weeks, steep wings
+    };
+  };
+
+  // ---- tape: prints coming up the screen, the way a tape actually runs ---
+  ENGINES.tape = (names) => () => {
+    const ROW = 19;
+    let rows = [], off = 0, seedPx = {};
+    names.forEach(n => { seedPx[n[0]] = n[1]; });
+    function print() {
+      const n = names[Math.floor(Math.random() * names.length)];
+      const drift = (Math.random() - 0.5) * n[2];
+      seedPx[n[0]] = Math.max(n[1] * 0.7, seedPx[n[0]] + drift);
+      return { sym: n[0], px: seedPx[n[0]], dp: n[3], up: drift >= 0,
+               sz: [1, 2, 5, 10, 25][Math.floor(Math.random() * 5)] };
+    }
+    return (g, W, H, dt) => {
+      off += dt * 15;
+      while (off >= ROW) { off -= ROW; rows.unshift(print()); }
+      while (rows.length > Math.ceil(H / ROW) + 2) rows.pop();
+      if (!rows.length) for (let i = 0; i < Math.ceil(H / ROW) + 2; i++) rows.push(print());
+      g.font = MONO; g.textBaseline = 'middle';
+      rows.forEach((r, i) => {
+        const y = H - off - i * ROW;
+        if (y < -ROW || y > H + ROW) return;
+        // a print dims the further it has climbed, and is gone at the top
+        const a = 0.9 * Math.pow(Math.max(0, Math.min(1, y / H)), 0.9);
+        g.fillStyle = 'rgba(' + INK2 + ',' + a + ')';
+        g.textAlign = 'left'; g.fillText(r.sym, 0, y);
+        g.fillStyle = 'rgba(' + (r.up ? GOLD : INK2) + ',' + a + ')';
+        g.textAlign = 'right'; g.fillText(r.px.toFixed(r.dp), W - 16, y);
+        g.beginPath();
+        if (r.up) { g.moveTo(W - 9, y + 3); g.lineTo(W - 5, y - 3); g.lineTo(W - 1, y + 3); }
+        else      { g.moveTo(W - 9, y - 3); g.lineTo(W - 5, y + 3); g.lineTo(W - 1, y - 3); }
+        g.fill();
+      });
+    };
+  };
+
+  // ---- blotter: quotes that sit still and flash when they move ----------
+  ENGINES.blotter = (pairs) => () => {
+    const st = pairs.map(p => ({ sym: p[0], mid: p[1], dp: p[2], sp: p[3], flash: 0, up: true }));
+    let t = 0;
+    return (g, W, H, dt) => {
+      t += dt;
+      if (t > 0.55) {
+        t = 0;
+        const r = st[Math.floor(Math.random() * st.length)];
+        const d = (Math.random() - 0.5) * r.sp * 3;
+        r.mid += d; r.up = d >= 0; r.flash = 1;
+      }
+      st.forEach(r => { r.flash = Math.max(0, r.flash - dt * 1.6); });
+      const ROW = H / st.length;
+      g.font = MONO; g.textBaseline = 'middle';
+      st.forEach((r, i) => {
+        const y = ROW * (i + 0.5);
+        if (r.flash > 0.02) {
+          g.fillStyle = 'rgba(' + (r.up ? GOLD : INK2) + ',' + (r.flash * 0.16) + ')';
+          g.fillRect(0, y - ROW / 2 + 1, W, ROW - 2);
+        }
+        g.fillStyle = 'rgba(' + INK2 + ',0.62)';
+        g.textAlign = 'left'; g.fillText(r.sym, 0, y);
+        g.fillStyle = 'rgba(' + (r.up ? GOLD : INK2) + ',' + (0.55 + r.flash * 0.4) + ')';
+        g.textAlign = 'right';
+        g.fillText((r.mid - r.sp / 2).toFixed(r.dp) + ' / ' + (r.mid + r.sp / 2).toFixed(r.dp), W, y);
+        g.strokeStyle = 'rgba(' + LINE + ',0.8)'; g.lineWidth = 1;
+        g.beginPath(); g.moveTo(0, y + ROW / 2 - 0.5); g.lineTo(W, y + ROW / 2 - 0.5); g.stroke();
+      });
+    };
+  };
+
+  // ---- ladder: credit spreads by rating, in basis points ----------------
+  ENGINES.ladder = () => {
+    const R = [['AAA', 42], ['AA', 58], ['A', 86], ['BBB', 134],
+               ['BB', 248], ['B', 396], ['CCC', 812]];
+    const st = R.map(r => ({ tag: r[0], base: r[1], bp: r[1], ph: Math.random() * 6 }));
+    let t = Math.random() * 100;
+    return (g, W, H, dt) => {
+      t += dt;
+      const max = 900, x0 = 30;
+      const ROW = H / st.length;
+      g.font = MONO; g.textBaseline = 'middle';
+      st.forEach((r, i) => {
+        // wider spreads are more volatile, which is true of the real thing
+        r.bp = r.base * (1 + 0.16 * (r.base / 900 + 0.25) * wob(t * 0.25 + r.ph, 1, 0.43, 0.27));
+        const y = ROW * (i + 0.5);
+        const w = (r.bp / max) * (W - x0 - 22);
+        g.fillStyle = 'rgba(' + INK2 + ',0.55)';
+        g.textAlign = 'left'; g.fillText(r.tag, 0, y);
+        g.fillStyle = 'rgba(' + GOLD + ',' + (0.24 + 0.4 * (i / st.length)) + ')';
+        g.fillRect(x0, y - ROW * 0.20, w, ROW * 0.40);
+        g.fillStyle = 'rgba(' + INK2 + ',0.5)';
+        g.textAlign = 'left'; g.fillText(Math.round(r.bp), x0 + w + 4, y);
+      });
+      g.strokeStyle = 'rgba(' + LINE + ',1)'; g.lineWidth = 1;
+      g.beginPath(); g.moveTo(x0 - 0.5, 0); g.lineTo(x0 - 0.5, H); g.stroke();
+    };
+  };
+
+  // ---- book: resting depth either side of the mid, and prints eating it --
+  ENGINES.book = () => {
+    const LV = 6;
+    let mid = 100.00, bids = [], asks = [], t = 0, tr = 0, print = null;
+    const fill = () => {
+      bids = []; asks = [];
+      for (let i = 0; i < LV; i++) {
+        bids.push({ p: mid - 0.01 * (i + 1), q: 20 + Math.random() * 180 });
+        asks.push({ p: mid + 0.01 * (i + 1), q: 20 + Math.random() * 180 });
+      }
+    };
+    fill();
+    return (g, W, H, dt) => {
+      t += dt; tr += dt;
+      if (t > 0.22) {
+        t = 0;
+        const side = Math.random() < 0.5 ? bids : asks;
+        const l = side[Math.floor(Math.random() * LV)];
+        l.q = Math.max(8, l.q + (Math.random() - 0.5) * 90);
+      }
+      if (tr > 1.9) {                       // a trade goes through the top of book
+        tr = 0;
+        const buy = Math.random() < 0.5;
+        print = { buy, life: 1 };
+        mid += (buy ? 0.01 : -0.01) * (Math.random() < 0.45 ? 1 : 0);
+        mid = Math.min(100.45, Math.max(99.55, mid));
+        fill();
+      }
+      if (print) { print.life -= dt * 1.1; if (print.life <= 0) print = null; }
+
+      const ROW = H / (LV * 2 + 1);
+      const maxQ = 220, x0 = 46;
+      g.font = MONO; g.textBaseline = 'middle';
+
+      const row = (l, i, ask) => {
+        const y = ask ? ROW * (LV - 1 - i + 0.5) : ROW * (LV + 1 + i + 0.5);
+        const w = Math.min(1, l.q / maxQ) * (W - x0);
+        const col = ask ? INK2 : GOLD;
+        g.fillStyle = 'rgba(' + col + ',0.16)';
+        g.fillRect(x0, y - ROW * 0.34, w, ROW * 0.68);
+        g.fillStyle = 'rgba(' + col + ',0.62)';
+        g.textAlign = 'left'; g.fillText(l.p.toFixed(2), 0, y);
+        g.fillStyle = 'rgba(' + col + ',0.40)';
+        g.textAlign = 'left'; g.fillText(Math.round(l.q), x0 + 3, y);
+      };
+      asks.forEach((l, i) => row(l, i, true));
+      bids.forEach((l, i) => row(l, i, false));
+
+      // the spread, and the last print sitting in it
+      const ym = ROW * (LV + 0.5);
+      g.strokeStyle = 'rgba(' + LINE + ',1)'; g.lineWidth = 1;
+      g.beginPath(); g.moveTo(0, ym - ROW / 2); g.lineTo(W, ym - ROW / 2);
+      g.moveTo(0, ym + ROW / 2); g.lineTo(W, ym + ROW / 2); g.stroke();
+      if (print) {
+        g.fillStyle = 'rgba(' + (print.buy ? GOLD : INK2) + ',' + (print.life * 0.55) + ')';
+        g.textAlign = 'left';
+        g.fillText((print.buy ? 'BUY  ' : 'SELL ') + mid.toFixed(2), 0, ym);
+      } else {
+        g.fillStyle = 'rgba(' + INK2 + ',0.32)';
+        g.textAlign = 'left'; g.fillText('1c  wide', 0, ym);
+      }
+    };
+  };
+
+  // ---- term: the events calendar, weeks lit as they fill ----------------
+  ENGINES.term = () => {
+    const COLS = 11, ROWS = 4;
+    const cell = [];
+    for (let i = 0; i < COLS * ROWS; i++) cell.push(Math.random() < 0.34 ? 1 : 0);
+    let t = 0, head = 0;
+    return (g, W, H, dt) => {
+      t += dt; head += dt * 1.6;
+      if (head > COLS) head = 0;
+      if (t > 1.3) { t = 0; cell[Math.floor(Math.random() * cell.length)] ^= 1; }
+      const gap = 3;
+      const cw = (W - gap * (COLS - 1)) / COLS, ch = (H - gap * (ROWS - 1)) / ROWS;
+      for (let c = 0; c < COLS; c++) {
+        const near = Math.max(0, 1 - Math.abs(c - head) / 1.6);
+        for (let r = 0; r < ROWS; r++) {
+          const on = cell[r * COLS + c];
+          const a = on ? 0.30 + near * 0.55 : 0.07 + near * 0.10;
+          g.fillStyle = 'rgba(' + (on ? GOLD : INK2) + ',' + a + ')';
+          g.fillRect(c * (cw + gap), r * (ch + gap), cw, ch);
+        }
+      }
+    };
+  };
+
   // ============== RENDER: DIVISION BACKGROUND ART ==============
   const artFor = {
     equities: (bg) => {
       bg.innerHTML = `
         <svg class="art-svg" data-side="l" style="top:20px; width:120px; opacity:0.16;"><use href="#bull-mark"/></svg>
         <svg class="art-svg" data-side="r" style="top:60px; width:120px; opacity:0.14;"><use href="#bear-mark"/></svg>
-        <svg class="art-svg" data-side="l" style="bottom:0; width:200px; opacity:0.14;"><use href="#candle-cluster"/></svg>
+        ${live('candles', 'l', 'bottom:10px;', 208, 150)}
         <div class="art-token medium" data-side="r" style="top:40px;">LONG /  SHORT</div>
-        <div class="art-token small" data-side="l" style="bottom:30px;">P/E · EV/EBITDA · FCF</div>
+        <div class="art-token small" data-side="l" style="bottom:170px;">P/E · EV/EBITDA · FCF</div>
       `;
     },
     macro: (bg) => {
       bg.innerHTML = `
-        <svg class="art-svg" data-side="r" style="top:10px; width:220px;"><use href="#yield-curve"/></svg>
-        <svg class="art-svg" data-side="l" style="bottom:20px; width:180px; opacity:0.14;"><use href="#candle-cluster"/></svg>
+        ${live('curve', 'r', 'top:14px;', 208, 132)}
+        ${live('fxtape', 'l', 'bottom:10px;', 208, 150)}
         <div class="art-token large" data-side="l" style="top:20px;">EUR / USD</div>
         <div class="art-token medium" data-side="l" style="top:70px;">GBP · JPY · CHF</div>
-        <div class="art-token small" data-side="r" style="bottom:80px;">FED · ECB · BOJ · BOE</div>
+        <div class="art-token small" data-side="r" style="bottom:60px;">FED · ECB · BOJ · BOE</div>
       `;
     },
     derivatives: (bg) => {
       bg.innerHTML = `
-        <svg class="art-svg" data-side="r" style="top:20px; width:220px;"><use href="#vol-smile"/></svg>
+        ${live('smile', 'r', 'top:22px;', 208, 140)}
         <div class="art-token large" data-side="l" style="top:20px;">Δ · Γ · Θ · Vega</div>
         <div class="art-token small" data-side="l" style="top:70px;">C = S·N(d₁) − K·e^(−rT)·N(d₂)</div>
         <div class="art-token small" data-side="l" style="bottom:60px;">dS = μS·dt + σS·dW</div>
@@ -2479,11 +2958,9 @@ const BUNDLED_BANNERS = {"alan-vaksman":"data:image/jpeg;base64,/9j/4AAQSkZJRgAB
       bg.innerHTML = `
         <svg class="art-svg" data-side="l" style="top:20px; width:56px;"><use href="#oil-barrel"/></svg>
         <svg class="art-svg" data-side="l" style="top:40px; width:52px; opacity:0.12;"><use href="#oil-barrel"/></svg>
-        <svg class="art-svg" data-side="r" style="top:20px; width:60px;"><use href="#oil-barrel"/></svg>
-        <svg class="art-svg" data-side="r" style="bottom:20px; width:52px; opacity:0.12;"><use href="#oil-barrel"/></svg>
-        <svg class="art-svg" data-side="l" style="bottom:30px; width:200px; opacity:0.14;"><use href="#candle-cluster"/></svg>
-        <div class="art-token medium" data-side="r" style="top:60px;">BRENT · WTI · TTF</div>
-        <div class="art-token small" data-side="r" style="bottom:60px;">GOLD · SILVER · COPPER · WHEAT</div>
+        ${live('cmdtape', 'r', 'top:10px;', 208, 190)}
+        ${live('candles', 'l', 'bottom:20px;', 208, 140)}
+        <div class="art-token small" data-side="r" style="bottom:40px;">GOLD · SILVER · COPPER · WHEAT</div>
       `;
     },
     em: (bg) => {
@@ -2491,26 +2968,25 @@ const BUNDLED_BANNERS = {"alan-vaksman":"data:image/jpeg;base64,/9j/4AAQSkZJRgAB
         <div class="art-token large" data-side="l" style="top:20px;">BRICS</div>
         <div class="art-token medium" data-side="l" style="top:70px;">BRA · RUS · IND · CHN · ZAF</div>
         <div class="art-token small" data-side="l" style="top:110px;">EMBI · EMFX · LOCAL RATES</div>
-        <div class="art-token medium" data-side="r" style="top:20px;">MXN · BRL · ZAR</div>
-        <div class="art-token small" data-side="r" style="top:60px;">TRY · IDR · INR · CNY</div>
-        <svg class="art-svg" data-side="l" style="bottom:0; width:200px; opacity:0.14;"><use href="#candle-cluster"/></svg>
+        ${live('emblotter', 'r', 'top:16px;', 208, 152)}
+        <div class="art-token small" data-side="r" style="bottom:50px;">TRY · IDR · INR · CNY</div>
       `;
     },
     credit: (bg) => {
       bg.innerHTML = `
-        <svg class="art-svg" data-side="r" style="top:30px; width:200px;"><use href="#yield-curve"/></svg>
+        ${live('ladder', 'r', 'top:20px;', 208, 158)}
         <div class="art-token medium" data-side="l" style="top:40px;">IG · HY · Distressed</div>
         <div class="art-token small" data-side="l" style="top:80px;">CDS · CLO · Direct Lending</div>
         <div class="art-token small" data-side="l" style="bottom:40px;">AAA · AA · A · BBB · BB · B · CCC</div>
-        <div class="art-token medium" data-side="r" style="bottom:60px;">Spread · Duration · Recovery</div>
+        <div class="art-token medium" data-side="r" style="bottom:40px;">Spread · Duration · Recovery</div>
       `;
     },
     "atp-equities": (bg) => {
       bg.innerHTML = `
-        <svg class="art-svg" data-side="l" style="top:20px; width:200px; opacity:0.16;"><use href="#candle-cluster"/></svg>
-        <svg class="art-svg" data-side="r" style="bottom:20px; width:200px; opacity:0.14;"><use href="#candle-cluster"/></svg>
+        ${live('book', 'l', 'top:16px;', 208, 186)}
+        ${live('candles', 'r', 'bottom:20px;', 208, 142)}
         <div class="art-token medium" data-side="r" style="top:30px;">BID · ASK · SPREAD</div>
-        <div class="art-token small" data-side="l" style="bottom:70px;">Market Making · Risk · Skew</div>
+        <div class="art-token small" data-side="l" style="bottom:60px;">Market Making · Risk · Skew</div>
       `;
     },
     events: (bg) => {
@@ -2518,23 +2994,279 @@ const BUNDLED_BANNERS = {"alan-vaksman":"data:image/jpeg;base64,/9j/4AAQSkZJRgAB
         <div class="art-token medium" data-side="l" style="top:26px;">Speakers</div>
         <div class="art-token small"  data-side="l" style="top:74px;">Socials</div>
         <div class="art-token small"  data-side="l" style="bottom:60px;">Simulations</div>
-        <div class="art-token medium" data-side="r" style="top:34px;">Industry nights</div>
+        ${live('term', 'r', 'top:30px;', 208, 86)}
         <div class="art-token small"  data-side="r" style="bottom:70px;">Outreach</div>
       `;
     },
     "atp-ficc": (bg) => {
       bg.innerHTML = `
-        <svg class="art-svg" data-side="r" style="top:20px; width:220px;"><use href="#yield-curve"/></svg>
+        ${live('complex', 'r', 'top:20px;', 208, 134)}
         <div class="art-token small" data-side="l" style="top:30px;">FX · Rates · Credit · Commodities</div>
         <div class="art-token small" data-side="l" style="bottom:80px;">SOFR · SONIA · ESTR · TONA</div>
         <div class="art-token medium" data-side="r" style="bottom:40px;">2Y / 10Y · 5Y / 30Y</div>
       `;
     },
   };
+
+  // instrument sets, so the tapes and blotters quote things that exist
+  ENGINES.fxtape = ENGINES.tape([
+    ['EURUSD', 1.0840, 0.0016, 4], ['GBPUSD', 1.2670, 0.0018, 4],
+    ['USDJPY', 151.20, 0.240, 2],  ['USDCHF', 0.8820, 0.0014, 4],
+    ['AUDUSD', 0.6580, 0.0013, 4], ['EURGBP', 0.8556, 0.0009, 4],
+  ]);
+  ENGINES.cmdtape = ENGINES.tape([
+    ['BRENT', 82.40, 0.36, 2],  ['WTI', 78.15, 0.34, 2],
+    ['GOLD', 2318.0, 5.40, 1],  ['SILVER', 27.35, 0.22, 2],
+    ['COPPER', 4.482, 0.026, 3], ['TTF', 31.20, 0.62, 2],
+    ['WHEAT', 592.5, 4.20, 1],
+  ]);
+  ENGINES.emblotter = ENGINES.blotter([
+    ['USDMXN', 17.084, 3, 0.006], ['USDBRL', 5.1420, 4, 0.0040],
+    ['USDZAR', 18.612, 3, 0.008], ['USDTRY', 32.146, 3, 0.012],
+    ['USDINR', 83.284, 3, 0.004], ['USDCNH', 7.2410, 4, 0.0018],
+  ]);
+
   document.querySelectorAll('.division-hero-bg').forEach(bg => {
     const kind = bg.getAttribute('data-art');
     if (artFor[kind]) artFor[kind](bg);
   });
+
+  // ============== MAKE ME A MARKET ==============
+  // The standard trading interview question, played straight. You quote a two
+  // sided market on something you cannot possibly know exactly. The trader
+  // opposite is not guessing: they see the answer, and they take whichever
+  // side of your quote is wrong. So a wide market never loses and never
+  // trades, a tight market is what gets you hired, and the gap between those
+  // two is the only thing being tested.
+  (function makeMarket() {
+    const form = document.getElementById('mm-form');
+    if (!form) return;
+    const qEl = document.getElementById('mm-q');
+    const uEl = document.getElementById('mm-unit');
+    const bidEl = document.getElementById('mm-bid');
+    const askEl = document.getElementById('mm-ask');
+    const hint = document.getElementById('mm-hint');
+    const out = document.getElementById('mm-out');
+    const verdict = document.getElementById('mm-verdict');
+    const detail = document.getElementById('mm-detail');
+    const next = document.getElementById('mm-next');
+    const tally = document.getElementById('mm-tally');
+    const cv = document.getElementById('mm-line');
+
+    const BOOK = [
+      { q: 'Stations on the London Underground', u: 'stations', v: 272 },
+      { q: 'Keys on a standard piano', u: 'keys', v: 88 },
+      { q: 'Member states of the United Nations', u: 'states', v: 193 },
+      { q: 'Seats in the House of Commons', u: 'seats', v: 650 },
+      { q: 'Height of the Shard', u: 'metres', v: 310, note: '309.6 metres to the tip.' },
+      { q: 'Seats in the Royal Albert Hall', u: 'seats', v: 5272 },
+      { q: 'Bones in the adult human body', u: 'bones', v: 206 },
+      { q: 'Elements in the periodic table', u: 'elements', v: 118 },
+      { q: 'Matches in a Premier League season', u: 'matches', v: 380, note: '20 clubs, 38 matches each, halved because every match has two sides.' },
+      { q: 'Floors in the Empire State Building', u: 'floors', v: 102 },
+      { q: 'Stations on the Circle line', u: 'stations', v: 36 },
+      { q: 'Countries bordering Brazil', u: 'countries', v: 10 },
+      { q: 'Letters in the Greek alphabet', u: 'letters', v: 24 },
+      { q: 'Steps to the top of the Monument', u: 'steps', v: 311 },
+      { q: 'Time for light to reach Earth from the Sun', u: 'seconds', v: 499, note: 'Eight minutes and twenty seconds.' },
+    ];
+
+    let bag = [], cur = null;
+    let n = 0, held = 0, widthSum = 0, worst = 0;
+
+    const fmt = x => {
+      const r = Math.abs(x) >= 100 ? Math.round(x) : Math.round(x * 100) / 100;
+      return r.toLocaleString('en-GB');
+    };
+
+    function deal(takeFocus) {
+      if (!bag.length) {
+        bag = BOOK.slice();
+        for (let i = bag.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [bag[i], bag[j]] = [bag[j], bag[i]];
+        }
+        // never open with the question that just closed
+        if (cur && bag[bag.length - 1] === cur && bag.length > 1) {
+          [bag[bag.length - 1], bag[0]] = [bag[0], bag[bag.length - 1]];
+        }
+      }
+      cur = bag.pop();
+      qEl.textContent = cur.q;
+      uEl.textContent = cur.u;
+      bidEl.value = ''; askEl.value = '';
+      hint.textContent = '';
+      out.classList.remove('show');
+      form.querySelector('.mm-go').disabled = false;
+      if (takeFocus) bidEl.focus({ preventScroll: true });
+    }
+
+    // the reveal: your bracket, and where the answer actually sat
+    function paint(bid, ask, v) {
+      const w = cv.clientWidth, h = cv.clientHeight;
+      if (!w || !h) return;
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      cv.width = Math.round(w * dpr); cv.height = Math.round(h * dpr);
+      const g = cv.getContext('2d');
+      g.setTransform(dpr, 0, 0, dpr, 0, 0);
+      g.clearRect(0, 0, w, h);
+
+      const lo0 = Math.min(bid, v), hi0 = Math.max(ask, v);
+      const pad = Math.max((hi0 - lo0) * 0.30, Math.abs(v) * 0.14, 1);
+      const lo = lo0 - pad, hi = hi0 + pad;
+      const X = p => 22 + (p - lo) / (hi - lo) * (w - 44);
+      const axis = h - 30;
+
+      g.strokeStyle = 'rgba(46,61,51,1)'; g.lineWidth = 1;
+      g.beginPath(); g.moveTo(10, axis + 0.5); g.lineTo(w - 10, axis + 0.5); g.stroke();
+
+      // your market, as a band
+      const xb = X(bid), xa = X(ask);
+      g.fillStyle = 'rgba(201,167,90,0.13)';
+      g.fillRect(xb, axis - 30, Math.max(1, xa - xb), 30);
+      g.strokeStyle = 'rgba(201,167,90,0.7)'; g.lineWidth = 1.5;
+      g.beginPath();
+      g.moveTo(xb + 0.5, axis - 32); g.lineTo(xb + 0.5, axis);
+      g.moveTo(xa - 0.5, axis - 32); g.lineTo(xa - 0.5, axis);
+      g.stroke();
+
+      g.font = "11px 'JetBrains Mono', monospace";
+      g.fillStyle = 'rgba(201,167,90,0.85)'; g.textBaseline = 'top';
+      g.textAlign = 'right'; g.fillText(fmt(bid), Math.max(24, xb - 5), axis + 7);
+      g.textAlign = 'left'; g.fillText(fmt(ask), Math.min(w - 24, xa + 5), axis + 7);
+
+      // the answer
+      const xv = X(v);
+      g.strokeStyle = 'rgba(234,223,199,0.92)'; g.lineWidth = 2;
+      g.beginPath(); g.moveTo(xv, 16); g.lineTo(xv, axis); g.stroke();
+      g.fillStyle = 'rgba(234,223,199,0.95)';
+      g.beginPath(); g.moveTo(xv - 4, axis); g.lineTo(xv + 4, axis); g.lineTo(xv, axis - 6); g.fill();
+      g.textBaseline = 'top'; g.textAlign = 'center';
+      g.fillText(fmt(v), Math.max(26, Math.min(w - 26, xv)), 1);
+    }
+
+    function showTally() {
+      if (!n) { tally.textContent = ''; return; }
+      tally.innerHTML =
+        '<span>MARKETS <b>' + n + '</b></span>' +
+        '<span>HELD <b>' + held + ' / ' + n + '</b></span>' +
+        '<span>AVG WIDTH <b>' + Math.round(widthSum / n) + '%</b></span>' +
+        (worst ? '<span>WORST <b>' + fmt(-worst) + '</b></span>' : '');
+    }
+
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      if (out.classList.contains('show')) return;   // this market is already done
+      const bid = parseFloat(bidEl.value), ask = parseFloat(askEl.value);
+      if (!isFinite(bid) || !isFinite(ask)) { hint.textContent = 'Put a number on both sides.'; return; }
+      if (ask <= bid) { hint.textContent = 'Your offer has to be above your bid.'; askEl.focus(); return; }
+      if (bid < 0) { hint.textContent = 'A bid below zero is not a bid.'; bidEl.focus(); return; }
+      hint.textContent = '';
+
+      const v = cur.v, wPct = (ask - bid) / v * 100;
+      n++; widthSum += wPct;
+
+      let head, body;
+      if (v > ask) {
+        const loss = v - ask;
+        worst = Math.max(worst, loss);
+        verdict.className = 'mm-verdict bad';
+        head = 'Lifted. You are <em>short</em> at ' + fmt(ask) + '.';
+        body = 'The answer is <b>' + fmt(v) + '</b>. You sold ' + fmt(ask) +
+               ' and it is worth ' + fmt(v) + ', so you are down <b>' + fmt(loss) +
+               '</b>. Your offer sat below fair value, so the whole market came to lift it.';
+      } else if (v < bid) {
+        const loss = bid - v;
+        worst = Math.max(worst, loss);
+        verdict.className = 'mm-verdict bad';
+        head = 'Hit. You are <em>long</em> at ' + fmt(bid) + '.';
+        body = 'The answer is <b>' + fmt(v) + '</b>. You bought ' + fmt(bid) +
+               ' and it is worth ' + fmt(v) + ', so you are down <b>' + fmt(loss) +
+               '</b>. You bid above fair value, and it got sold to you.';
+      } else {
+        held++;
+        verdict.className = 'mm-verdict';
+        head = 'No trade. Your market <em>held</em>.';
+        if (wPct <= 12) {
+          body = 'The answer is <b>' + fmt(v) + '</b>, inside a market ' + Math.round(wPct) +
+                 '% wide. Tight and right. That is the quote that gets you the job.';
+        } else if (wPct <= 35) {
+          body = 'The answer is <b>' + fmt(v) + '</b>, inside a market ' + Math.round(wPct) +
+                 '% wide. Right, and a width somebody would actually trade against.';
+        } else {
+          body = 'The answer is <b>' + fmt(v) + '</b>, but your market was ' + Math.round(wPct) +
+                 '% wide. Safe, and nobody deals on it. Showing a market that wide is a way of saying you have no view.';
+        }
+      }
+      if (cur.note) body += ' ' + cur.note;
+
+      verdict.innerHTML = head;
+      detail.innerHTML = body;
+      out.classList.add('show');
+      form.querySelector('.mm-go').disabled = true;
+      paint(bid, ask, v);
+      showTally();
+      next.focus({ preventScroll: true });
+    });
+
+    next.addEventListener('click', () => deal(true));
+    // the canvas is laid out in percent, so a resize needs a fresh draw
+    let rz;
+    window.addEventListener('resize', () => {
+      clearTimeout(rz);
+      rz = setTimeout(() => {
+        if (out.classList.contains('show')) paint(parseFloat(bidEl.value), parseFloat(askEl.value), cur.v);
+      }, 140);
+    });
+
+    deal(false);   // on load, do not pull the page down to the input
+  })();
+
+  // one loop for every gutter canvas on the site
+  (function runLive() {
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const inst = [];
+    document.querySelectorAll('.art-live').forEach(cv => {
+      const make = ENGINES[cv.dataset.engine];
+      if (make) inst.push({ cv, ctx: null, w: 0, h: 0, dpr: 1, draw: make() });
+    });
+    if (!inst.length) return;
+
+    function paint(dt) {
+      for (const it of inst) {
+        const w = it.cv.clientWidth, h = it.cv.clientHeight;
+        if (!w || !h) continue;                 // routed away, or below 1080px
+        if (w !== it.w || h !== it.h) {
+          it.w = w; it.h = h;
+          it.dpr = Math.min(window.devicePixelRatio || 1, 2);
+          it.cv.width = Math.round(w * it.dpr);
+          it.cv.height = Math.round(h * it.dpr);
+          it.ctx = it.cv.getContext('2d');
+        }
+        it.ctx.setTransform(it.dpr, 0, 0, it.dpr, 0, 0);
+        it.ctx.clearRect(0, 0, w, h);
+        it.draw(it.ctx, w, h, dt);
+      }
+    }
+
+    if (reduce) {
+      // settle the models into a readable still, then leave them alone
+      const settle = () => {
+        for (let i = 0; i < 40; i++) paint(0.05);
+      };
+      settle();
+      window.addEventListener('hashchange', () => setTimeout(settle, 0));
+      window.addEventListener('resize', () => setTimeout(settle, 0));
+      return;
+    }
+
+    let last = performance.now();
+    (function frame(now) {
+      paint(Math.min(0.05, (now - last) / 1000));
+      last = now;
+      requestAnimationFrame(frame);
+    })(last);
+  })();
 
 
   // ============== HERO: LIVE VOLATILITY SURFACE ==============
