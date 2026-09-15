@@ -110,3 +110,45 @@ it back. Anything below 4.5:1 is unreadable for a chunk of your members.
 Newsreader for display, Inter for body, JetBrains Mono for data and labels.
 All three from Google Fonts. Newsreader is a variable font: drive
 `font-variation-settings: 'opsz' N` from the type size, larger for headlines.
+
+## Division gutter engines
+
+Every division page runs one or two live canvases in the gutters beside its
+paragraph, never behind it. They are declared in the `artFor` map with the
+`live(engine, side, css, w, h)` helper, which emits
+`<canvas class="art-live" data-engine="...">`. The engine factories live in
+`ENGINES`: each is called once per canvas and returns `draw(ctx, W, H, dt)`,
+so state is per canvas.
+
+| engine | page | what it is |
+| --- | --- | --- |
+| `candles` | Equities, Commodities, ATP Equities | OHLC bars, last one still forming |
+| `curve` | Macro | a Nelson Siegel curve against yesterday's |
+| `complex` | ATP FICC | SOFR, SONIA and ESTR overlaid |
+| `smile` | Derivatives | implied vol by strike, six weeks and one year |
+| `fxtape` / `cmdtape` | Macro, Commodities | prints running up the screen |
+| `emblotter` | EM | resting quotes, flashing the line that moved |
+| `ladder` | Credit | spreads by rating, wide names moving most |
+| `book` | ATP Equities | resting depth either side of a one cent spread |
+| `term` | Events | the term calendar filling in |
+
+`tape` and `blotter` are factories of factories: call them with an instrument
+list to get an engine. One `requestAnimationFrame` drives the whole set. A page
+that is not routed to is `display: none`, so its canvases report zero width and
+are skipped, and the whole layer is off below 1080px. Under
+`prefers-reduced-motion` the models are settled into a still and then left.
+
+To add one: write `ENGINES.name`, then reference it from `artFor`. Keep peak
+alpha around 0.9, since `.art-live` is composited at 0.46.
+
+## Make me a market
+
+On the ATP Equities page, between the hero and the members panel. Questions are
+in `BOOK` inside the `makeMarket` IIFE, as `{ q, u, v, note? }` where `v` is the
+answer and `u` is the unit shown under the question. Add questions with hard,
+checkable answers only: the page states them as fact.
+
+They are dealt from a shuffled bag so a full pass happens before any repeat.
+Scoring: the answer above your offer means you are lifted and short, below your
+bid means you are hit and long, inside means no trade. A market that is right
+but more than 35% wide is told it is too wide to be worth quoting.
