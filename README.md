@@ -140,15 +140,3 @@ are skipped, and the whole layer is off below 1080px. Under
 
 To add one: write `ENGINES.name`, then reference it from `artFor`. Keep peak
 alpha around 0.9, since `.art-live` is composited at 0.46.
-
-## Make me a market
-
-On the ATP Equities page, between the hero and the members panel. Questions are
-in `BOOK` inside the `makeMarket` IIFE, as `{ q, u, v, note? }` where `v` is the
-answer and `u` is the unit shown under the question. Add questions with hard,
-checkable answers only: the page states them as fact.
-
-They are dealt from a shuffled bag so a full pass happens before any repeat.
-Scoring: the answer above your offer means you are lifted and short, below your
-bid means you are hit and long, inside means no trade. A market that is right
-but more than 35% wide is told it is too wide to be worth quoting.
