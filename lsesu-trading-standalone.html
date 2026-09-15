@@ -477,7 +477,7 @@
   .art-token[data-side="r"] { right: 0; text-align: right; }
   .art-svg[data-side="l"] { left: 0; }
   .art-svg[data-side="r"] { right: 0; }
-  @media (max-width: 1080px) { .art-token, .art-svg, .art-live { display: none; } }
+  @media (max-width: 1139px) { .art-token, .art-svg, .art-live { display: none; } }
   .art-token.small { font-size: 12px; opacity: 0.16; }
   .art-token.medium { font-size: 16px; opacity: 0.18; }
   .art-token.large { font-size: 22px; opacity: 0.14; }
@@ -916,7 +916,6 @@
     .committee .about-panel p { opacity: 1; transform: none; }
   }
 
-  .atp-apply { text-align: center; margin: 0 auto 34px; max-width: 30em; }
   .apply-cta {
     display: inline-flex; align-items: center; gap: 12px;
     padding: 14px 30px; background: var(--gold); color: var(--bg);
@@ -951,10 +950,10 @@
   .art-field {
     position: absolute; inset: 0; width: 100%; height: 100%;
     opacity: .58; pointer-events: none;
-    -webkit-mask-image: linear-gradient(90deg, #000 0%, #000 12%, transparent 27%, transparent 73%, #000 88%, #000 100%);
-    mask-image: linear-gradient(90deg, #000 0%, #000 12%, transparent 27%, transparent 73%, #000 88%, #000 100%);
+    -webkit-mask-image: linear-gradient(90deg, #000 0, #000 148px, transparent 208px, transparent calc(100% - 208px), #000 calc(100% - 148px), #000 100%);
+    mask-image: linear-gradient(90deg, #000 0, #000 148px, transparent 208px, transparent calc(100% - 208px), #000 calc(100% - 148px), #000 100%);
   }
-  @media (max-width: 1080px) { .art-field { display: none; } }
+  @media (max-width: 1139px) { .art-field { display: none; } }
 
   /* ============== RESPONSIVE ============== */
   @media (max-width: 1024px) {
@@ -1444,10 +1443,6 @@
     <h1>Advanced Trader · <em>Equities</em></h1>
     <p class="division-paragraph">The Advanced Traders Programme (Equities) is for second year, third year and master's students looking to apply their skills in equity and equity derivatives research and execution. Members undertake weekly research, modelling and thesis formulation, which is then presented to the cohort. We trade a portfolio of our highest conviction ideas, publish our best research as it lands, and release a monthly State of the Market article alongside our FICC counterparts on the most pressing trends in the market as a whole. We aim to compete, and win, in as many competitions as possible, bringing high quality differentiated analysis whenever we represent the Trading Society.</p>
     <p class="eligibility"><strong>Eligibility</strong> The Advanced Traders Programme is not open to first year students. Applications are for second year, third year and master's students only.</p>
-    <div class="atp-apply">
-      <a class="apply-cta" href="https://docs.google.com/forms/d/e/1FAIpQLSfVesaOl7sxd8s_ZXwL86mRjjhBfncE6Fbw4ozPLMDLrjo_Gg/viewform" target="_blank" rel="noopener">Apply to the programme</a>
-      <div class="apply-note">Applications are open now.</div>
-    </div>
     <div class="div-heads-row single" data-div="atp-equities"></div>
   </section>
 
@@ -1469,10 +1464,6 @@
     <h1>Advanced Trader · <em>FICC</em></h1>
     <p class="division-paragraph">The FICC Advanced Traders Programme builds a research driven approach while giving comprehensive exposure to Fixed Income, Currencies and Commodities across emerging and developed markets. Analysts develop expertise in global macro, learning the interconnected nature of these products alongside extensive training in the pricing and use of practical financial derivatives. Analysts regularly develop and present trading ideas, contribute to analytical discussions, and follow current events and their effects on markets. Working alongside the Equities programme, analysts contribute to a broader understanding of markets through shared research and the monthly State of the Market publication, bringing together perspectives across asset classes. The programme develops independent thinkers who can form their own market views, articulate their rationale, and turn them into actionable trades.</p>
     <p class="eligibility"><strong>Eligibility</strong> The Advanced Traders Programme is not open to first year students. Applications are for second year, third year and master's students only.</p>
-    <div class="atp-apply">
-      <a class="apply-cta" href="https://docs.google.com/forms/d/e/1FAIpQLSfVesaOl7sxd8s_ZXwL86mRjjhBfncE6Fbw4ozPLMDLrjo_Gg/viewform" target="_blank" rel="noopener">Apply to the programme</a>
-      <div class="apply-note">Applications are open now.</div>
-    </div>
     <div class="div-heads-row single" data-div="atp-ficc"></div>
   </section>
   <div class="members-panel">
@@ -2677,7 +2668,7 @@ const BUNDLED_BANNERS = {"alan-vaksman":"data:image/jpeg;base64,/9j/4AAQSkZJRgAB
   // ---- capital stack, and the losses eating up through it ---------------
   const TRANCHE = [['Senior secured', 96], ['Senior unsecured', 168], ['Subordinated', 305],
                    ['Mezzanine', 640], ['Equity', 0]];
-  function capStack(g, cx, yb, w, rh, grow, loss, al) {
+  function capStack(g, cx, yb, w, rh, grow, loss, al, labels) {
     const n = TRANCHE.length;
     g.font = "11px 'JetBrains Mono', monospace"; g.textBaseline = 'middle';
     for (let i = 0; i < n; i++) {
@@ -2697,6 +2688,7 @@ const BUNDLED_BANNERS = {"alan-vaksman":"data:image/jpeg;base64,/9j/4AAQSkZJRgAB
         g.strokeStyle = I2(al * 0.5 * eaten);
         g.beginPath(); g.moveTo(x, y + rh - 6); g.lineTo(x + ww, y); g.stroke();
       }
+      if (!labels) continue;
       g.textAlign = 'left'; g.fillStyle = IV(al * 0.75 * v * (1 - eaten * 0.7));
       g.fillText(TRANCHE[i][0], x + 10, y + (rh - 6) / 2);
       g.textAlign = 'right'; g.fillStyle = AU(al * 0.8 * v * (1 - eaten * 0.7));
@@ -2885,7 +2877,7 @@ const BUNDLED_BANNERS = {"alan-vaksman":"data:image/jpeg;base64,/9j/4AAQSkZJRgAB
     const rh = Math.min(52, H * 0.085), w = Math.min(560, W * 0.52);
     const yb = H * 0.5 + rh * 2.5;
     const fade = 1 - SEG(p, .90, 1);
-    capStack(g, W / 2, yb, w, rh, OUTC(SEG(p, 0, .48)), SEG(p, .54, .86), 0.95 * fade);
+    capStack(g, W / 2, yb, w, rh, OUTC(SEG(p, 0, .48)), SEG(p, .54, .86), 0.95 * fade, true);
     const lab = SEG(p, .30, .58);
     if (lab > 0) {
       g.textAlign = 'center'; g.textBaseline = 'middle';
@@ -3372,10 +3364,10 @@ const BUNDLED_BANNERS = {"alan-vaksman":"data:image/jpeg;base64,/9j/4AAQSkZJRgAB
     return (g, W, H, dt) => {
       t += dt;
       const cyc = (t % 26) / 26;
-      sheet(g, W * 0.80, H * 0.46, 74, 26, 6, C01(cyc * 3.2), 0.62, 140);
+      sheet(g, W * 0.80, H * 0.44, 74, 26, 6, C01(cyc * 3.2), 0.62, 140);
       // a value bridge on the other side: revenue down to free cash flow
       const bars = [1.00, -0.62, -0.13, -0.11, -0.04, 0.10];
-      const bw = 20, gap = 9, x0 = W * 0.045, y0 = H * 0.66, hMax = 128;
+      const bw = 20, gap = 9, x0 = W * 0.045, y0 = H * 0.50, hMax = 105;
       let run = 0;
       bars.forEach((b, i) => {
         const v = C01(cyc * 8 - i * 0.55);
@@ -3413,7 +3405,7 @@ const BUNDLED_BANNERS = {"alan-vaksman":"data:image/jpeg;base64,/9j/4AAQSkZJRgAB
       const BANKS = [['FED', 4.38], ['ECB', 3.15], ['BOE', 4.75], ['BOJ', 0.48], ['PBOC', 3.10]];
       g.font = "11px 'JetBrains Mono', monospace"; g.textBaseline = 'middle';
       BANKS.forEach((b, i) => {
-        const y = H * 0.30 + i * 26;
+        const y = H * 0.36 + i * 26;
         const v = b[1] + 0.06 * Math.sin(t * 0.20 + i * 1.7);
         g.textAlign = 'left'; g.fillStyle = I2(0.42); g.fillText(b[0], W * 0.845, y);
         g.textAlign = 'right'; g.fillStyle = AU(0.55); g.fillText(v.toFixed(2) + '%', W * 0.975, y);
@@ -3434,16 +3426,13 @@ const BUNDLED_BANNERS = {"alan-vaksman":"data:image/jpeg;base64,/9j/4AAQSkZJRgAB
       g.textAlign = 'center'; g.textBaseline = 'middle';
       GK.forEach((s, i) => {
         const ph = (t * 0.055 + i / GK.length) % 1;
-        const y = H * 1.05 - ph * H * 1.15;
+        const y = H * 0.80 - ph * H * 0.40;              // their own band, 200 to 400
         const x = W * (0.80 + 0.13 * Math.sin(t * 0.20 + i * 2.1));
         const a = Math.sin(Math.PI * ph);
         g.font = '400 ' + (26 + 22 * HASH(i)).toFixed(0) + "px Newsreader, Georgia, serif";
         g.fillStyle = AU(0.50 * a);
         g.fillText(s, x, y);
       });
-      g.font = "10px 'JetBrains Mono', monospace"; g.textAlign = 'right';
-      g.fillStyle = AU(0.34);
-      g.fillText('∂V/∂t + ½σ²S²∂²V/∂S² + rS∂V/∂S = rV', W * 0.985, H * 0.86);
     };
   };
 
@@ -3454,7 +3443,7 @@ const BUNDLED_BANNERS = {"alan-vaksman":"data:image/jpeg;base64,/9j/4AAQSkZJRgAB
       t += dt;
       const bw = Math.min(58, W * 0.05), bh = bw * 1.28;
       const rows = [4, 3, 2, 1];
-      const cx = W * 0.855, yb = H * 0.62;
+      const cx = W * 0.145, yb = H * 0.70;
       let k = 0;
       for (let r = 0; r < rows.length; r++)
         for (let c = 0; c < rows[r]; c++, k++) {
@@ -3462,16 +3451,6 @@ const BUNDLED_BANNERS = {"alan-vaksman":"data:image/jpeg;base64,/9j/4AAQSkZJRgAB
           barrel(g, cx + (c - (rows[r] - 1) / 2) * bw * 1.05,
                     yb - r * bh * 0.92 + bob, bw, bh, 0.62);
         }
-      // and a tanker on the horizon, because the stuff has to move
-      const x = ((t * 16) % (W * 0.42)) - W * 0.06;
-      g.strokeStyle = AU(0.34); g.lineWidth = 1.2;
-      g.beginPath();
-      g.moveTo(x, H * 0.30); g.lineTo(x + 130, H * 0.30);
-      g.lineTo(x + 122, H * 0.30 + 15); g.lineTo(x + 10, H * 0.30 + 15); g.closePath(); g.stroke();
-      g.beginPath(); g.moveTo(x + 96, H * 0.30); g.lineTo(x + 96, H * 0.30 - 17);
-      g.lineTo(x + 122, H * 0.30 - 17); g.lineTo(x + 122, H * 0.30); g.stroke();
-      g.strokeStyle = AU(0.16);
-      g.beginPath(); g.moveTo(0, H * 0.30 + 21); g.lineTo(W * 0.40, H * 0.30 + 21); g.stroke();
     };
   };
 
@@ -3507,8 +3486,8 @@ const BUNDLED_BANNERS = {"alan-vaksman":"data:image/jpeg;base64,/9j/4AAQSkZJRgAB
     return (g, W, H, dt) => {
       t += dt;
       const cyc = (t % 21) / 21;
-      const rh = 34, w = Math.min(W * 0.30, 300);
-      capStack(g, W * 0.155, H * 0.72, w, rh, C01(cyc * 3), C01((cyc - .55) * 3.4) * (1 - C01((cyc - .92) / .08)), 0.62);
+      const rh = 34, w = Math.min(W * 0.20, 232);
+      capStack(g, W * 0.105, H * 0.68, w, rh, C01(cyc * 3), C01((cyc - .55) * 3.4) * (1 - C01((cyc - .92) / .08)), 0.72, false);
     };
   };
 
@@ -3517,7 +3496,7 @@ const BUNDLED_BANNERS = {"alan-vaksman":"data:image/jpeg;base64,/9j/4AAQSkZJRgAB
     let t = 0;
     return (g, W, H, dt) => {
       t += dt;
-      sheet(g, W * 0.82, H * 0.50, 68, 24, 5, C01(((t % 22) / 22) * 3.2), 0.44, 128);
+      sheet(g, W * 0.82, H * 0.44, 68, 24, 5, C01(((t % 22) / 22) * 3.2), 0.44, 128);
     };
   };
 
@@ -3526,7 +3505,7 @@ const BUNDLED_BANNERS = {"alan-vaksman":"data:image/jpeg;base64,/9j/4AAQSkZJRgAB
     let t = Math.random() * 100;
     return (g, W, H, dt) => {
       t += dt;
-      const cx = W * 0.145, cy = H * 0.58, sx = Math.min(W * 0.115, 140), sy = 120;
+      const cx = W * 0.145, cy = H * 0.68, sx = Math.min(W * 0.115, 140), sy = 120;
       const NT = 20, NK = 9;
       for (let k = 0; k < NK; k++) {
         const kk = k / (NK - 1), depth = 1 - kk * 0.40;
@@ -3555,7 +3534,7 @@ const BUNDLED_BANNERS = {"alan-vaksman":"data:image/jpeg;base64,/9j/4AAQSkZJRgAB
       if (acc > 1.6) { acc = 0; cell[Math.floor(Math.random() * cell.length)] ^= 1; }
       const COLS = 11, ROWS = 4, gap = 5;
       const cw = Math.min(W * 0.0105, 15), ch = 22;
-      const x0 = W * 0.028, y0 = H * 0.36;
+      const x0 = W * 0.028, y0 = H * 0.40;
       const head = (t * 1.5) % COLS;
       for (let c = 0; c < COLS; c++) {
         const near = Math.max(0, 1 - Math.abs(c - head) / 1.7);
@@ -3576,59 +3555,48 @@ const BUNDLED_BANNERS = {"alan-vaksman":"data:image/jpeg;base64,/9j/4AAQSkZJRgAB
     equities: (bg) => {
       bg.innerHTML = `
         ${field('equities')}
-        <svg class="art-svg" data-side="l" style="top:20px; width:120px; opacity:0.16;"><use href="#bull-mark"/></svg>
-        <svg class="art-svg" data-side="r" style="top:60px; width:120px; opacity:0.14;"><use href="#bear-mark"/></svg>
         ${live('candles', 'l', 'bottom:10px;', 208, 150)}
-        <div class="art-token medium" data-side="r" style="top:40px;">LONG /  SHORT</div>
-        <div class="art-token small" data-side="l" style="bottom:170px;">P/E · EV/EBITDA · FCF</div>
+        <div class="art-token small" data-side="r" style="bottom:56px;">P/E \u00B7 EV/EBITDA \u00B7 FCF</div>
       `;
     },
     macro: (bg) => {
       bg.innerHTML = `
         ${field('macro')}
         ${live('curve', 'r', 'top:14px;', 208, 132)}
-        ${live('fxtape', 'l', 'bottom:10px;', 208, 150)}
-        <div class="art-token large" data-side="l" style="top:20px;">EUR / USD</div>
-        <div class="art-token medium" data-side="l" style="top:70px;">GBP · JPY · CHF</div>
-        <div class="art-token small" data-side="r" style="bottom:60px;">FED · ECB · BOJ · BOE</div>
+        ${live('fxtape', 'r', 'bottom:14px;', 208, 150)}
+        <div class="art-token small" data-side="l" style="bottom:46px;">FX \u00B7 RATES \u00B7 GEOPOLITICS</div>
       `;
     },
     derivatives: (bg) => {
       bg.innerHTML = `
         ${field('derivatives')}
         ${live('smile', 'r', 'top:22px;', 208, 140)}
-        <div class="art-token large" data-side="l" style="top:20px;">Δ · Γ · Θ · Vega</div>
-        <div class="art-token small" data-side="l" style="top:70px;">C = S·N(d₁) − K·e^(−rT)·N(d₂)</div>
-        <div class="art-token small" data-side="l" style="bottom:60px;">dS = μS·dt + σS·dW</div>
-        <div class="art-token medium" data-side="r" style="bottom:30px;">σ · IV · Skew</div>
+        <div class="art-token small" data-side="l" style="bottom:44px;">\u0394 \u00B7 \u0393 \u00B7 \u0398 \u00B7 Vega</div>
+        <div class="art-token small" data-side="r" style="bottom:44px;">\u03C3 \u00B7 IV \u00B7 Skew</div>
       `;
     },
     commodities: (bg) => {
       bg.innerHTML = `
         ${field('commodities')}
-        ${live('cmdtape', 'r', 'top:10px;', 208, 190)}
-        ${live('candles', 'l', 'bottom:20px;', 208, 140)}
-        <div class="art-token small" data-side="r" style="bottom:40px;">GOLD · SILVER · COPPER · WHEAT</div>
+        ${live('cmdtape', 'r', 'top:14px;', 208, 190)}
+        <div class="art-token small" data-side="l" style="bottom:44px;">BRENT \u00B7 WTI \u00B7 TTF</div>
+        <div class="art-token small" data-side="r" style="bottom:56px;">GOLD \u00B7 SILVER \u00B7 COPPER</div>
       `;
     },
     em: (bg) => {
       bg.innerHTML = `
         ${field('em')}
-        <div class="art-token large" data-side="l" style="top:20px;">BRICS</div>
-        <div class="art-token medium" data-side="l" style="top:70px;">BRA · RUS · IND · CHN · ZAF</div>
-        <div class="art-token small" data-side="l" style="top:110px;">EMBI · EMFX · LOCAL RATES</div>
         ${live('emblotter', 'r', 'top:16px;', 208, 152)}
-        <div class="art-token small" data-side="r" style="bottom:50px;">TRY · IDR · INR · CNY</div>
+        <div class="art-token small" data-side="l" style="bottom:44px;">EMBI \u00B7 EMFX \u00B7 LOCAL RATES</div>
+        <div class="art-token small" data-side="r" style="bottom:44px;">TRY \u00B7 IDR \u00B7 INR \u00B7 CNY</div>
       `;
     },
     credit: (bg) => {
       bg.innerHTML = `
         ${field('credit')}
         ${live('ladder', 'r', 'top:20px;', 208, 158)}
-        <div class="art-token medium" data-side="l" style="top:40px;">IG · HY · Distressed</div>
-        <div class="art-token small" data-side="l" style="top:80px;">CDS · CLO · Direct Lending</div>
-        <div class="art-token small" data-side="l" style="bottom:40px;">AAA · AA · A · BBB · BB · B · CCC</div>
-        <div class="art-token medium" data-side="r" style="bottom:40px;">Spread · Duration · Recovery</div>
+        <div class="art-token small" data-side="l" style="bottom:44px;">IG \u00B7 HY \u00B7 Distressed</div>
+        <div class="art-token small" data-side="r" style="bottom:44px;">Spread \u00B7 Duration \u00B7 Recovery</div>
       `;
     },
     "atp-equities": (bg) => {
@@ -3636,27 +3604,24 @@ const BUNDLED_BANNERS = {"alan-vaksman":"data:image/jpeg;base64,/9j/4AAQSkZJRgAB
         ${field('atp-equities')}
         ${live('book', 'l', 'top:16px;', 208, 186)}
         ${live('candles', 'r', 'bottom:20px;', 208, 142)}
-        <div class="art-token medium" data-side="r" style="top:30px;">BID · ASK · SPREAD</div>
-        <div class="art-token small" data-side="l" style="bottom:60px;">Market Making · Risk · Skew</div>
-      `;
-    },
-    events: (bg) => {
-      bg.innerHTML = `
-        ${field('events')}
-        <div class="art-token medium" data-side="l" style="top:26px;">Speakers</div>
-        <div class="art-token small"  data-side="l" style="top:74px;">Socials</div>
-        <div class="art-token small"  data-side="l" style="bottom:60px;">Simulations</div>
-        ${live('term', 'r', 'top:30px;', 208, 86)}
-        <div class="art-token small"  data-side="r" style="bottom:70px;">Outreach</div>
+        <div class="art-token small" data-side="r" style="top:22px;">BID \u00B7 ASK \u00B7 SPREAD</div>
+        <div class="art-token small" data-side="l" style="bottom:44px;">Market Making \u00B7 Risk \u00B7 Skew</div>
       `;
     },
     "atp-ficc": (bg) => {
       bg.innerHTML = `
         ${field('atp-ficc')}
         ${live('complex', 'r', 'top:20px;', 208, 134)}
-        <div class="art-token small" data-side="l" style="top:30px;">FX · Rates · Credit · Commodities</div>
-        <div class="art-token small" data-side="l" style="bottom:80px;">SOFR · SONIA · ESTR · TONA</div>
-        <div class="art-token medium" data-side="r" style="bottom:40px;">2Y / 10Y · 5Y / 30Y</div>
+        <div class="art-token small" data-side="l" style="bottom:44px;">SOFR \u00B7 SONIA \u00B7 ESTR \u00B7 TONA</div>
+        <div class="art-token small" data-side="r" style="bottom:44px;">2Y / 10Y \u00B7 5Y / 30Y</div>
+      `;
+    },
+    events: (bg) => {
+      bg.innerHTML = `
+        ${field('events')}
+        ${live('term', 'r', 'top:30px;', 208, 86)}
+        <div class="art-token medium" data-side="l" style="top:30px;">Speakers</div>
+        <div class="art-token small" data-side="r" style="bottom:52px;">Socials \u00B7 Outreach</div>
       `;
     },
   };
