@@ -916,6 +916,46 @@
     .committee .about-panel p { opacity: 1; transform: none; }
   }
 
+  .atp-apply { text-align: center; margin: 0 auto 34px; max-width: 30em; }
+  .apply-cta {
+    display: inline-flex; align-items: center; gap: 12px;
+    padding: 14px 30px; background: var(--gold); color: var(--bg);
+    font-family: 'Inter', sans-serif; font-size: 11.5px; font-weight: 500;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    transition: background 220ms, color 220ms, transform 220ms;
+  }
+  .apply-cta::after { content: "\2192"; font-size: 14px; letter-spacing: 0; }
+  .apply-cta:hover { background: var(--ink); color: var(--bg); transform: translateY(-2px); }
+  .apply-cta:focus-visible { outline: 2px solid var(--gold); outline-offset: 4px; }
+  .apply-note {
+    margin-top: 12px; font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--muted);
+  }
+  .recruitment-notice.open { border-style: solid; border-color: var(--gold-dim); background: rgba(201,167,90,.045); }
+  .recruitment-notice.open .apply-cta { margin-top: 26px; }
+
+  /* ============== TRANSITION COVER ============== */
+  /* Sits above the nav. Opaque while a scene plays, then lifts to reveal the
+     page that was routed in underneath it. */
+  #xfade {
+    position: fixed; inset: 0; z-index: 400; pointer-events: none;
+    opacity: 0; visibility: hidden;
+    transition: opacity 420ms ease, visibility 0s linear 420ms;
+  }
+  #xfade.on { opacity: 1; visibility: visible; transition: opacity 160ms ease, visibility 0s; }
+  #xfade canvas { display: block; width: 100%; height: 100%; }
+
+  /* ============== HERO FIELD ============== */
+  /* Full width, and masked out across the middle so the set piece can be drawn
+     at full size while nothing ever moves under the paragraph. */
+  .art-field {
+    position: absolute; inset: 0; width: 100%; height: 100%;
+    opacity: .58; pointer-events: none;
+    -webkit-mask-image: linear-gradient(90deg, #000 0%, #000 12%, transparent 27%, transparent 73%, #000 88%, #000 100%);
+    mask-image: linear-gradient(90deg, #000 0%, #000 12%, transparent 27%, transparent 73%, #000 88%, #000 100%);
+  }
+  @media (max-width: 1080px) { .art-field { display: none; } }
+
   /* ============== MAKE ME A MARKET ============== */
   .mm { border-top: 1px solid var(--line); padding: 78px 40px 10px; max-width: 1200px; margin: 60px auto 0; }
   .mm-wrap { max-width: 620px; margin: 0 auto; }
@@ -1481,6 +1521,10 @@
     <h1>Advanced Trader · <em>Equities</em></h1>
     <p class="division-paragraph">The Advanced Traders Programme (Equities) is for second year, third year and master's students looking to apply their skills in equity and equity derivatives research and execution. Members undertake weekly research, modelling and thesis formulation, which is then presented to the cohort. We trade a portfolio of our highest conviction ideas, publish our best research as it lands, and release a monthly State of the Market article alongside our FICC counterparts on the most pressing trends in the market as a whole. We aim to compete, and win, in as many competitions as possible, bringing high quality differentiated analysis whenever we represent the Trading Society.</p>
     <p class="eligibility"><strong>Eligibility</strong> The Advanced Traders Programme is not open to first year students. Applications are for second year, third year and master's students only.</p>
+    <div class="atp-apply">
+      <a class="apply-cta" href="https://docs.google.com/forms/d/e/1FAIpQLSfVesaOl7sxd8s_ZXwL86mRjjhBfncE6Fbw4ozPLMDLrjo_Gg/viewform" target="_blank" rel="noopener">Apply to the programme</a>
+      <div class="apply-note">Applications are open now.</div>
+    </div>
     <div class="div-heads-row single" data-div="atp-equities"></div>
   </section>
 
@@ -1522,10 +1566,11 @@
   <div class="members-panel">
     <h3>Current Members</h3>
     <div class="sub">Recruitment cycle</div>
-    <div class="recruitment-notice">
-      <span class="word">Recruitment starting</span>
-      <div class="date">October 2026</div>
-      <div class="caption">The application process is set at the discretion of the division heads and varies between divisions. Dates, format and requirements are announced on the <a href="https://www.instagram.com/lsesutrading/" target="_blank" rel="noopener">society Instagram</a>.</div>
+    <div class="recruitment-notice open">
+      <span class="word">Applications are open</span>
+      <div class="date">Apply now</div>
+      <div class="caption">Submit the form below. Shortlisted candidates are invited to interview by the programme heads, and anything else you need to know is posted on the <a href="https://www.instagram.com/lsesutrading/" target="_blank" rel="noopener">society Instagram</a>.</div>
+      <a class="apply-cta" href="https://docs.google.com/forms/d/e/1FAIpQLSfVesaOl7sxd8s_ZXwL86mRjjhBfncE6Fbw4ozPLMDLrjo_Gg/viewform" target="_blank" rel="noopener">Open the application form</a>
     </div>
   </div>
 </main>
@@ -1536,15 +1581,20 @@
     <h1>Advanced Trader · <em>FICC</em></h1>
     <p class="division-paragraph">The FICC Advanced Traders Programme builds a research driven approach while giving comprehensive exposure to Fixed Income, Currencies and Commodities across emerging and developed markets. Analysts develop expertise in global macro, learning the interconnected nature of these products alongside extensive training in the pricing and use of practical financial derivatives. Analysts regularly develop and present trading ideas, contribute to analytical discussions, and follow current events and their effects on markets. Working alongside the Equities programme, analysts contribute to a broader understanding of markets through shared research and the monthly State of the Market publication, bringing together perspectives across asset classes. The programme develops independent thinkers who can form their own market views, articulate their rationale, and turn them into actionable trades.</p>
     <p class="eligibility"><strong>Eligibility</strong> The Advanced Traders Programme is not open to first year students. Applications are for second year, third year and master's students only.</p>
+    <div class="atp-apply">
+      <a class="apply-cta" href="https://docs.google.com/forms/d/e/1FAIpQLSfVesaOl7sxd8s_ZXwL86mRjjhBfncE6Fbw4ozPLMDLrjo_Gg/viewform" target="_blank" rel="noopener">Apply to the programme</a>
+      <div class="apply-note">Applications are open now.</div>
+    </div>
     <div class="div-heads-row single" data-div="atp-ficc"></div>
   </section>
   <div class="members-panel">
     <h3>Current Members</h3>
     <div class="sub">Recruitment cycle</div>
-    <div class="recruitment-notice">
-      <span class="word">Recruitment starting</span>
-      <div class="date">October 2026</div>
-      <div class="caption">The application process is set at the discretion of the division heads and varies between divisions. Dates, format and requirements are announced on the <a href="https://www.instagram.com/lsesutrading/" target="_blank" rel="noopener">society Instagram</a>.</div>
+    <div class="recruitment-notice open">
+      <span class="word">Applications are open</span>
+      <div class="date">Apply now</div>
+      <div class="caption">Submit the form below. Shortlisted candidates are invited to interview by the programme heads, and anything else you need to know is posted on the <a href="https://www.instagram.com/lsesutrading/" target="_blank" rel="noopener">society Instagram</a>.</div>
+      <a class="apply-cta" href="https://docs.google.com/forms/d/e/1FAIpQLSfVesaOl7sxd8s_ZXwL86mRjjhBfncE6Fbw4ozPLMDLrjo_Gg/viewform" target="_blank" rel="noopener">Open the application form</a>
     </div>
   </div>
 </main>
@@ -1677,6 +1727,9 @@
 <div class="colophon">
   © 2026 LSESU Trading Society <span>·</span> A student society of the LSE Students' Union
 </div>
+
+
+<div id="xfade" aria-hidden="true"><canvas id="xfade-cv"></canvas></div>
 
 <script src="committee.js"></script>
 <script>
@@ -2130,6 +2183,497 @@
     attempt();
   });
 
+  // ============== DRAWING PRIMITIVES ==============
+  // Shared by the click transitions and the hero fields, so a globe, a barrel
+  // or a binomial tree is written once and used in both places.
+
+  const EASE = t => t < .5 ? 4*t*t*t : 1 - Math.pow(-2*t + 2, 3) / 2;
+  const OUTC = t => 1 - Math.pow(1 - t, 3);
+  const C01  = t => t < 0 ? 0 : t > 1 ? 1 : t;
+  const SEG  = (p, a, b) => C01((p - a) / (b - a));
+  const HASH = i => { const x = Math.sin(i * 127.1 + 311.7) * 43758.5453; return x - Math.floor(x); };
+  const AU   = a => 'rgba(201,167,90,' + a + ')';      // gold
+  const IV   = a => 'rgba(234,223,199,' + a + ')';     // ink
+  const I2   = a => 'rgba(184,172,145,' + a + ')';     // ink-2
+
+  // ---- orthographic wireframe globe ------------------------------------
+  function sph(lat, lon, rot) {
+    const a = lat * Math.PI / 180, b = (lon + rot) * Math.PI / 180;
+    const c = Math.cos(a);
+    return [c * Math.sin(b), -Math.sin(a), c * Math.cos(b)];
+  }
+  function globe(g, cx, cy, R, rot, al) {
+    const ring = (pts, w, a) => {
+      g.beginPath(); let on = false;
+      for (const v of pts) {
+        if (v[2] > 0) { const x = cx + v[0]*R, y = cy + v[1]*R; on ? g.lineTo(x, y) : g.moveTo(x, y); on = true; }
+        else on = false;
+      }
+      g.lineWidth = w; g.strokeStyle = AU(a); g.stroke();
+    };
+    for (let lat = -60; lat <= 60; lat += 30) {
+      const pts = []; for (let lon = -180; lon <= 180; lon += 4) pts.push(sph(lat, lon, rot));
+      ring(pts, 1, al * (lat === 0 ? 0.50 : 0.26));
+    }
+    for (let lon = -180; lon < 180; lon += 30) {
+      const pts = []; for (let lat = -88; lat <= 88; lat += 4) pts.push(sph(lat, lon, rot));
+      ring(pts, 1, al * 0.22);
+    }
+    g.lineWidth = 1.3; g.strokeStyle = AU(al * 0.65);
+    g.beginPath(); g.arc(cx, cy, R, 0, 6.2832); g.stroke();
+  }
+  // the financial centres, labelled while they are on the near face
+  function centres(g, cx, cy, R, rot, al, live) {
+    g.font = "10px 'JetBrains Mono', monospace";
+    g.textAlign = 'center'; g.textBaseline = 'middle';
+    for (const k in CITY) {
+      const v = sph(CITY[k][0], CITY[k][1], rot);
+      if (v[2] <= 0.06) continue;
+      const x = cx + v[0] * R, y = cy + v[1] * R;
+      const hot = live && live.indexOf(k) >= 0 ? 1 : 0;
+      const a = al * v[2] * (0.42 + 0.58 * hot);
+      g.fillStyle = hot ? IV(a) : AU(a);
+      g.beginPath(); g.arc(x, y, hot ? 2.8 : 1.8, 0, 6.2832); g.fill();
+      if (v[2] > 0.34) { g.fillStyle = hot ? IV(a * 0.95) : I2(a * 0.7); g.fillText(k, x, y - 11); }
+    }
+  }
+  const CITY = {
+    LDN: [51.5, -0.1], NYC: [40.7, -74.0], FRA: [50.1, 8.7], TKY: [35.7, 139.7],
+    HKG: [22.3, 114.2], SIN: [1.4, 103.8], DXB: [25.2, 55.3], SYD: [-33.9, 151.2],
+    SAO: [-23.6, -46.6], JNB: [-26.2, 28.0], MUM: [19.1, 72.9], IST: [41.0, 29.0],
+  };
+  // a great circle lifted off the sphere, drawn as far as t
+  function flow(g, cx, cy, R, A, B, rot, t, al) {
+    const a = sph(A[0], A[1], rot), b = sph(B[0], B[1], rot);
+    const dot = Math.max(-1, Math.min(1, a[0]*b[0] + a[1]*b[1] + a[2]*b[2]));
+    const d = Math.acos(dot), s = Math.sin(d) || 1, N = 54;
+    const to = Math.max(1, Math.round(N * C01(t)));
+    let head = null;
+    g.beginPath(); let on = false;
+    for (let i = 0; i <= to; i++) {
+      const u = i / N, w1 = Math.sin((1 - u) * d) / s, w2 = Math.sin(u * d) / s;
+      const L = 1 + 0.34 * Math.sin(Math.PI * u);
+      const v = [(a[0]*w1 + b[0]*w2) * L, (a[1]*w1 + b[1]*w2) * L, (a[2]*w1 + b[2]*w2) * L];
+      if (v[2] > -0.30) {
+        const x = cx + v[0]*R, y = cy + v[1]*R;
+        on ? g.lineTo(x, y) : g.moveTo(x, y); on = true;
+        if (i === to) head = [x, y];
+      } else on = false;
+    }
+    g.lineWidth = 1.4; g.strokeStyle = AU(al); g.stroke();
+    if (head && t < 1) {
+      g.fillStyle = IV(al * 1.1);
+      g.beginPath(); g.arc(head[0], head[1], 2.6, 0, 6.2832); g.fill();
+    }
+    // the node it left from
+    if (a[2] > 0) { g.fillStyle = AU(al * 0.9); g.beginPath(); g.arc(cx + a[0]*R, cy + a[1]*R, 2, 0, 6.2832); g.fill(); }
+    if (b[2] > 0 && t >= 1) { g.fillStyle = IV(al); g.beginPath(); g.arc(cx + b[0]*R, cy + b[1]*R, 2.6, 0, 6.2832); g.fill(); }
+  }
+
+  // ---- a barrel, staved and hooped --------------------------------------
+  function barrel(g, x, y, w, h, al) {
+    const r = w / 2, t = y - h/2, b = y + h/2;
+    g.lineWidth = 1.2;
+    g.fillStyle = AU(al * 0.09);
+    g.beginPath();
+    g.moveTo(x - r, t + 5);
+    g.quadraticCurveTo(x - r * 1.16, y, x - r, b - 5);
+    g.lineTo(x + r, b - 5);
+    g.quadraticCurveTo(x + r * 1.16, y, x + r, t + 5);
+    g.closePath(); g.fill();
+    g.strokeStyle = AU(al * 0.85); g.stroke();
+    g.strokeStyle = AU(al * 0.55);
+    for (const f of [0.26, 0.74]) {
+      g.beginPath(); g.ellipse(x, t + h * f, r * 1.09, 3.6, 0, 0, Math.PI); g.stroke();
+    }
+    g.strokeStyle = AU(al * 0.95);
+    g.beginPath(); g.ellipse(x, t + 5, r, 5, 0, 0, 6.2832); g.stroke();
+    g.strokeStyle = AU(al * 0.30);
+    g.beginPath(); g.moveTo(x - r * 0.42, t + 6); g.lineTo(x - r * 0.42, b - 6);
+    g.moveTo(x + r * 0.42, t + 6); g.lineTo(x + r * 0.42, b - 6); g.stroke();
+  }
+
+  // ---- binomial tree, branching outward ---------------------------------
+  function tree(g, x0, y0, dx, dy, n, grow, al) {
+    for (let i = 0; i < n; i++) {
+      const v = C01(grow * (n + 2) - i);
+      if (v <= 0) break;
+      for (let j = 0; j <= i; j++) {
+        const x = x0 + i * dx, y = y0 + (i - 2 * j) * dy * 0.5;
+        g.strokeStyle = AU(al * 0.52 * v); g.lineWidth = 1.1;
+        g.beginPath();
+        g.moveTo(x, y); g.lineTo(x + dx * v, y - dy * 0.5 * v);
+        g.moveTo(x, y); g.lineTo(x + dx * v, y + dy * 0.5 * v);
+        g.stroke();
+        g.fillStyle = AU(al * 0.95 * v);
+        g.beginPath(); g.arc(x, y, 2.6, 0, 6.2832); g.fill();
+      }
+    }
+  }
+
+  // ---- a spreadsheet, filling in ----------------------------------------
+  const SHEET_ROWS = ['Revenue', 'EBITDA', 'Less: capex', 'Less: ΔNWC',
+                      'Free cash flow', 'Discount factor', 'PV of FCF'];
+  function sheet(g, cx, cy, cw, ch, cols, fill, al, labelW) {
+    const rows = SHEET_ROWS.length;
+    const gw = cols * cw, gh = rows * ch;
+    const x0 = cx - gw / 2 + labelW / 2, y0 = cy - gh / 2;
+    const fs = Math.max(6, Math.min(20, ch * 0.42));
+    g.font = fs.toFixed(1) + "px 'JetBrains Mono', monospace";
+    g.textBaseline = 'middle';
+    const N = rows * cols, upto = N * C01(fill);
+    for (let r = 0; r < rows; r++) {
+      const y = y0 + r * ch;
+      if (y > g.canvas.height + ch || y + ch < -ch) continue;
+      const hot = r === 4 || r === 6;
+      // row label, hanging off the left of the grid
+      g.textAlign = 'right'; g.fillStyle = hot ? AU(al * 0.85) : I2(al * 0.45);
+      g.fillText(SHEET_ROWS[r], x0 - 8, y + ch / 2);
+      for (let c = 0; c < cols; c++) {
+        const idx = r * cols + c;
+        if (idx > upto) continue;
+        const x = x0 + c * cw;
+        const app = C01(upto - idx);
+        g.strokeStyle = AU(al * 0.13 * app); g.lineWidth = 1;
+        g.strokeRect(x, y, cw, ch);
+        if (hot) { g.fillStyle = AU(al * 0.09 * app); g.fillRect(x, y, cw, ch); }
+        const v = r === 5
+          ? (1 / Math.pow(1.094, c + 1)).toFixed(3)
+          : Math.round((820 + HASH(idx) * 640) * (r === 1 ? 0.31 : r === 2 ? 0.11 : r === 3 ? 0.04 : 1)
+                       * Math.pow(1.072, c)).toLocaleString('en-GB');
+        g.textAlign = 'right'; g.fillStyle = hot ? AU(al * 0.95 * app) : I2(al * 0.6 * app);
+        g.fillText(v, x + cw - 7, y + ch / 2);
+      }
+    }
+    // column headers
+    g.textAlign = 'center'; g.fillStyle = I2(al * 0.4);
+    for (let c = 0; c < cols; c++) {
+      if (c > upto / rows) continue;
+      g.fillText('FY' + (26 + c), x0 + c * cw + cw / 2, y0 - ch * 0.45);
+    }
+  }
+
+  // ---- capital stack, and the losses eating up through it ---------------
+  const TRANCHE = [['Senior secured', 96], ['Senior unsecured', 168], ['Subordinated', 305],
+                   ['Mezzanine', 640], ['Equity', 0]];
+  function capStack(g, cx, yb, w, rh, grow, loss, al) {
+    const n = TRANCHE.length;
+    g.font = "11px 'JetBrains Mono', monospace"; g.textBaseline = 'middle';
+    for (let i = 0; i < n; i++) {
+      const v = C01(grow * (n + 1) - (n - 1 - i));
+      if (v <= 0) continue;
+      const y = yb - (i + 1) * rh + (1 - v) * 26;
+      const ww = w * (1.00 - 0.105 * i);
+      const x = cx - ww / 2;
+      const eaten = C01((loss * n) - (n - 1 - i));     // equity goes first
+      g.fillStyle = AU(al * (0.07 + 0.05 * i) * v);
+      g.fillRect(x, y, ww, rh - 6);
+      g.strokeStyle = AU(al * 0.6 * v); g.lineWidth = 1;
+      g.strokeRect(x + .5, y + .5, ww - 1, rh - 7);
+      if (eaten > 0) {
+        g.fillStyle = 'rgba(15,30,21,' + (0.86 * eaten) + ')';
+        g.fillRect(x + 1, y + 1, ww - 2, rh - 8);
+        g.strokeStyle = I2(al * 0.5 * eaten);
+        g.beginPath(); g.moveTo(x, y + rh - 6); g.lineTo(x + ww, y); g.stroke();
+      }
+      g.textAlign = 'left'; g.fillStyle = IV(al * 0.75 * v * (1 - eaten * 0.7));
+      g.fillText(TRANCHE[i][0], x + 10, y + (rh - 6) / 2);
+      g.textAlign = 'right'; g.fillStyle = AU(al * 0.8 * v * (1 - eaten * 0.7));
+      g.fillText(TRANCHE[i][1] ? TRANCHE[i][1] + ' bp' : 'residual', x + ww - 10, y + (rh - 6) / 2);
+    }
+  }
+
+  // ---- text sampled into particle targets -------------------------------
+  const GLYPHS = {};
+  function glyphPoints(text, px, W, H) {
+    const key = text + '|' + px + '|' + W + 'x' + H;
+    if (GLYPHS[key]) return GLYPHS[key];
+    const c = document.createElement('canvas');
+    c.width = Math.max(2, Math.round(W)); c.height = Math.max(2, Math.round(H));
+    const q = c.getContext('2d');
+    q.fillStyle = '#fff'; q.textAlign = 'center'; q.textBaseline = 'middle';
+    q.font = '400 ' + px + "px Newsreader, Georgia, 'Times New Roman', serif";
+    q.fillText(text, c.width / 2, c.height / 2);
+    const d = q.getImageData(0, 0, c.width, c.height).data, pts = [];
+    const step = Math.max(3, Math.round(px / 44));
+    for (let y = 0; y < c.height; y += step)
+      for (let x = 0; x < c.width; x += step)
+        if (d[(y * c.width + x) * 4 + 3] > 140) pts.push([x, y]);
+    GLYPHS[key] = pts;
+    return pts;
+  }
+
+  // ============== CLICK TRANSITIONS ==============
+  // Opening a division does not cut to the page, it arrives through the thing
+  // that division does. Each scene runs once, over about a second and a half,
+  // on a canvas covering the viewport. The page underneath is swapped at the
+  // halfway point, behind the cover.
+
+  const SCENE = {};
+
+  // Equities: the camera falls into a DCF, the model building as it rushes past.
+  SCENE.equities = (g, W, H, p) => {
+    const z = 0.52 + 3.4 * EASE(p);
+    const al = SEG(p, 0, .12) * (1 - SEG(p, .86, 1) * 0.9);
+    sheet(g, W / 2, H / 2, 108 * z, 30 * z, 7, SEG(p, .04, .62) * 1.15, al, 150 * z);
+    const ev = SEG(p, .44, .92);
+    if (ev > 0) {
+      const val = Math.round(1240 + 5960 * OUTC(ev));
+      const fs = 40 + 44 * ev;
+      const pw = Math.min(W * 0.62, 30 + fs * 7), ph = fs * 2.5;
+      g.fillStyle = 'rgba(15,30,21,' + (0.90 * ev) + ')';
+      g.fillRect(W / 2 - pw / 2, H / 2 - ph / 2, pw, ph);
+      g.strokeStyle = AU(0.45 * ev); g.lineWidth = 1;
+      g.strokeRect(W / 2 - pw / 2 + .5, H / 2 - ph / 2 + .5, pw - 1, ph - 1);
+      g.textAlign = 'center'; g.textBaseline = 'middle';
+      g.font = "11px 'JetBrains Mono', monospace";
+      g.fillStyle = AU(0.85 * ev);
+      g.fillText('E N T E R P R I S E   V A L U E', W / 2, H / 2 - ph * 0.28);
+      g.font = '400 ' + fs.toFixed(0) + "px Newsreader, Georgia, serif";
+      g.fillStyle = IV(0.96 * ev);
+      g.fillText('£' + val.toLocaleString('en-GB') + 'm', W / 2, H / 2 + ph * 0.10);
+    }
+  };
+
+  // Derivatives: particles gather into the Greeks, the pricing equation writes
+  // itself underneath, then the whole thing blows apart.
+  SCENE.derivatives = (g, W, H, p) => {
+    const px = Math.min(190, W * 0.17);
+    const pts = glyphPoints('Δ Γ Θ ν ρ', px, Math.min(W, 1400), px * 1.6);
+    if (!pts.length) return;
+    const ox = W / 2 - Math.min(W, 1400) / 2, oy = H * 0.42 - px * 0.8;
+    const gather = OUTC(SEG(p, 0, .46)), blow = SEG(p, .74, 1);
+    const N = Math.min(pts.length, 3400);
+    const stride = pts.length / N;
+    for (let i = 0; i < N; i++) {
+      const t = pts[Math.min(pts.length - 1, Math.floor(i * stride))];
+      const a1 = HASH(i) * 6.2832, r1 = 260 + HASH(i + 91) * 620;
+      const sx = W / 2 + Math.cos(a1) * r1, sy = H / 2 + Math.sin(a1) * r1 * 0.7;
+      const tx = ox + t[0], ty = oy + t[1];
+      let x = sx + (tx - sx) * gather, y = sy + (ty - sy) * gather;
+      if (blow > 0) {
+        const b = blow * blow * (900 + HASH(i + 7) * 700);
+        x += Math.cos(a1) * b; y += Math.sin(a1) * b * 0.8;
+      }
+      g.fillStyle = i % 9 === 0 ? IV(0.92) : AU(0.55 + 0.35 * gather);
+      g.fillRect(x, y, 2.8, 2.8);
+    }
+    const w = SEG(p, .42, .80);
+    if (w > 0) {
+      const eq = '∂V/∂t + ½σ²S² ∂²V/∂S² + rS ∂V/∂S − rV = 0';
+      g.save();
+      g.textAlign = 'center'; g.textBaseline = 'middle';
+      g.font = Math.max(15, Math.min(30, W * 0.023)).toFixed(0) + "px 'JetBrains Mono', monospace";
+      const tw = g.measureText(eq).width;
+      g.beginPath(); g.rect(W / 2 - tw / 2, 0, tw * w, H); g.clip();
+      g.fillStyle = IV(0.95 * (1 - SEG(p, .86, 1)));
+      g.fillText(eq, W / 2, H * 0.74);
+      g.restore();
+    }
+  };
+
+  // Commodities: barrels drop in and stack, then the stack rolls out of frame.
+  SCENE.commodities = (g, W, H, p) => {
+    const bw = Math.min(88, W * 0.075), bh = bw * 1.28;
+    const rows = [5, 4, 3, 2, 1];
+    const total = 15;
+    const baseY = H * 0.5 + rows.length * bh * 0.5 - bh / 2;
+    const roll = SEG(p, .80, 1);
+    let k = 0;
+    for (let r = 0; r < rows.length; r++) {
+      for (let c = 0; c < rows[r]; c++, k++) {
+        const order = k;                                   // bottom row lands first
+        const drop = OUTC(SEG(p, order * 0.036, order * 0.036 + .34));
+        if (drop <= 0) continue;
+        const x = W / 2 + (c - (rows[r] - 1) / 2) * (bw * 1.06) + roll * (c - 2) * 420;
+        const yEnd = baseY - r * (bh * 0.92);
+        const y = -bh + (yEnd + bh) * drop;
+        const squash = 1 + 0.16 * Math.sin(Math.PI * C01((drop - .82) / .18));
+        g.save(); g.translate(x, y); g.scale(1 / squash, squash); g.rotate(roll * (c - 2) * 0.5);
+        barrel(g, 0, 0, bw, bh, (1 - roll * 0.8) * 0.95);
+        g.restore();
+      }
+    }
+    const lab = SEG(p, .40, .70);
+    if (lab > 0) {
+      g.textAlign = 'center'; g.textBaseline = 'middle';
+      g.font = "12px 'JetBrains Mono', monospace";
+      g.fillStyle = AU(0.75 * lab * (1 - roll));
+      g.fillText('BRENT  ·  WTI  ·  TTF  ·  GOLD  ·  COPPER', W / 2, baseY + bh * 0.95);
+    }
+  };
+
+  // Macro: the world spins up and capital fires between the centres.
+  SCENE.macro = (g, W, H, p) => {
+    const R = Math.min(W, H) * 0.36;
+    const cx = W / 2, cy = H * 0.50;
+    const rot = -52 + 92 * EASE(p);
+    const grow = OUTC(SEG(p, 0, .30)), fade = 1 - SEG(p, .88, 1);
+    g.save(); g.translate(cx, cy); g.scale(grow, grow); g.translate(-cx, -cy);
+    globe(g, cx, cy, R, rot, 0.85 * fade);
+    const LEGS = [['LDN','NYC'],['LDN','HKG'],['NYC','SAO'],['FRA','DXB'],['LDN','TKY'],
+                  ['SIN','SYD'],['NYC','FRA'],['DXB','MUM'],['LDN','JNB'],['TKY','SIN'],
+                  ['IST','FRA'],['HKG','SYD']];
+    const live = [];
+    LEGS.forEach((L, i) => {
+      const t = SEG(p, .12 + i * 0.038, .12 + i * 0.038 + .38);
+      if (t > 0) { flow(g, cx, cy, R, CITY[L[0]], CITY[L[1]], rot, t, 0.85 * fade); live.push(L[0]); }
+      if (t >= 1) live.push(L[1]);
+    });
+    centres(g, cx, cy, R, rot, 0.9 * fade, live);
+    g.restore();
+    const lab = SEG(p, .34, .66);
+    if (lab > 0) {
+      g.textAlign = 'center'; g.textBaseline = 'middle';
+      g.font = "12px 'JetBrains Mono', monospace";
+      g.fillStyle = AU(0.7 * lab * fade);
+      g.fillText('FED  ·  ECB  ·  BOE  ·  BOJ  ·  PBOC', W / 2, cy + R + 46);
+    }
+  };
+
+  // EM: the currencies come in on their own orbits and scatter.
+  SCENE.em = (g, W, H, p) => {
+    const SYM = ['₺', '₹', '¥', 'R$', '₽', '₦', 'MXN', 'ZAR', 'IDR', 'PLN', 'CLP', 'THB'];
+    const cx = W / 2, cy = H * 0.5, R = Math.min(W, H) * 0.26;
+    const inn = OUTC(SEG(p, 0, .48)), out = SEG(p, .72, 1);
+    g.textAlign = 'center'; g.textBaseline = 'middle';
+    SYM.forEach((s, i) => {
+      const a = (i / SYM.length) * 6.2832 + p * 1.5 + HASH(i) * 0.4;
+      const rr = R * (2.6 - 1.6 * inn) * (0.82 + 0.36 * HASH(i + 3)) + out * out * 1100;
+      const x = cx + Math.cos(a) * rr, y = cy + Math.sin(a) * rr * 0.62;
+      const fs = (16 + 26 * HASH(i + 11)) * (0.5 + 0.5 * inn);
+      g.font = '400 ' + fs.toFixed(0) + "px Newsreader, Georgia, serif";
+      g.fillStyle = i % 3 === 0 ? IV(0.85 * (1 - out)) : AU(0.65 * (1 - out));
+      g.fillText(s, x, y);
+    });
+    g.lineWidth = 1;
+    for (let k = 1; k <= 3; k++) {
+      g.strokeStyle = AU(0.16 * inn * (1 - out));
+      g.beginPath(); g.ellipse(cx, cy, R * k * 0.62, R * k * 0.38, 0, 0, 6.2832); g.stroke();
+    }
+    const lab = SEG(p, .40, .70);
+    if (lab > 0) {
+      g.font = "12px 'JetBrains Mono', monospace";
+      g.fillStyle = AU(0.7 * lab * (1 - out));
+      g.fillText('LOCAL RATES  ·  HARD CURRENCY  ·  EMFX', cx, cy + R + 60);
+    }
+  };
+
+  // Credit: the capital stack assembles, then losses eat up from the equity.
+  SCENE.credit = (g, W, H, p) => {
+    const rh = Math.min(52, H * 0.085), w = Math.min(560, W * 0.52);
+    const yb = H * 0.5 + rh * 2.5;
+    const fade = 1 - SEG(p, .90, 1);
+    capStack(g, W / 2, yb, w, rh, OUTC(SEG(p, 0, .48)), SEG(p, .54, .86), 0.95 * fade);
+    const lab = SEG(p, .30, .58);
+    if (lab > 0) {
+      g.textAlign = 'center'; g.textBaseline = 'middle';
+      g.font = "12px 'JetBrains Mono', monospace";
+      g.fillStyle = AU(0.7 * lab * fade);
+      g.fillText('WHO GETS PAID, AND IN WHAT ORDER', W / 2, yb - rh * 5.6);
+    }
+  };
+
+  // ATP Equities: both sides of the book fly in and meet on the spread.
+  SCENE['atp-equities'] = (g, W, H, p) => {
+    const LV = 7, rh = Math.min(30, H * 0.05), bw = Math.min(300, W * 0.28);
+    const cy = H * 0.5, fade = 1 - SEG(p, .88, 1);
+    g.font = "13px 'JetBrains Mono', monospace"; g.textBaseline = 'middle';
+    for (let side = 0; side < 2; side++) {
+      for (let i = 0; i < LV; i++) {
+        const t = OUTC(SEG(p, (LV - 1 - i) * 0.035, (LV - 1 - i) * 0.035 + .40));
+        if (t <= 0) continue;
+        const ask = side === 0;
+        const y = cy + (ask ? -1 : 1) * (rh * (i + 0.9));
+        const dir = ask ? 1 : -1;
+        const q = 40 + HASH(i * 2 + side) * 200;
+        const x = W / 2 + dir * (W * 0.6 * (1 - t) + 26);
+        const wBar = (q / 240) * bw;
+        g.fillStyle = ask ? I2(0.16 * fade) : AU(0.16 * fade);
+        g.fillRect(ask ? x : x - wBar, y - rh * 0.34, wBar, rh * 0.68);
+        g.fillStyle = ask ? I2(0.72 * fade) : AU(0.72 * fade);
+        g.textAlign = ask ? 'left' : 'right';
+        g.fillText((100 + dir * 0.01 * (i + 1)).toFixed(2), ask ? x + 6 : x - 6, y);
+      }
+    }
+    const pr = SEG(p, .58, .84);
+    if (pr > 0) {
+      g.fillStyle = AU(0.10 * Math.sin(Math.PI * pr) * fade);
+      g.fillRect(0, cy - rh * 0.6, W, rh * 1.2);
+      g.textAlign = 'center';
+      g.font = '400 ' + Math.min(44, W * 0.04).toFixed(0) + "px Newsreader, Georgia, serif";
+      g.fillStyle = IV(0.92 * Math.sin(Math.PI * pr) * fade);
+      g.fillText('100.00  traded', W / 2, cy);
+    }
+  };
+
+  // ATP FICC: a curve surface sweeps up out of the floor.
+  SCENE['atp-ficc'] = (g, W, H, p) => {
+    const rise = OUTC(SEG(p, 0, .58)), fade = 1 - SEG(p, .86, 1);
+    const cx = W / 2, cy = H * 0.60, sx = Math.min(W * 0.36, 460), sy = Math.min(H * 0.20, 150);
+    const NT = 16, NK = 10;
+    for (let k = 0; k < NK; k++) {
+      const kk = k / (NK - 1), depth = 1 - kk * 0.42;
+      const v = C01(rise * (NK + 2) - k);
+      if (v <= 0) continue;
+      g.beginPath();
+      for (let i = 0; i < NT; i++) {
+        const u = i / (NT - 1), tau = 0.25 * Math.pow(120, u);
+        const y = ns(tau, 4.0 + kk * 0.5, -1.4 + kk * 1.1, 1.3 - kk * 0.7, 2.6);
+        const X = cx + (u - 0.5) * 2 * sx * depth;
+        const Y = cy - kk * 26 * rise - (y - 1.4) / 3.6 * sy * v;
+        i ? g.lineTo(X, Y) : g.moveTo(X, Y);
+      }
+      g.lineWidth = k === 0 ? 1.8 : 1;
+      g.strokeStyle = AU((0.80 - kk * 0.55) * v * fade); g.stroke();
+    }
+    for (let i = 0; i < NT; i += 3) {                        // the tenor ribs
+      const u = i / (NT - 1), tau = 0.25 * Math.pow(120, u);
+      g.beginPath();
+      for (let k = 0; k < NK; k++) {
+        const kk = k / (NK - 1), depth = 1 - kk * 0.42;
+        const v = C01(rise * (NK + 2) - k); if (v <= 0) break;
+        const y = ns(tau, 4.0 + kk * 0.5, -1.4 + kk * 1.1, 1.3 - kk * 0.7, 2.6);
+        g.lineTo(cx + (u - 0.5) * 2 * sx * depth, cy - kk * 26 * rise - (y - 1.4) / 3.6 * sy * v);
+      }
+      g.lineWidth = 1; g.strokeStyle = AU(0.20 * fade); g.stroke();
+    }
+    const lab = SEG(p, .46, .76);
+    if (lab > 0) {
+      g.textAlign = 'center'; g.textBaseline = 'middle';
+      g.font = "12px 'JetBrains Mono', monospace";
+      g.fillStyle = AU(0.7 * lab * fade);
+      g.fillText('RATES  ·  FX  ·  CREDIT  ·  COMMODITIES', cx, cy + 54);
+    }
+  };
+
+  // Events: the term fills up, week by week.
+  SCENE.events = (g, W, H, p) => {
+    const COLS = 11, ROWS = 4, gap = 8;
+    const cw = Math.min(74, W * 0.062), ch = Math.min(52, H * 0.09);
+    const gw = COLS * cw + (COLS - 1) * gap, gh = ROWS * ch + (ROWS - 1) * gap;
+    const x0 = W / 2 - gw / 2, y0 = H * 0.5 - gh / 2;
+    const fade = 1 - SEG(p, .88, 1);
+    for (let c = 0; c < COLS; c++) {
+      const col = C01(SEG(p, .04, .62) * (COLS + 1) - c);
+      if (col <= 0) continue;
+      for (let r = 0; r < ROWS; r++) {
+        const on = HASH(r * COLS + c) < 0.40;
+        const x = x0 + c * (cw + gap), y = y0 + r * (ch + gap);
+        g.fillStyle = on ? AU(0.42 * col * fade) : I2(0.09 * col * fade);
+        g.fillRect(x, y, cw * col, ch);
+        if (on) { g.strokeStyle = AU(0.6 * col * fade); g.lineWidth = 1; g.strokeRect(x + .5, y + .5, cw * col - 1, ch - 1); }
+      }
+    }
+    const lab = SEG(p, .44, .74);
+    if (lab > 0) {
+      g.textAlign = 'center'; g.textBaseline = 'middle';
+      g.font = "12px 'JetBrains Mono', monospace";
+      g.fillStyle = AU(0.75 * lab * fade);
+      g.fillText('SPEAKERS  ·  SOCIALS  ·  SIMULATIONS  ·  INDUSTRY NIGHTS', W / 2, y0 + gh + 44);
+    }
+  };
+
   // ============== DIVISION GUTTER ENGINES ==============
   // Every division page carries one or two live canvases in the gutters either
   // side of the paragraph, never behind it: you should be able to read without
@@ -2492,10 +3036,225 @@
     };
   };
 
+  // ============== HERO FIELDS ==============
+  // Behind the gutter instruments sits a full width canvas carrying the big
+  // set piece for that desk. It is masked out across the middle in CSS, so it
+  // can be drawn at full size and still never appear under the paragraph.
+
+  function field(engine) {
+    return '<canvas class="art-field" aria-hidden="true" data-engine="f-' + engine + '"></canvas>';
+  }
+
+  // Equities: the model keeps recalculating, and the bridge keeps rebuilding.
+  ENGINES['f-equities'] = () => {
+    let t = 0;
+    return (g, W, H, dt) => {
+      t += dt;
+      const cyc = (t % 26) / 26;
+      sheet(g, W * 0.80, H * 0.46, 74, 26, 6, C01(cyc * 3.2), 0.62, 140);
+      // a value bridge on the other side: revenue down to free cash flow
+      const bars = [1.00, -0.62, -0.13, -0.11, -0.04, 0.10];
+      const bw = 20, gap = 9, x0 = W * 0.045, y0 = H * 0.66, hMax = 128;
+      let run = 0;
+      bars.forEach((b, i) => {
+        const v = C01(cyc * 8 - i * 0.55);
+        if (v <= 0) return;
+        const h = Math.abs(b) * hMax * v;
+        const top = i === 0 ? y0 - h : (b < 0 ? y0 - run * hMax : y0 - run * hMax - h);
+        g.fillStyle = b >= 0 ? AU(0.30) : I2(0.16);
+        g.fillRect(x0 + i * (bw + gap), top, bw, Math.max(1, h));
+        g.strokeStyle = b >= 0 ? AU(0.55) : I2(0.38); g.lineWidth = 1;
+        g.strokeRect(x0 + i * (bw + gap) + .5, top + .5, bw - 1, Math.max(1, h) - 1);
+        run += i === 0 ? b : b;
+      });
+      g.font = "10px 'JetBrains Mono', monospace"; g.textAlign = 'left';
+      g.fillStyle = AU(0.42); g.textBaseline = 'top';
+      g.fillText('REVENUE → FREE CASH FLOW', x0, y0 + 12);
+    };
+  };
+
+  // Macro: the world turns and capital keeps moving across it.
+  ENGINES['f-macro'] = () => {
+    let t = Math.random() * 40;
+    const LEGS = [['LDN','NYC'],['LDN','HKG'],['FRA','DXB'],['NYC','SAO'],['LDN','TKY'],['SIN','SYD']];
+    return (g, W, H, dt) => {
+      t += dt;
+      const R = Math.min(W * 0.125, 138), cx = W * 0.148, cy = H * 0.44;
+      const rot = t * 7;
+      globe(g, cx, cy, R, rot, 0.82);
+      LEGS.forEach((L, i) => {
+        const ph = ((t * 0.30 + i / LEGS.length) % 1);
+        const a = C01(ph / 0.62);                       // draws, then holds, then resets
+        if (ph < 0.90) flow(g, cx, cy, R, CITY[L[0]], CITY[L[1]], rot, a, 0.55 * (1 - C01((ph - .72) / .18)));
+      });
+      centres(g, cx, cy, R, rot, 0.72, null);
+      // policy rates ticking on the far side
+      const BANKS = [['FED', 4.38], ['ECB', 3.15], ['BOE', 4.75], ['BOJ', 0.48], ['PBOC', 3.10]];
+      g.font = "11px 'JetBrains Mono', monospace"; g.textBaseline = 'middle';
+      BANKS.forEach((b, i) => {
+        const y = H * 0.30 + i * 26;
+        const v = b[1] + 0.06 * Math.sin(t * 0.20 + i * 1.7);
+        g.textAlign = 'left'; g.fillStyle = I2(0.42); g.fillText(b[0], W * 0.845, y);
+        g.textAlign = 'right'; g.fillStyle = AU(0.55); g.fillText(v.toFixed(2) + '%', W * 0.975, y);
+        g.strokeStyle = AU(0.12); g.lineWidth = 1;
+        g.beginPath(); g.moveTo(W * 0.845, y + 13); g.lineTo(W * 0.975, y + 13); g.stroke();
+      });
+    };
+  };
+
+  // Derivatives: the tree keeps branching, the Greeks drift across it.
+  ENGINES['f-derivatives'] = () => {
+    let t = Math.random() * 20;
+    const GK = ['Δ', 'Γ', 'Θ', 'ν', 'ρ', 'σ'];
+    return (g, W, H, dt) => {
+      t += dt;
+      const cyc = (t % 15) / 15;
+      tree(g, W * 0.030, H * 0.44, 28, 36, 9, C01(cyc * 2.4) * (1 - C01((cyc - .86) / .14)), 0.98);
+      g.textAlign = 'center'; g.textBaseline = 'middle';
+      GK.forEach((s, i) => {
+        const ph = (t * 0.055 + i / GK.length) % 1;
+        const y = H * 1.05 - ph * H * 1.15;
+        const x = W * (0.80 + 0.13 * Math.sin(t * 0.20 + i * 2.1));
+        const a = Math.sin(Math.PI * ph);
+        g.font = '400 ' + (26 + 22 * HASH(i)).toFixed(0) + "px Newsreader, Georgia, serif";
+        g.fillStyle = AU(0.50 * a);
+        g.fillText(s, x, y);
+      });
+      g.font = "10px 'JetBrains Mono', monospace"; g.textAlign = 'right';
+      g.fillStyle = AU(0.34);
+      g.fillText('∂V/∂t + ½σ²S²∂²V/∂S² + rS∂V/∂S = rV', W * 0.985, H * 0.86);
+    };
+  };
+
+  // Commodities: the stack sits there and breathes, the way inventory does.
+  ENGINES['f-commodities'] = () => {
+    let t = Math.random() * 30;
+    return (g, W, H, dt) => {
+      t += dt;
+      const bw = Math.min(58, W * 0.05), bh = bw * 1.28;
+      const rows = [4, 3, 2, 1];
+      const cx = W * 0.855, yb = H * 0.62;
+      let k = 0;
+      for (let r = 0; r < rows.length; r++)
+        for (let c = 0; c < rows[r]; c++, k++) {
+          const bob = Math.sin(t * 0.7 + k * 0.9) * 1.6;
+          barrel(g, cx + (c - (rows[r] - 1) / 2) * bw * 1.05,
+                    yb - r * bh * 0.92 + bob, bw, bh, 0.62);
+        }
+      // and a tanker on the horizon, because the stuff has to move
+      const x = ((t * 16) % (W * 0.42)) - W * 0.06;
+      g.strokeStyle = AU(0.34); g.lineWidth = 1.2;
+      g.beginPath();
+      g.moveTo(x, H * 0.30); g.lineTo(x + 130, H * 0.30);
+      g.lineTo(x + 122, H * 0.30 + 15); g.lineTo(x + 10, H * 0.30 + 15); g.closePath(); g.stroke();
+      g.beginPath(); g.moveTo(x + 96, H * 0.30); g.lineTo(x + 96, H * 0.30 - 17);
+      g.lineTo(x + 122, H * 0.30 - 17); g.lineTo(x + 122, H * 0.30); g.stroke();
+      g.strokeStyle = AU(0.16);
+      g.beginPath(); g.moveTo(0, H * 0.30 + 21); g.lineTo(W * 0.40, H * 0.30 + 21); g.stroke();
+    };
+  };
+
+  // EM: the currencies keep circling.
+  ENGINES['f-em'] = () => {
+    let t = Math.random() * 30;
+    const SYM = ['₺', '₹', 'R$', '₽', 'MXN', 'ZAR', 'IDR', '₦'];
+    return (g, W, H, dt) => {
+      t += dt;
+      const cx = W * 0.135, cy = H * 0.46, R = Math.min(W * 0.10, 116);
+      g.lineWidth = 1;
+      for (let k = 1; k <= 3; k++) {
+        g.strokeStyle = AU(0.13);
+        g.beginPath(); g.ellipse(cx, cy, R * k * 0.55, R * k * 0.33, 0, 0, 6.2832); g.stroke();
+      }
+      g.textAlign = 'center'; g.textBaseline = 'middle';
+      SYM.forEach((s, i) => {
+        const ring = 1 + (i % 3);
+        const a = t * (0.16 + 0.05 * (i % 3)) + i * 1.9;
+        const x = cx + Math.cos(a) * R * ring * 0.55;
+        const y = cy + Math.sin(a) * R * ring * 0.33;
+        const near = 0.45 + 0.55 * (0.5 + 0.5 * Math.sin(a));
+        g.font = '400 ' + (17 + 13 * near).toFixed(0) + "px Newsreader, Georgia, serif";
+        g.fillStyle = i % 3 === 0 ? IV(0.55 * near) : AU(0.55 * near);
+        g.fillText(s, x, y);
+      });
+    };
+  };
+
+  // Credit: the stack stands, and every so often the bottom of it goes.
+  ENGINES['f-credit'] = () => {
+    let t = Math.random() * 30;
+    return (g, W, H, dt) => {
+      t += dt;
+      const cyc = (t % 21) / 21;
+      const rh = 34, w = Math.min(W * 0.30, 300);
+      capStack(g, W * 0.155, H * 0.72, w, rh, C01(cyc * 3), C01((cyc - .55) * 3.4) * (1 - C01((cyc - .92) / .08)), 0.62);
+    };
+  };
+
+  // ATP Equities: the research model, ghosted behind the book.
+  ENGINES['f-atp-equities'] = () => {
+    let t = 0;
+    return (g, W, H, dt) => {
+      t += dt;
+      sheet(g, W * 0.82, H * 0.50, 68, 24, 5, C01(((t % 22) / 22) * 3.2), 0.44, 128);
+    };
+  };
+
+  // ATP FICC: the whole curve surface, one visible edge of it.
+  ENGINES['f-atp-ficc'] = () => {
+    let t = Math.random() * 100;
+    return (g, W, H, dt) => {
+      t += dt;
+      const cx = W * 0.145, cy = H * 0.58, sx = Math.min(W * 0.115, 140), sy = 120;
+      const NT = 20, NK = 9;
+      for (let k = 0; k < NK; k++) {
+        const kk = k / (NK - 1), depth = 1 - kk * 0.40;
+        g.beginPath();
+        for (let i = 0; i < NT; i++) {
+          const u = i / (NT - 1), tau = 0.25 * Math.pow(120, u);
+          const b0 = 4.0 + kk * 0.45 + 0.30 * wob(t * 0.06 + kk * 2, 1, .41, .23);
+          const y = ns(tau, b0, -1.3 + kk * 1.0, 1.2 - kk * 0.6, 2.6);
+          const X = cx + (u - 0.5) * 2 * sx * depth;
+          const Y = cy - kk * 17 - (y - 1.4) / 3.6 * sy;
+          i ? g.lineTo(X, Y) : g.moveTo(X, Y);
+        }
+        g.lineWidth = k === 0 ? 1.6 : 1;
+        g.strokeStyle = AU(0.66 - kk * 0.46); g.stroke();
+      }
+    };
+  };
+
+  // Events: the term, filling up.
+  ENGINES['f-events'] = () => {
+    let t = Math.random() * 20, cell = [];
+    for (let i = 0; i < 44; i++) cell.push(HASH(i) < 0.36 ? 1 : 0);
+    let acc = 0;
+    return (g, W, H, dt) => {
+      t += dt; acc += dt;
+      if (acc > 1.6) { acc = 0; cell[Math.floor(Math.random() * cell.length)] ^= 1; }
+      const COLS = 11, ROWS = 4, gap = 5;
+      const cw = Math.min(W * 0.0105, 15), ch = 22;
+      const x0 = W * 0.028, y0 = H * 0.36;
+      const head = (t * 1.5) % COLS;
+      for (let c = 0; c < COLS; c++) {
+        const near = Math.max(0, 1 - Math.abs(c - head) / 1.7);
+        for (let r = 0; r < ROWS; r++) {
+          const on = cell[r * COLS + c];
+          g.fillStyle = on ? AU(0.28 + near * 0.50) : I2(0.07 + near * 0.09);
+          g.fillRect(x0 + c * (cw + gap), y0 + r * (ch + gap), cw, ch);
+        }
+      }
+      g.font = "10px 'JetBrains Mono', monospace"; g.textAlign = 'left'; g.textBaseline = 'top';
+      g.fillStyle = AU(0.38);
+      g.fillText('MICHAELMAS · LENT · SUMMER', x0, y0 + ROWS * (ch + gap) + 8);
+    };
+  };
+
   // ============== RENDER: DIVISION BACKGROUND ART ==============
   const artFor = {
     equities: (bg) => {
       bg.innerHTML = `
+        ${field('equities')}
         <svg class="art-svg" data-side="l" style="top:20px; width:120px; opacity:0.16;"><use href="#bull-mark"/></svg>
         <svg class="art-svg" data-side="r" style="top:60px; width:120px; opacity:0.14;"><use href="#bear-mark"/></svg>
         ${live('candles', 'l', 'bottom:10px;', 208, 150)}
@@ -2505,6 +3264,7 @@
     },
     macro: (bg) => {
       bg.innerHTML = `
+        ${field('macro')}
         ${live('curve', 'r', 'top:14px;', 208, 132)}
         ${live('fxtape', 'l', 'bottom:10px;', 208, 150)}
         <div class="art-token large" data-side="l" style="top:20px;">EUR / USD</div>
@@ -2514,6 +3274,7 @@
     },
     derivatives: (bg) => {
       bg.innerHTML = `
+        ${field('derivatives')}
         ${live('smile', 'r', 'top:22px;', 208, 140)}
         <div class="art-token large" data-side="l" style="top:20px;">Δ · Γ · Θ · Vega</div>
         <div class="art-token small" data-side="l" style="top:70px;">C = S·N(d₁) − K·e^(−rT)·N(d₂)</div>
@@ -2523,8 +3284,7 @@
     },
     commodities: (bg) => {
       bg.innerHTML = `
-        <svg class="art-svg" data-side="l" style="top:20px; width:56px;"><use href="#oil-barrel"/></svg>
-        <svg class="art-svg" data-side="l" style="top:40px; width:52px; opacity:0.12;"><use href="#oil-barrel"/></svg>
+        ${field('commodities')}
         ${live('cmdtape', 'r', 'top:10px;', 208, 190)}
         ${live('candles', 'l', 'bottom:20px;', 208, 140)}
         <div class="art-token small" data-side="r" style="bottom:40px;">GOLD · SILVER · COPPER · WHEAT</div>
@@ -2532,6 +3292,7 @@
     },
     em: (bg) => {
       bg.innerHTML = `
+        ${field('em')}
         <div class="art-token large" data-side="l" style="top:20px;">BRICS</div>
         <div class="art-token medium" data-side="l" style="top:70px;">BRA · RUS · IND · CHN · ZAF</div>
         <div class="art-token small" data-side="l" style="top:110px;">EMBI · EMFX · LOCAL RATES</div>
@@ -2541,6 +3302,7 @@
     },
     credit: (bg) => {
       bg.innerHTML = `
+        ${field('credit')}
         ${live('ladder', 'r', 'top:20px;', 208, 158)}
         <div class="art-token medium" data-side="l" style="top:40px;">IG · HY · Distressed</div>
         <div class="art-token small" data-side="l" style="top:80px;">CDS · CLO · Direct Lending</div>
@@ -2550,6 +3312,7 @@
     },
     "atp-equities": (bg) => {
       bg.innerHTML = `
+        ${field('atp-equities')}
         ${live('book', 'l', 'top:16px;', 208, 186)}
         ${live('candles', 'r', 'bottom:20px;', 208, 142)}
         <div class="art-token medium" data-side="r" style="top:30px;">BID · ASK · SPREAD</div>
@@ -2558,6 +3321,7 @@
     },
     events: (bg) => {
       bg.innerHTML = `
+        ${field('events')}
         <div class="art-token medium" data-side="l" style="top:26px;">Speakers</div>
         <div class="art-token small"  data-side="l" style="top:74px;">Socials</div>
         <div class="art-token small"  data-side="l" style="bottom:60px;">Simulations</div>
@@ -2567,6 +3331,7 @@
     },
     "atp-ficc": (bg) => {
       bg.innerHTML = `
+        ${field('atp-ficc')}
         ${live('complex', 'r', 'top:20px;', 208, 134)}
         <div class="art-token small" data-side="l" style="top:30px;">FX · Rates · Credit · Commodities</div>
         <div class="art-token small" data-side="l" style="bottom:80px;">SOFR · SONIA · ESTR · TONA</div>
@@ -2597,6 +3362,66 @@
     const kind = bg.getAttribute('data-art');
     if (artFor[kind]) artFor[kind](bg);
   });
+
+  // ============== THE TRANSITION DRIVER ==============
+  // A click on a division link is caught, the cover comes up, the scene plays,
+  // and the route is swapped halfway through so the new page is already there
+  // when the cover lifts. Reduced motion skips straight to the route.
+  (function cinema() {
+    const ov = document.getElementById('xfade');
+    const cv = document.getElementById('xfade-cv');
+    if (!ov || !cv) return;
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let running = false;
+
+    function play(kind, then) {
+      const scene = SCENE[kind];
+      if (reduce || !scene || running) { then(); return; }
+      running = true;
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const W = window.innerWidth, H = window.innerHeight;
+      cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr);
+      const g = cv.getContext('2d');
+      ov.classList.add('on');
+      ov.style.pointerEvents = 'auto';          // swallow clicks while it runs
+      const DUR = 1300, T0 = performance.now();
+      let swapped = false, lifted = false, done = false;
+      function finish() {
+        if (done) return;
+        done = true;
+        if (!swapped) { swapped = true; then(); }
+        lifted = true;
+        ov.classList.remove('on');
+        ov.style.pointerEvents = 'none';
+        running = false;
+      }
+      const guard = setTimeout(finish, DUR + 800);
+      (function step(now) {
+        const p = Math.min(1, (now - T0) / DUR);
+        g.setTransform(dpr, 0, 0, dpr, 0, 0);
+        g.fillStyle = '#0F1E15'; g.fillRect(0, 0, W, H);
+        try { scene(g, W, H, p); } catch (err) { /* never strand the cover */ }
+        if (!swapped && p >= 0.50) { swapped = true; then(); }
+        if (!lifted && p >= 0.72) { lifted = true; ov.classList.remove('on'); }
+        if (p < 1 && !done) requestAnimationFrame(step);
+        else { clearTimeout(guard); finish(); }
+      })(T0);
+    }
+
+    document.addEventListener('click', e => {
+      if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      const a = e.target.closest && e.target.closest('a[href^="#/division/"]');
+      if (!a) return;
+      const href = a.getAttribute('href');
+      if (href === window.location.hash) return;
+      const kind = href.slice('#/division/'.length);
+      if (!SCENE[kind]) return;
+      e.preventDefault();
+      // blur the nav item so the dropdown closes behind the cover
+      if (document.activeElement && document.activeElement.blur) document.activeElement.blur();
+      play(kind, () => { window.location.hash = href; });
+    });
+  })();
 
   // ============== MAKE ME A MARKET ==============
   // The standard trading interview question, played straight. You quote a two
@@ -2793,9 +3618,10 @@
   (function runLive() {
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const inst = [];
-    document.querySelectorAll('.art-live').forEach(cv => {
+    document.querySelectorAll('canvas[data-engine]').forEach(cv => {
       const make = ENGINES[cv.dataset.engine];
-      if (make) inst.push({ cv, ctx: null, w: 0, h: 0, dpr: 1, draw: make() });
+      if (make) inst.push({ cv, ctx: null, w: 0, h: 0, dpr: 1, draw: make(),
+                            field: cv.classList.contains('art-field') });
     });
     if (!inst.length) return;
 
@@ -2813,6 +3639,15 @@
         it.ctx.setTransform(it.dpr, 0, 0, it.dpr, 0, 0);
         it.ctx.clearRect(0, 0, w, h);
         it.draw(it.ctx, w, h, dt);
+        if (it.field) {
+          // soften the top and bottom edges so the field has no hard seam
+          const gr = it.ctx.createLinearGradient(0, 0, 0, h);
+          gr.addColorStop(0, 'rgba(0,0,0,1)'); gr.addColorStop(0.14, 'rgba(0,0,0,0)');
+          gr.addColorStop(0.80, 'rgba(0,0,0,0)'); gr.addColorStop(1, 'rgba(0,0,0,1)');
+          it.ctx.globalCompositeOperation = 'destination-out';
+          it.ctx.fillStyle = gr; it.ctx.fillRect(0, 0, w, h);
+          it.ctx.globalCompositeOperation = 'source-over';
+        }
       }
     }
 
