@@ -727,6 +727,7 @@
 
   /* ---- clusters ---- */
   .committee .cluster { padding-top: 18px; }
+  .committee .cluster + .cluster { margin-top: 84px; }
   .committee .cluster.empty { display: none; }
   .committee .cluster-head {
     display: flex; align-items: flex-end; gap: 28px;
@@ -2348,16 +2349,24 @@ const VACANT = {
         ctx.beginPath(); ctx.arc(W, Y(pts[n - 1]), 2.1, 0, 6.2832);
         ctx.fillStyle = '#C9A75A'; ctx.fill();
       }
-      function step() { px += (Math.random() - 0.5) * 0.9; pts.push(px); pts.shift(); draw(); }
+      function step() {
+        if (!ctx && !fit()) return;   // the page was hidden when we first tried
+        px += (Math.random() - 0.5) * 0.9; pts.push(px); pts.shift(); draw();
+      }
 
-      if (fit()) draw();
+      const refit = () => { if (!ctx && fit()) draw(); };
+      setTimeout(refit, 0);                       // after the first route
+      window.addEventListener('hashchange', () => setTimeout(refit, 0));
       window.addEventListener('resize', () => { if (fit()) draw(); });
       if (reduce) return;
 
       let timer = null;
       new IntersectionObserver(es => {
-        if (es[0].isIntersecting && !timer) timer = setInterval(step, 110 + idx * 17);
-        else if (!es[0].isIntersecting && timer) { clearInterval(timer); timer = null; }
+        if (es[0].isIntersecting) {
+          if (!ctx) { if (fit()) draw(); }
+          if (!timer) timer = setInterval(step, 110 + idx * 17);
+        }
+        else if (timer) { clearInterval(timer); timer = null; }
       }, { threshold: 0 }).observe(cv);
       document.addEventListener('visibilitychange', () => {
         if (document.hidden && timer) { clearInterval(timer); timer = null; }
