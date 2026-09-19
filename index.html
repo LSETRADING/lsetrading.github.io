@@ -3256,6 +3256,128 @@
     if (artFor[kind]) artFor[kind](bg);
   });
 
+  // ---- a word setting itself, one letter at a time ----------------------
+  // Each letter fades up and settles from slightly below, staggered along the
+  // word, so it reads as being spelled out rather than simply appearing.
+  function spellOut(g, text, cx, cy, px, p, alpha) {
+    g.font = '400 ' + px.toFixed(0) + "px Newsreader, Georgia, 'Times New Roman', serif";
+    g.textAlign = 'left'; g.textBaseline = 'middle';
+    const chars = text.split('');
+    const track = px * 0.16;
+    const widths = chars.map(ch => g.measureText(ch).width);
+    const total = widths.reduce((a, b) => a + b, 0) + track * (chars.length - 1);
+    let x = cx - total / 2;
+    for (let i = 0; i < chars.length; i++) {
+      const t = C01((p - i * 0.040) / 0.34);
+      if (t > 0) {
+        const e = OUTC(t);
+        g.globalAlpha = alpha * e;
+        g.fillStyle = 'rgb(201,167,90)';
+        g.fillText(chars[i], x, cy + (1 - e) * px * 0.26);
+        g.globalAlpha = 1;
+      }
+      x += widths[i] + track;
+    }
+    // a rule drawing out under the word as it completes
+    const r = C01((p - 0.30) / 0.45);
+    if (r > 0) {
+      g.strokeStyle = AU(0.5 * alpha); g.lineWidth = 1;
+      g.beginPath();
+      g.moveTo(cx - total / 2, cy + px * 0.78);
+      g.lineTo(cx - total / 2 + total * OUTC(r), cy + px * 0.78);
+      g.stroke();
+    }
+    return total;
+  }
+
+  // Leadership: sixteen frames settle into a board, then the word is set
+  // across them and the offices are read out underneath.
+  SCENE.leadership = (g, W, H, p) => {
+    const fade = 1 - SEG(p, .88, 1);
+    const N = 16, COLS = 8, ROWS = 2;
+    const tw = Math.min(124, W * 0.082), th = tw, gap = tw * 0.16;
+    const gw = COLS * tw + (COLS - 1) * gap, gh = ROWS * th + (ROWS - 1) * gap;
+    const x0 = W / 2 - gw / 2, y0 = H / 2 - gh / 2;
+    for (let i = 0; i < N; i++) {
+      const t = OUTC(SEG(p, i * 0.021, i * 0.021 + .42));
+      if (t <= 0) continue;
+      const c = i % COLS, r = Math.floor(i / COLS);
+      const a1 = HASH(i) * 6.2832, d = (1 - t) * (440 + HASH(i + 5) * 560);
+      const x = x0 + c * (tw + gap) + Math.cos(a1) * d;
+      const y = y0 + r * (th + gap) + Math.sin(a1) * d * 0.68;
+      g.fillStyle = AU(0.055 * t * fade);
+      g.fillRect(x, y, tw, th);
+      g.strokeStyle = AU(0.30 * t * fade); g.lineWidth = 1;
+      g.strokeRect(x + .5, y + .5, tw - 1, th - 1);
+      // the corner brackets the committee cards draw on hover
+      const b = tw * 0.20;
+      g.strokeStyle = AU(0.75 * t * fade); g.lineWidth = 1.2;
+      g.beginPath();
+      g.moveTo(x + 7, y + 7 + b); g.lineTo(x + 7, y + 7); g.lineTo(x + 7 + b, y + 7);
+      g.moveTo(x + tw - 7, y + th - 7 - b); g.lineTo(x + tw - 7, y + th - 7); g.lineTo(x + tw - 7 - b, y + th - 7);
+      g.stroke();
+    }
+    const sp = SEG(p, .32, 1);
+    if (sp <= 0) return;
+    const px = Math.min(78, W * 0.058);
+    g.fillStyle = 'rgba(15,30,21,' + (0.86 * C01(sp * 4) * fade) + ')';
+    g.fillRect(0, H / 2 - px * 1.25, W, px * 2.5);
+    spellOut(g, 'LEADERSHIP', W / 2, H / 2 - px * 0.16, px, sp, fade);
+    const rc = SEG(p, .54, .92);
+    if (rc > 0) {
+      g.font = "12px 'JetBrains Mono', monospace";
+      g.textAlign = 'center'; g.textBaseline = 'middle';
+      g.fillStyle = I2(0.80 * rc * fade);
+      g.fillText('CHAIRMAN · PRESIDENT · VICE PRESIDENT · SECRETARY · TREASURER · DIVISION HEADS',
+                 W / 2, H / 2 + px * 1.10);
+    }
+  };
+
+  // Events: the speaker cards are dealt in from off the right, then the word
+  // is set over them and the year is read out underneath.
+  SCENE['events-page'] = (g, W, H, p) => {
+    const fade = 1 - SEG(p, .88, 1);
+    const px = Math.min(88, W * 0.068);
+    const band = px * 1.30;                       // kept clear for the word
+    const N = 8, COLS = 4;
+    const cw = Math.min(252, W * 0.175), ch = cw * 0.70, gap = cw * 0.10;
+    const gw = COLS * cw + (COLS - 1) * gap;
+    const x0 = W / 2 - gw / 2;
+    for (let i = 0; i < N; i++) {
+      const t = OUTC(SEG(p, i * 0.034, i * 0.034 + .44));
+      if (t <= 0) continue;
+      const c = i % COLS, r = Math.floor(i / COLS);
+      const x = x0 + c * (cw + gap) + (1 - t) * W * 0.85;
+      const y = (r === 0 ? H / 2 - band - ch - 14 : H / 2 + band + 14) + (1 - t) * 52;
+      g.save();
+      g.translate(x + cw / 2, y + ch / 2);
+      g.rotate((1 - t) * 0.30);
+      g.fillStyle = AU(0.055 * fade);
+      g.fillRect(-cw / 2, -ch / 2, cw, ch);
+      g.strokeStyle = AU(0.42 * t * fade); g.lineWidth = 1;
+      g.strokeRect(-cw / 2 + .5, -ch / 2 + .5, cw - 1, ch - 1);
+      // the speaker's name and firm, as a card lays them out
+      g.fillStyle = IV(0.30 * t * fade);
+      g.fillRect(-cw / 2 + 12, ch / 2 - 30, cw * 0.56, 7);
+      g.fillStyle = AU(0.34 * t * fade);
+      g.fillRect(-cw / 2 + 12, ch / 2 - 18, cw * 0.32, 5);
+      g.restore();
+    }
+    const sp = SEG(p, .36, 1);
+    if (sp <= 0) return;
+    g.fillStyle = 'rgba(15,30,21,' + (0.88 * C01(sp * 4) * fade) + ')';
+    g.fillRect(0, H / 2 - px * 1.25, W, px * 2.5);
+    spellOut(g, 'EVENTS', W / 2, H / 2 - px * 0.16, px, sp, fade);
+    const rc = SEG(p, .56, .92);
+    if (rc > 0) {
+      g.font = "12px 'JetBrains Mono', monospace";
+      g.textAlign = 'center'; g.textBaseline = 'middle';
+      g.fillStyle = I2(0.80 * rc * fade);
+      g.fillText('SPEAKERS · SOCIALS · SIMULATIONS · COMPETITIONS · INDUSTRY NIGHTS',
+                 W / 2, H / 2 + px * 1.10);
+    }
+  };
+
   // ============== THE TRANSITION DRIVER ==============
   // A click on a division link is caught, the cover comes up, the scene plays,
   // and the route is swapped halfway through so the new page is already there
@@ -3301,14 +3423,22 @@
       })(T0);
     }
 
+    // which scene, if any, covers a given route
+    function sceneFor(href) {
+      if (href === '#/events') return 'events-page';
+      if (href === '#/leadership' || href.indexOf('#/leadership/') === 0) return 'leadership';
+      const m = href.match(/^#\/division\/([a-z0-9-]+)$/);
+      return m ? m[1] : null;
+    }
+
     document.addEventListener('click', e => {
       if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
-      const a = e.target.closest && e.target.closest('a[href^="#/division/"]');
+      const a = e.target.closest && e.target.closest('a[href^="#/"]');
       if (!a) return;
       const href = a.getAttribute('href');
       if (href === window.location.hash) return;
-      const kind = href.slice('#/division/'.length);
-      if (!SCENE[kind]) return;
+      const kind = sceneFor(href);
+      if (!kind || !SCENE[kind]) return;
       e.preventDefault();
       // blur the nav item so the dropdown closes behind the cover
       if (document.activeElement && document.activeElement.blur) document.activeElement.blur();
