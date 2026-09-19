@@ -29,7 +29,7 @@ To add someone, append an object to `COMMITTEE` and drop their photo in
   slug: 'jane-doe',                       // must match the photo filename
   name: 'Jane Doe',
   roles: ['Head of Equities'],            // an array: people can hold two posts
-  group: 'divisions',                     // exec | divisions | ops
+  group: 'divisions',                     // exec | divisions
   divisions: ['equities'],                // which division pages list them
   course: 'BSc Economics',
   year: '29',

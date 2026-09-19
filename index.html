@@ -751,12 +751,18 @@
   /* Column count per section so members fill their rows exactly, and a cap so a
      three-across section is not nearly twice the size of a five-across one. */
   .committee .persons {
-    display: grid; gap: 46px 24px; justify-content: start;
+    display: grid; gap: 46px 24px; justify-content: center;
     max-width: none; margin: 0; padding: 0;
   }
-  .committee .persons[data-cols="5"] { grid-template-columns: repeat(5, minmax(0, 320px)); }
-  .committee .persons[data-cols="4"] { grid-template-columns: repeat(4, minmax(0, 320px)); }
-  .committee .persons[data-cols="3"] { grid-template-columns: repeat(3, minmax(0, 320px)); }
+  /* Every track is half a card wide and each card spans two, so a trailing
+     row can start on a half column and sit centred under a full one. A card
+     is 2 x 128 plus the 24px gap between its own two tracks, which is the
+     same 280px whatever the column count, so both sections match. */
+  .committee .persons[data-cols="5"] { grid-template-columns: repeat(10, minmax(0, 128px)); }
+  .committee .persons[data-cols="4"] { grid-template-columns: repeat(8, minmax(0, 128px)); }
+  .committee .persons[data-cols="3"] { grid-template-columns: repeat(6, minmax(0, 128px)); }
+  .committee .person { grid-column: span 2; }
+  .committee .person.row-lead { grid-column-start: var(--lead); grid-column-end: span 2; }
 
   /* ---- card ---- */
   .committee .person {
@@ -896,13 +902,13 @@
   }
   .committee .about-panel.open p { opacity: 1; transform: none; }
 
-  @media (max-width: 1180px) { .committee .persons[data-cols="5"] { grid-template-columns: repeat(4, minmax(0,320px)); } }
+  @media (max-width: 1180px) { .committee .persons[data-cols="5"] { grid-template-columns: repeat(8, minmax(0,128px)); } }
   @media (max-width: 980px) {
-    .committee .persons[data-cols="5"], .committee .persons[data-cols="4"] { grid-template-columns: repeat(3, minmax(0,320px)); }
+    .committee .persons[data-cols="5"], .committee .persons[data-cols="4"] { grid-template-columns: repeat(6, minmax(0,128px)); }
   }
   @media (max-width: 760px) {
     .committee .persons[data-cols="5"], .committee .persons[data-cols="4"], .committee .persons[data-cols="3"] {
-      grid-template-columns: repeat(2, minmax(0,320px)); gap: 36px 18px;
+      grid-template-columns: repeat(4, minmax(0,131px)); gap: 36px 18px;
     }
     .committee .person h3 { font-size: 21px; }
     .committee .person .role { font-size: 14.5px; }
@@ -910,7 +916,7 @@
   @media (max-width: 480px) {
     .committee .cwrap { padding: 0 20px; }
     .committee .persons[data-cols="5"], .committee .persons[data-cols="4"], .committee .persons[data-cols="3"] {
-      grid-template-columns: 1fr;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
     }
     .committee .cluster-head { flex-direction: column; align-items: flex-start; gap: 6px; }
     .committee .head-tape { width: 100%; height: 40px; }
@@ -1653,10 +1659,10 @@
 
   const ROLE_RANK = [
     'Chairman', 'President', 'Vice President', 'Secretary', 'Treasurer',
+    'Head of Corporate Sponsorship', 'Head of Digital Strategy',
     'Head of Equities', 'Co-Head of Macro', 'Co-Head of Derivatives',
     'Head of Commodities', 'Head of Emerging Markets', 'Head of Credit',
-    'Head of Advanced Trader Programme',
-    'Head of Corporate Sponsorship', 'Head of Events', 'Head of Digital Strategy',
+    'Head of Events', 'Head of Advanced Trader Programme',
   ];
   const rank = role => {
     const i = ROLE_RANK.findIndex(r => role.startsWith(r));
@@ -1667,9 +1673,9 @@
   const DESK_LABELS = {
     'equities': 'Equities', 'macro': 'Macro', 'derivatives': 'Derivatives',
     'commodities': 'Commodities', 'em': 'Emerging Markets', 'credit': 'Credit',
-    'atp-equities': 'ATP Equities', 'atp-ficc': 'ATP FICC',
+    'events': 'Events', 'atp-equities': 'ATP Equities', 'atp-ficc': 'ATP FICC',
   };
-  const DESK_ORDER = ['equities','macro','derivatives','commodities','em','credit','atp-equities','atp-ficc'];
+  const DESK_ORDER = ['equities','macro','derivatives','commodities','em','credit','events','atp-equities','atp-ficc'];
 
   const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 
@@ -1754,27 +1760,46 @@
       '</section>';
   }
 
+  // Seven officers tile as four then three. Start the short row half a card
+  // in so it sits centred under the full one rather than hanging left.
+  let ctrTimer;
+  window.addEventListener('resize', () => {
+    clearTimeout(ctrTimer); ctrTimer = setTimeout(centreTrailingRows, 140);
+  });
+  function centreTrailingRows() {
+    document.querySelectorAll('.committee .persons').forEach(grid => {
+      const cards = Array.from(grid.children);
+      cards.forEach(el => { el.classList.remove('row-lead'); el.style.removeProperty('--lead'); });
+      const tracks = getComputedStyle(grid).gridTemplateColumns.split(' ').filter(Boolean).length;
+      const cols = Math.floor(tracks / 2);
+      if (cols < 2) return;
+      const rest = cards.length % cols;
+      if (!rest) return;
+      const lead = cards[cards.length - rest];
+      lead.classList.add('row-lead');
+      lead.style.setProperty('--lead', String(1 + (cols - rest)));
+    });
+  }
+
   (function buildCommittee() {
     const host = document.getElementById('c-sections');
     if (!host || typeof COMMITTEE === 'undefined') return;
     const by = g => COMMITTEE.filter(p => p.group === g);
-    const vac = (typeof VACANT !== 'undefined') ? VACANT : { exec: [], divisions: [], ops: [] };
+    const vac = (typeof VACANT !== 'undefined') ? VACANT : { exec: [], divisions: [] };
     const vacDiv = (vac.divisions || []).map(d => d.role);
 
     host.innerHTML =
       clusterSection('Executive', 'The society’s officers.', by('exec'), vac.exec || []) +
       clusterSection('Division Heads',
-        'Each runs a desk and its subcommittee through the year.', by('divisions'), vacDiv) +
-      clusterSection('Operations',
-        'Sponsorship, events, and everything members actually see.', by('ops'), vac.ops || []);
+        'Each runs a desk and its subcommittee through the year.', by('divisions'), vacDiv);
 
     const filled = COMMITTEE.length;
-    const total = filled + (vac.exec || []).length + vacDiv.length + (vac.ops || []).length;
+    const total = filled + (vac.exec || []).length + vacDiv.length;
     const tally = document.getElementById('c-tally');
     if (tally) {
       tally.innerHTML =
         '<span><b>' + filled + '</b> of <b>' + total + '</b> seats filled</span>' +
-        '<span>Executive, divisions and operations</span>' +
+        '<span>Executive officers and division heads</span>' +
         '<span>Subcommittee applications under each division open October 2026</span>';
     }
   })();
@@ -3492,6 +3517,7 @@
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
     const el = document.getElementById(target);
     if (el) el.classList.add('active');
+    centreTrailingRows();          // a hidden grid reports no tracks to measure
     window.scrollTo({ top: 0, behavior: 'instant' });
     if (deep) focusPerson(deep[1]);
     document.querySelectorAll('nav ul.menu a').forEach(a => a.classList.remove('active'));

@@ -118,7 +118,7 @@ const COMMITTEE = [
     slug: 'krish-sahni',
     name: 'Krish Sahni',
     roles: ['Secretary', 'Co-Head of Macro'],
-    group: 'exec',              // exec | divisions | ops — primary placement
+    group: 'exec',              // exec | divisions — primary placement
     divisions: ['macro'],       // division pages this person heads
     course: 'BSc Economics & Economic History',
     year: '28',
@@ -337,7 +337,7 @@ const COMMITTEE = [
     slug: 'smile-gu',
     name: 'Smile Gu',
     roles: ['Head of Digital Strategy'],
-    group: 'ops',
+    group: 'exec',
     divisions: [],
     course: 'BSc Philosophy & Economics',
     year: '27',
@@ -362,7 +362,7 @@ const COMMITTEE = [
     slug: 'whitney-nnadozie',
     name: 'Whitney Nnadozie',
     roles: ['Head of Corporate Sponsorship'],
-    group: 'ops',
+    group: 'exec',
     divisions: [],
     course: 'BSc Economics',
     year: '28',
@@ -385,7 +385,7 @@ const COMMITTEE = [
     slug: 'sophie-le-guen',
     name: 'Sophie Le Guen',
     roles: ['Head of Events'],
-    group: 'ops',
+    group: 'divisions',
     divisions: ['events'],
     course: 'MSc Finance',
     year: '27',
@@ -409,5 +409,4 @@ const COMMITTEE = [
 const VACANT = {
   exec: [],
   divisions: [],
-  ops: [],
 };   // Committee complete: 16 people across 17 seats (Krish and Sam each hold two).
