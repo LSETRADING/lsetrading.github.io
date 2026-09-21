@@ -317,7 +317,7 @@ const COMMITTEE = [
     divisions: ['credit'],
     course: 'BSc Finance',
     year: '28',
-    photo: 'photos/arnav-shepuri.png',
+    photo: 'photos/arnav-shepuri.jpg',
     linkedin: 'https://www.linkedin.com/in/arnav-sherpuri-40456324b/',
     focus: 50,                  // 800×800, already square and well framed
     bio: 'Arnav reads Finance. His focus is emerging markets credit trading. He ' +
