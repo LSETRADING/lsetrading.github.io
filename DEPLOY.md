@@ -15,16 +15,16 @@ a personal address, so the society keeps it.
 
 ## 2. Create the organisation and repository
 
-Sign in to GitHub as the society account, then create an organisation
-(`lsesu-trading` or similar) and inside it an empty **public** repository named
-`lsesu-trading`. Do not let GitHub add a README, the history is already here.
+Sign in to GitHub as the society account, then create the organisation
+`LSETRADING` and inside it an empty **public** repository named exactly
+`lsetrading.github.io`, all lowercase. Do not let GitHub add a README, the history is already here.
 
 Add whoever else on committee should have access as owners, so the site does
 not depend on one person.
 
 ## 3. Push
 
-    git remote add origin https://github.com/<org>/lsesu-trading.git
+    git remote add origin https://github.com/LSETRADING/lsetrading.github.io.git
     git push -u origin main
 
 ## 4. Turn on Pages
@@ -46,7 +46,7 @@ At the registrar, on the apex record:
 | A | @ | 185.199.109.153 |
 | A | @ | 185.199.110.153 |
 | A | @ | 185.199.111.153 |
-| CNAME | www | `<org>.github.io` |
+| CNAME | www | `lsetrading.github.io` |
 
 Confirm those addresses against GitHub's own Pages documentation on the day.
 They are stable but they are GitHub's to change, and a stale address is a dead
