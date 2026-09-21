@@ -33,12 +33,13 @@ const COMMITTEE = [
     photo: 'photos/keane-turner.jpg',
     linkedin: 'https://www.linkedin.com/in/keaneturner/',
     focus: 50,                  // 800×800, already square
-    bio: 'Keane reads Finance and chairs the society. His focus is G10 FX options ' +
-         'trading. He spent his summer internship trading at HSBC. He was also a ' +
-         'professional FIFA player, which is not the usual route onto an FX desk.',
+    bio: 'Keane reads Finance and chairs the society, having previously served as ' +
+         'President. His focus is global macro trading, specialising in FX options. ' +
+         'He spent his summer internship trading at HSBC. He was previously a ' +
+         'professional FIFA player.',
     _raw: {
-      expertise: 'G10 FX options trading',
-      funFact: 'Used to be a pro FIFA player',
+      expertise: 'Global macro trading, specialising in FX options',
+      funFact: 'Previously a professional FIFA player',
       placements: ['Summer Internship, Trading, HSBC'],
     },
   },
