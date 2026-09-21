@@ -30,15 +30,26 @@ not depend on one person.
 ## 4. Turn on Pages
 
 Repository → Settings → Pages → Source: **Deploy from a branch**, branch `main`,
-folder `/ (root)`. The `CNAME` file in the repository already says
-`lsesutrading.com`, so Pages picks the domain up on its own.
+folder `/ (root)`.
+
+There is deliberately **no `CNAME` file** in the repository yet. A `CNAME` tells
+Pages to serve only on that domain, and redirects the github.io address to it.
+With a domain that is not registered, that means the preview goes nowhere. So
+the preview runs bare first, and the `CNAME` goes back in at step 5, once the
+domain exists.
 
 Tick **Enforce HTTPS** once the certificate has been issued, which takes a few
 minutes.
 
 ## 5. Point the domain at it
 
-At the registrar, on the apex record:
+First put the domain back in the repository:
+
+    cd ~/Documents/lsesu-trading
+    printf 'lsesutrading.com\n' > CNAME
+    git add CNAME && git commit -m "Serve on lsesutrading.com" && git push
+
+Then at the registrar, on the apex record:
 
 | Type | Name | Value |
 | --- | --- | --- |
